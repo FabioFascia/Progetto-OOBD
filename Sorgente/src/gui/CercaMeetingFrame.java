@@ -136,11 +136,13 @@ public class CercaMeetingFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
+
 				"Codice Meeting", "Data", "Ora Inizio", "Ora Fine", "Indirizzo"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
 				Integer.class, String.class, String.class, String.class, String.class
+
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -364,6 +366,8 @@ public void PopolaTabellaFisico(ArrayList<MeetingFisico> lista) {
     		model.setRowCount(0);
     		
     		for (MeetingFisico mf : lista)
+
     			model.addRow(new Object[] {mf.getCodMeeting(), mf.getData(), mf.getOraI(), mf.getOraF(), mf.getSalaRiunioni().getIndirizzo()});
+
     	}
 }
