@@ -7,11 +7,15 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import dao.DipendenteDAO;
+import dao.MeetingDAO;
 import dao.ProgettoDAO;
 import dao_impl.DipendenteDAOPostgresImpl;
+import dao_impl.MeetingDAOPostgresImpl;
 import dao_impl.ProgettoDAOPostgresImpl;
 import db_config.DBConnection;
 import entità.Dipendente;
+import entità.MeetingFisico;
+import entità.MeetingTelematico;
 import entità.Partecipante;
 import entità.Progetto;
 import gui.*;
@@ -38,6 +42,7 @@ public class Controller {
 	
 	private DipendenteDAO dipendenteDao;
 	private ProgettoDAO progettoDao;
+	private MeetingDAO meetingDao;
 	
 	private ArrayList<Dipendente> DipendentiSelezionati;
 	private ArrayList<Progetto> ProgettiSelezionati;
@@ -321,6 +326,16 @@ public class Controller {
 		DipendentiSelezionati = dipendenteDao.getDipendenteByProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti);
 		return DipendentiSelezionati;
 	}
+	public void RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine, String CodSala) throws SQLException {
+		ArrayList<MeetingFisico> lista = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine, CodSala);
+		cercaMeeting.PopolaTabellaFisico(lista);
+	}
+    public void RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
+		
+		ArrayList<MeetingTelematico> lista = meetingDao.getMeetingTelematicoByAttributi(CodMT, Data, OraInizio,  OraFine, Piattaforma, NumMassimo );
+		
+		cercaMeeting.PopolaTabella(lista);
+	}
 	
 	public Dipendente getDipendenteSelezionato(int indice) {
 		return DipendentiSelezionati.get(indice);
@@ -335,6 +350,7 @@ public class Controller {
 		case "postgresql":
 			dipendenteDao = new DipendenteDAOPostgresImpl(connection);
 			progettoDao = new ProgettoDAOPostgresImpl(connection);
+			meetingDao = new MeetingDAOPostgresImpl(connection);
 			break;
 		}
 	}

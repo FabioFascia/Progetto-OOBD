@@ -63,16 +63,16 @@ public class MainMenuFrame extends JFrame {
 		lblNewLabel_3.setBounds(10, 200, 424, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		
-		ImageIcon imageIconLogoUniversità = new ImageIcon(MainMenuFrame.class.getResource("/img/LogoFedericoII.png"));
-		Image image = imageIconLogoUniversità.getImage();
-		Image newimg = image.getScaledInstance(110, 110,  java.awt.Image.SCALE_SMOOTH);
-		imageIconLogoUniversità = new ImageIcon(newimg);
-		
-		lblNewLabel_4.setIcon(imageIconLogoUniversità);
-		lblNewLabel_4.setBounds(166, 58, 110, 110);
-		contentPane.add(lblNewLabel_4);
+//		JLabel lblNewLabel_4 = new JLabel("New label");
+//		
+//		ImageIcon imageIconLogoUniversità = new ImageIcon(MainMenuFrame.class.getResource("/img/LogoFedericoII.png"));
+//		Image image = imageIconLogoUniversità.getImage();
+//		Image newimg = image.getScaledInstance(110, 110,  java.awt.Image.SCALE_SMOOTH);
+//		imageIconLogoUniversità = new ImageIcon(newimg);
+//		
+//		lblNewLabel_4.setIcon(new ImageIcon(imageIconLogoUniversità));
+//		lblNewLabel_4.setBounds(166, 58, 110, 110);
+//		contentPane.add(lblNewLabel_4);
 		
 		JButton buttonDipendenti = new JButton("Dipendenti");
 		buttonDipendenti.setFont(new Font("Tahoma", Font.BOLD, 11));
