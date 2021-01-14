@@ -1,0 +1,40 @@
+PROGETTAZIONE LOGICA 
+
+(LEGENDA
+	- ! --> Chiave Primaria
+	- !! --> Ciave Esterna)
+
+DIPENDENTE (!CodF, Nome, Cognome, Salario)
+PROGETTO (!CodP, Tipologia)
+MEETINGF (!CodMF, !!CodP, Data, OraI, OraF, !!CodSala)
+MEETINGT (!CodMT, !!CodP, Data, OraI, OraF, Piattaforma, NumLimite)
+SALA (!CodSala, Città, Indirizzo, NumPosti)
+	PARTECIPANTE (!!CodF, !!CodP, Ruolo)
+	AMBITO (!!CodP, Keyword)
+	PARTECIPAMF (!!CodF, !!CodMF)
+	PARTECIPAMT (!!CodF, !!CodMT)
+
+
+VINCOLI DI CONSISTENZA
+	VINCOLI DI DOMINIO
+	-	Il codice fiscale di un dipendente deve rispettare la sua formattazione standard;
+	-	Un dipendente deve avere nome e cognome;
+	-	Nome e cognome di un dipendente devono essere stringhe di lettere;
+	-	Un progetto deve avere una tipologia associata;
+	-	Un meeting fisico deve avere una sala in cui svolgersi;
+	-	Un meeting telematico deve avere una piattaforma su cui svolgersi;
+	-	Una sala deve avere una città, un indirizzo ed un numero di posti massimo associato;
+	-	Un partecipante ad un progetto deve avere un ruolo preciso;
+	-	Un ambito deve avere una keyword rappresentativa;
+	-       Un meeting (fisico/telematico) deve avere una data e un'ora in cui svolgersi.
+
+	VINCOLI INTRARELAZIONALI
+	-	Lo stesso partecipante non può assumere due ruoli differenti all’interno dello stesso progetto;
+
+	VINCOLI INTERRELAZIONALI
+	-	Ad un progetto deve partecipare un unico project manager;
+	-	Un dipendente non può partecipare a due meeting (fisici/telematici) contemporaneamente;
+	-	Il numero di partecipanti ad un meeting fisico non può eccedere la capienza della sala;
+	-	Un progetto deve avere un project manager;
+	-	Il numero di partecipanti ad un meeting telematico non può eccedere il limite di partecipanti dichiarato (se esiste);
+	-	Due meeting fisici distinti non si possono tenere nella stessa sala, alla stessa ora dello stesso giorno.

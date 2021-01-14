@@ -1,0 +1,272 @@
+--Ad un progetto deve partecipare un unico project manager:
+
+CREATE FUNCTION Funzione_Unicità_ProjectManager()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    IF EXISTS (SELECT *
+               FROM PARTECIPANTE AS P
+               WHERE P.CodP = NEW.CodP AND P.Ruolo = 'project manager') THEN
+        RAISE EXCEPTION 'ERRORE ESISTE GIA UN PROJECT MANAGER ASSOCIATO AL PROGETTO';
+    END IF;
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Vincolo_Unicità_ProjectManager
+BEFORE INSERT ON PARTECIPANTE
+FOR EACH ROW
+WHEN (NEW.Ruolo = 'project manager')
+EXECUTE PROCEDURE Funzione_Unicità_ProjectManager();
+
+
+--Un dipendente non può partecipare a due meeting (fisici/telematici) contemporaneamente:
+
+	--Per meeting fisici:
+
+CREATE FUNCTION Funzione_Partecipa_MeetingF()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    data_meeting DATE;
+    ora_inizio TIME;
+    ora_fine TIME;
+BEGIN
+    SELECT MF.Data, MF.OraI, MF.OraF INTO data_meeting, ora_inizio, ora_fine
+    FROM PARTECIPAMF AS PMF NATURAL JOIN MEETINGF AS MF
+    WHERE NEW.CodF = PMF.CodF AND NEW.CodMF = MF.CodMF;
+
+    IF EXISTS (SELECT *
+		   FROM PARTECIPAMF AS PMF NATURAL JOIN
+		   MEETINGF AS MF
+		   WHERE NEW.CodF = PMF.CodF AND data_meeting = MF.Data AND 
+		       ((ora_inizio BETWEEN MF.OraI AND MF.OraF) OR
+			(ora_fine BETWEEN MF.OraI AND MF.OraF)))
+	OR EXISTS (SELECT *
+			FROM PARTECIPAMT AS PMT NATURAL JOIN
+				MEETINGT AS MT
+			WHERE NEW.CodF = PMT.CodF AND data_meeting = MT.Data AND
+			    ((ora_inizio BETWEEN MT.OraI AND MT.OraF) OR
+			    (ora_fine BETWEEN MT.OraI AND MT.OraF))) THEN
+	RAISE EXCEPTION 'ERRORE: Questo dipendente partecipa già ad un altro meeting in quel lasso di tempo';
+    END IF;
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Vincolo_Partecipa_MeetingF
+BEFORE INSERT ON PARTECIPAMF
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Partecipa_MeetingF();
+
+
+	--Per meeting telematici:
+
+CREATE FUNCTION Funzione_Partecipa_MeetingT()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    data_meeting DATE;
+    ora_inizio TIME;
+    ora_fine TIME;
+BEGIN
+    SELECT MT.Data, MT.OraI, MT.OraF INTO data_meeting, ora_inizio, ora_fine
+    FROM PARTECIPAMT AS PMT NATURAL JOIN
+	MEETINGT AS MT
+    WHERE NEW.CodF = PMT.CodF AND NEW.CodMT = MT.CodMT;
+
+    IF EXISTS (SELECT *
+		   FROM PARTECIPAMF AS PMF NATURAL JOIN
+			MEETINGF AS MF
+		   WHERE NEW.CodF = PMF.CodF AND data_meeting = MF.Data AND 
+		       ((ora_inizio BETWEEN MF.OraI AND MF.OraF) OR
+			(ora_fine BETWEEN MF.OraI AND MF.OraF)))
+	OR EXISTS (SELECT *
+			FROM PARTECIPAMT AS PMT NATURAL JOIN
+				MEETINGT AS MT
+			WHERE NEW.CodF = PMT.CodF AND data_meeting = MT.Data AND
+			    ((ora_inizio BETWEEN MT.OraI AND MT.OraF) OR
+			    (ora_fine BETWEEN MT.OraI AND MT.OraF))) THEN
+	RAISE EXCEPTION 'ERRORE: Questo dipendente partecipa già ad un altro meeting in quel lasso di tempo';
+    END IF;
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Vincolo_Partecipa_MeetingT
+BEFORE INSERT ON PARTECIPAMT
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Partecipa_MeetingT();
+
+
+
+--Un progetto deve avere un project manager:
+
+CREATE FUNCTION Funzione_Totalità_ProjectManager()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    IF NOT EXISTS (SELECT *
+		   FROM DIPENDENTE
+		   WHERE CodF = 'AAAAAA00A00A000A') THEN
+	INSERT INTO DIPENDENTE (CodF,Nome,Cognome)
+	    VALUES ('AAAAAA00A00A000A', 'A', 'A');
+    END IF;
+
+    INSERT INTO PARTECIPANTE (CodF, CodP, Ruolo)
+	VALUES('AAAAAA00A00A000A', NEW.CodP, 'project manager');
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Vincolo_Totalità_ProjectManager
+AFTER INSERT ON PROGETTO
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Totalità_ProjectManager();
+
+
+
+--Due meeting fisici distinti non si possono tenere nella stessa sala, alla stessa ora dello stesso giorno:
+
+CREATE FUNCTION Funzione_Sovrapposizione_MeetingF()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    IF EXISTS (SELECT *
+		   FROM MEETINGF AS MF
+		   WHERE NEW.CodSala = MF.CodSala AND NEW.Data = MF.Data AND
+		   ((NEW.OraI BETWEEN MF.OraI AND MF.OraF) OR
+		   (NEW.OraF BETWEEN MF.OraI AND MF.OraF))) THEN
+	RAISE EXCEPTION 'ERRORE: Un altro meeting è in conflitto con quello inserito';
+    END IF;
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Vincolo_Sovrapposizione_MeetingF
+BEFORE INSERT ON MEETINGF
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Sovrapposizione_MeetingF();
+
+
+
+--Il numero di partecipanti ad un meeting fisico non può eccedere la capienza della sala:
+
+CREATE FUNCTION Funzione_Capienza_Sala()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    Num_Posti INTEGER;
+    Num_Dipendenti INTEGER;
+BEGIN
+    SELECT NumPosti INTO Num_Posti
+    FROM MEETINGF AS MF NATURAL JOIN SALA AS S
+    WHERE MF.CodMF = NEW.CodMF;
+
+    SELECT COUNT(CodF) INTO Num_Dipendenti
+    FROM PARTECIPAMF AS PF
+    WHERE PF.CodMF = NEW.CodMF
+    GROUP BY PF.CodMF;
+      
+    IF(Num_Dipendenti >= Num_Posti) THEN
+	RAISE EXCEPTION 'ERRORE: Il limite di partecipanti al meeting è già stato raggiunto';
+    END IF;
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Vincolo_Capienza_Sala
+BEFORE INSERT ON PARTECIPAMF
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Capienza_Sala();
+
+
+
+--Il numero di partecipanti ad un meeting telematico non può eccedere il limite di partecipanti dichiarato (se esiste):
+
+CREATE FUNCTION Funzione_Limite_MeetingT()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    Num_Massimo INTEGER;
+    Num_Partecipanti INTEGER;
+BEGIN
+
+    SELECT NumLimite INTO Num_Massimo
+    FROM MEETINGT AS MT
+    WHERE MT.CodMT = NEW.CodMT;
+
+    SELECT COUNT(CodF) INTO Num_Partecipanti
+    FROM PARTECIPAMT AS PT
+    WHERE PT.CodMT = NEW.CodMT
+    GROUP BY PT.CodMT;
+  
+    IF(Num_Massimo IS NOT NULL AND Num_Partecipanti >= Num_Massimo) THEN
+            RAISE EXCEPTION 'ERRORE: É stato superato il limite massimo di partecipanti al meeting';
+    END IF;
+
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Vincolo_Limite_MeetingT
+BEFORE INSERT ON PARTECIPAMT
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Limite_MeetingT();
+
+
+
+
+
+-----DA VERIFICARE-----
+
+
+CREATE TRIGGER Sequenza_Chiave_Progetto
+BEFORE INSERT ON PROGETTO
+FOR EACH ROW
+BEGIN
+    INSERT INTO PROGETTO (CodP, Tipologia)
+	VALUES (NEXTVAL(N_PROGETTO), NEW.Tipologia);
+END;
+
+
+
+CREATE TRIGGER Sequenza_Chiave_MeetingF
+BEFORE INSERT ON MEETINGF
+FOR EACH ROW
+BEGIN
+    INSERT INTO PROGETTO (CodMF, CodP, Data, OraI, OraF, CodSala)
+	VALUES (NEXTVAL(N_MEETINGF), NEW.CodP, NEW.Data, NEW.OraI, NEW.OraF, NEW.CodSala);
+END;
+
+
+
+CREATE TRIGGER Sequenza_Chiave_MeetingT
+BEFORE INSERT ON MEETINGT
+FOR EACH ROW
+BEGIN
+    INSERT INTO MEETINGT (CodMT, CodP, Data, OraI, OraF, Piattaforma, NumLimite)
+	VALUES (NEXTVAL(N_MEETINGT), NEW.CodP, NEW.Data, NEW.OraI, NEW.OraF, NEW.Piattaforma, NEW.NumLimite);
+END;
+
+
+CREATE TRIGGER Sequenza_Chiave_Sala
+BEFORE INSERT ON SALA
+FOR EACH ROW
+BEGIN
+    INSERT INTO SALA (CodSala, Città, Indirizzo, Dettagli, NumPosti)
+	VALUES(NEXTVAL(N_MEETING), NEW.Città, NEW.Indirizzo, NEW.Dettagli, NEW.NumPosti);
+END;

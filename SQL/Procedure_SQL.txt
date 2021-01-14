@@ -1,0 +1,73 @@
+CREATE PROCEDURE Insert_Progetto
+(
+    IN tipologia VARCHAR(30),
+    IN codpm CHAR(16),
+    IN descrizione VARCHAR(200)
+)
+AS
+$$
+DECLARE
+    new_prog INT := NEXTVAL('N_PROGETTO');
+BEGIN
+    INSERT INTO PROGETTO (CodP, Tipologia, Descrizione)
+	VALUES (new_prog, tipologia, descrizione);
+
+    UPDATE PARTECIPANTE
+    SET CodF = codpm
+    WHERE CodP = new_prog AND Ruolo ILIKE 'Project Manager';
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE PROCEDURE Insert_Sala
+(
+    IN città VARCHAR(30),
+    IN indirizzo VARCHAR(50),
+    IN num_posti INTEGER
+)
+AS
+$$
+BEGIN
+    INSERT INTO SALA (CodSala, Città, Indirizzo, NumPosti)
+    VALUES (NEXTVAL('N_SALA'), città, indirizzo, num_posti);
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE PROCEDURE Insert_MeetingF
+(
+    IN progetto INTEGER,
+    IN data DATE,
+    IN ora_i TIME,
+    IN ora_f TIME,
+    IN sala INT
+)
+AS
+$$
+BEGIN
+    INSERT INTO MEETINGF (CodMF, CodP, Data, OraI, OraF, CodSala)
+    VALUES (NEXTVAL('N_MEETINGF'), progetto, data, ora_i, ora_f, sala);
+END;
+$$
+LANGUAGE plpgsql;
+
+
+CREATE PROCEDURE Insert_MeetingT
+(
+    IN progetto INTEGER,
+    IN data DATE,
+    IN ora_i TIME,
+    IN ora_f TIME,
+    IN piattaforma VARCHAR(30),
+    IN num_limite INTEGER
+)
+AS
+$$
+BEGIN
+    INSERT INTO MEETINGT (CodMT, CodP, Data, OraI, OraF, Piattaforma, NumLimite)
+    VALUES (NEXTVAL('N_MEETINGT'), progetto, data, ora_i, ora_f, piattaforma, num_limite);
+END;
+$$
+LANGUAGE plpgsql;

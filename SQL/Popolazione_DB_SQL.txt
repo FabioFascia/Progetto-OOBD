@@ -1,0 +1,105 @@
+CREATE PROCEDURE Popola_DB ()
+AS
+$$
+BEGIN
+    INSERT INTO DIPENDENTE (Nome, Cognome, Salario, CodF)
+    VALUES ('Alberto', 'Angela', 3400.00,  'NGLLBR73D21D836K'),
+	    ('Cristoforo', 'Colombo', 1250.00, 'CLMCRS38G09S395M'),
+	    ('Alan', 'Turing', 1600.66, 'TRNLNA29F98A145S'),
+	    ('Fabio', 'Fascia', 10.21, 'FSCFBA12J43C847J'),
+	    ('Salvatore', 'Conte', 2464.80, 'CNTSLV86V20D975G'),
+	    ('Stefano', 'Campanile', 0.58, 'CMPSTF85V39G238F'),
+	    ('Alessandro', 'Immagno', 3203.59, 'MMGLSS82B56N290D'),
+	    ('Michele', 'Poggi', 8000.00, 'PGGMCH93H89S038D'),
+	    ('Marco', 'Montemagno', 11999.99, 'MNTMRC92H84H194H'),
+	    ('Jeff', 'Bezos', 10101010.10, 'BZSJFF93J59N238S'),
+	    ('Francesco', 'Cilurzo', 3250.00, 'CLRFRN93J43A134V');
+
+--Insert_Progetto(Tipologia, CodF [Project Manager])
+
+    CALL Insert_Progetto('Ricerca Sperimentale', 'NGLLBR73D21D836K');
+    CALL Insert_Progetto('Indagine di Mercato', 'BZSJFF93J59N238S');
+    CALL Insert_Progetto('Ricerca di base', 'PGGMCH93H89S038D');
+    CALL Insert_Progetto('Spionaggio Industriale', 'CMPSTF85V39G238F');
+    CALL Insert_Progetto('Ricerca di base', 'MMGLSS82B56N290D');
+    CALL Insert_Progetto('Ricerca Industriale', 'CLRFRN93J43A134V');
+
+--Insert_Sala(Città, Indirizzo, NumPosti)
+
+    CALL Insert_Sala('San Giorgio a Cremano (NA)', 'Corso Roma, 48', 20);
+    CALL Insert_Sala('Pozzuoli (NA)', 'via Alessandro Manzoni, 53', 30);
+    CALL Insert_Sala('Castelpizzuto (IS)', 'via La Monaca, 7', 35);
+    CALL Insert_Sala('Milano (MI)', 'via Albert Einstein, 103', 50);
+    CALL Insert_Sala('Scalea (CS)', 'via Andrea Spinelli, 4', 45);
+
+--Insert_MeetingF(CodP, Data, OraI, OraF, CodSala)
+
+    CALL Insert_MeetingF(0, '2019-05-23', '12:00', '15:00', 2);
+    CALL Insert_MeetingF(0, '2019-05-30', '12:30', '15:00', 1);
+    CALL Insert_MeetingF(3, '2019-06-15', '09:30', '12:00', 0);
+    CALL Insert_MeetingF(1, '2020-01-15', '09:00', '12:00', 3);
+    CALL Insert_MeetingF(2, '2020-01-23', '09:00', '13:00', 2);
+    CALL Insert_MeetingF(2, '2020-01-25', '13:00', '14:00', 2);
+    CALL Insert_MeetingF(4, '2018-04-23', '10:12', '13:00', 4);
+    CALL Insert_MeetingF(5, '2018-12-04', '11:00', '13:00', 0);
+
+--Insert_MeetingT(CodP, Data, OraI, OraF, Piattaforma, NumLimite)
+
+    CALL Insert_MeetingT(1, '2020-03-23', '09:00', '13:00', 'Microsoft Teams', NULL);
+    CALL Insert_MeetingT(4, '2020-05-12', '09:15', '13:30', 'Skype', 10);
+    CALL Insert_MeetingT(2, '2020-10-04', '08:30', '11:00', 'Google Meet', 25);
+    CALL Insert_MeetingT(3, '2018-03-11', '10:00', '13:15', 'Microsoft Teams', 30);
+    CALL Insert_MeetingT(0, '2020-04-18', '09:30', '12:00', 'Microsoft Teams', 30);
+    CALL Insert_MeetingT(1, '2020-11-30', '09:00', '11:00', 'Skype', 20);
+    CALL Insert_MeetingT(1, '2019-01-07', '08:45', '09:45', 'Zoom', NULL);
+
+    INSERT INTO PARTECIPANTE (CodF, CodP, Ruolo)
+    VALUES ('NGLLBR73D21D836K',3, 'ricercatore'),
+           ('TRNLNA29F98A145S',3,'tecnico di rete'),
+           ('FSCFBA12J43C847J',0,'responsabile amministrativo'),
+           ('CNTSLV86V20D975G',0,'direttore generale'),
+           ('CMPSTF85V39G238F',2,'tecnico dell''immagine'),
+           ('BZSJFF93J59N238S',2,'direttore del marketing'),
+           ('MNTMRC92H84H194H',4,'ricercatore'),
+           ('PGGMCH93H89S038D',4,'capo ricercatore'),
+           ('CLRFRN93J43A134V',1,'direttore generale'),
+           ('CLMCRS38G09S395M',1,'tecnico di rete'),
+           ('CNTSLV86V20D975G',5,'responsabile amministrativo'),
+           ('CMPSTF85V39G238F',5,'tecnico dell''immagine');
+
+    INSERT INTO PARTECIPAMF (CodF, CodMF)  
+    VALUES ('FSCFBA12J43C847J',0),
+           ('CNTSLV86V20D975G',0),
+           ('CMPSTF85V39G238F',2),
+           ('BZSJFF93J59N238S',2),
+           ('PGGMCH93H89S038D',1),
+           ('CLMCRS38G09S395M',1),
+           ('PGGMCH93H89S038D',4),
+           ('MNTMRC92H84H194H',4),
+           ('NGLLBR73D21D836K',3),
+           ('TRNLNA29F98A145S',3),
+           ('CNTSLV86V20D975G',5),
+           ('CMPSTF85V39G238F',5);
+ 
+    INSERT INTO PARTECIPAMT (CodF, CodMT)
+    VALUES ('FSCFBA12J43C847J',1),
+           ('CLMCRS38G09S395M',1),
+           ('BZSJFF93J59N238S',2),
+           ('PGGMCH93H89S038D',2),
+           ('TRNLNA29F98A145S',3),
+           ('CMPSTF85V39G238F',3),
+           ('CNTSLV86V20D975G',0),
+           ('CLRFRN93J43A134V',0),
+           ('MNTMRC92H84H194H',4),
+           ('FSCFBA12J43C847J',4);
+
+    INSERT INTO AMBITO (Keyword, CodP)
+    VALUES ('scientifico',0),
+           ('economico',1),
+           ('scientifico',2),
+           ('splash',3),
+           ('scientifico',4),
+           ('economico',5);
+END;
+$$
+LANGUAGE plpgsql;
