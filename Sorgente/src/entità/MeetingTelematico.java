@@ -1,12 +1,15 @@
 package entità;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class MeetingTelematico implements Meeting {
 
 	//		Attributi
-	private int Codice;
-	private String Data;
-	private String OraI;
-	private String OraF;
+	private int CodMT;
+	private Date Data;
+	private Time OraI;
+	private Time OraF;
 	private String Piattaforma;
 	private int NumeroLimite;
 	
@@ -14,11 +17,11 @@ public class MeetingTelematico implements Meeting {
 	private Progetto ArgomentoMeeting;
 	
 	//	Getter/Setter
-	public int getCodice() {
-		return Codice;
+	public int getCodMeeting() {
+		return CodMT;
 	}
-	public void setCodice(int codice) {
-		Codice = codice;
+	public void setCodMeeting(int CodMeeting) {
+		CodMT = CodMeeting;
 	}
 	public String getPiattaforma() {
 		return Piattaforma;
@@ -32,22 +35,22 @@ public class MeetingTelematico implements Meeting {
 	public void setNumeroLimite(int numeroLimite) {
 		NumeroLimite = numeroLimite;
 	}
-	public String getData() {
+	public Date getData() {
 		return Data;
 	}
-	public void setData(String data) {
+	public void setData(Date data) {
 		Data = data;
 	}
-	public String getOraI() {
+	public Time getOraI() {
 		return OraI;
 	}
-	public void setOraI(String oraI) {
+	public void setOraI(Time oraI) {
 		OraI = oraI;
 	}
-	public String getOraF() {
+	public Time getOraF() {
 		return OraF;
 	}
-	public void setOraF(String oraF) {
+	public void setOraF(Time oraF) {
 		OraF = oraF;
 	}
 	public Progetto getArgomentoMeeting() {
@@ -56,4 +59,5 @@ public class MeetingTelematico implements Meeting {
 	public void setArgomentoMeeting(Progetto argomentoMeeting) {
 		ArgomentoMeeting = argomentoMeeting;
 	}
+
 }

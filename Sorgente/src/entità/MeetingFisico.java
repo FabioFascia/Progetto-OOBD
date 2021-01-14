@@ -1,40 +1,40 @@
 package entità;
 
+import java.sql.Date;
+import java.sql.Time;
+
 public class MeetingFisico implements Meeting {
 
 	//		Attributi
-	private int Codice;
-    private String Data;
-    private String OraI;
-    private String OraF;
+	private int CodMF;
+    private Date Data;
+    private Time OraI;
+    private Time OraF;
 
 	//		Relazioni
 	private Sala salaRiunioni;
 	private Progetto ArgomentoMeeting;
 	
 	//		Getter/Setter
-	public int getCodice() {
-		return Codice;
+	public int getCodMeeting() {
+		return CodMF;
 	}
-	public void setCodice(int codice) {
-		Codice = codice;
-	}
-	public String getData() {
+	public Date getData() {
 		return Data;
 	}
-	public void setData(String data) {
+	public void setData(Date data) {
 		Data = data;
 	}
-	public String getOraI() {
+	public Time getOraI() {
 		return OraI;
 	}
-	public void setOraI(String oraI) {
+	public void setOraI(Time oraI) {
 		OraI = oraI;
 	}
-	public String getOraF() {
+	public Time getOraF() {
 		return OraF;
 	}
-	public void setOraF(String oraF) {
+	public void setOraF(Time oraF) {
 		OraF = oraF;
 	}
 	public Progetto getArgomentoMeeting() {
@@ -43,10 +43,16 @@ public class MeetingFisico implements Meeting {
 	public void setArgomentoMeeting(Progetto argomentoMeeting) {
 		ArgomentoMeeting = argomentoMeeting;
 	}
+	public void setCodMeeting(int CodMeeting) {
+		CodMF = CodMeeting;
+	}
 	public Sala getSalaRiunioni() {
 		return salaRiunioni;
 	}
 	public void setSalaRiunioni(Sala salaRiunioni) {
 		this.salaRiunioni = salaRiunioni;
 	}
+	
+	
+	
 }
