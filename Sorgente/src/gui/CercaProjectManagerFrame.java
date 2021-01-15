@@ -296,9 +296,8 @@ public class CercaProjectManagerFrame extends JFrame {
 		tableDipendenti.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
 			public void valueChanged(ListSelectionEvent e) {
-				if(tableDipendenti.getSelectedRowCount() > 0) {
+				if(tableDipendenti.getSelectedRowCount() > 0)
 					buttonConferma.setEnabled(true);
-				}
 			}
 		});
 		scrollPane.setViewportView(tableDipendenti);
