@@ -10,7 +10,6 @@ import entità.Partecipante;
 public interface DipendenteDAO {
 
 	public void insertDipendente(Dipendente d) throws SQLException;
-	 public void insertMeetingTelematico (MeetingTelematico mt) throws SQLException;
 	public void updateDipendente(Dipendente oldDip, Dipendente d) throws SQLException;
 	public void deleteDipendente(Dipendente d) throws SQLException;
 	
