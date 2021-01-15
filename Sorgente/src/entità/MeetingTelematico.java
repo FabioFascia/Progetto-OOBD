@@ -6,7 +6,7 @@ import java.sql.Time;
 public class MeetingTelematico implements Meeting {
 
 	//		Attributi
-	private int CodMT;
+	private int Codice;
 	private Date Data;
 	private Time OraI;
 	private Time OraF;
@@ -17,11 +17,11 @@ public class MeetingTelematico implements Meeting {
 	private Progetto ArgomentoMeeting;
 	
 	//	Getter/Setter
-	public int getCodMeeting() {
-		return CodMT;
+	public int getCodice() {
+		return Codice;
 	}
-	public void setCodMeeting(int CodMeeting) {
-		CodMT = CodMeeting;
+	public void setCodice(int CodMeeting) {
+		Codice = CodMeeting;
 	}
 	public String getPiattaforma() {
 		return Piattaforma;

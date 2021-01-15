@@ -3,6 +3,7 @@ package entità;
 public class Sala {
 
 	//		Attributi
+	private int Codice;
 	private String Città;
 	private String Provincia;
 	private String Indirizzo;
@@ -28,4 +29,23 @@ public class Sala {
 	public void setNumeroPosti(int numeroPosti) {
 		NumeroPosti = numeroPosti;
 	}
+	public String getProvincia() {
+		return Provincia;
+	}
+	public void setProvincia(String provincia) {
+		Provincia = provincia;
+	}
+	public int getNumeroCivico() {
+		return NumeroCivico;
+	}
+	public void setNumeroCivico(int numeroCivico) {
+		NumeroCivico = numeroCivico;
+	}
+	public int getCodice() {
+		return Codice;
+	}
+	public void setCodice(int codice) {
+		Codice = codice;
+	}
+	
 }

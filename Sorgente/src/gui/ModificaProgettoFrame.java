@@ -159,6 +159,11 @@ public class ModificaProgettoFrame extends JFrame {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		});
 		tableAmbiti.addMouseListener(new MouseAdapter() {
 			@Override

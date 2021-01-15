@@ -137,7 +137,7 @@ public class CercaMeetingFrame extends JFrame {
 			},
 			new String[] {
 
-				"Codice Meeting", "Data", "Ora Inizio", "Ora Fine", "Indirizzo"
+				"Codice Meeting", "Data", "Ora Inizio", "Ora Fine", "Città"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
@@ -357,7 +357,7 @@ public class CercaMeetingFrame extends JFrame {
     		model.setRowCount(0);
     		
     		for (MeetingTelematico m : lista)
-    			model.addRow(new Object[] {m.getCodMeeting(), m.getData(), m.getOraI(), m.getOraF(), m.getPiattaforma(), m.getNumeroLimite()});
+    			model.addRow(new Object[] {m.getCodice(), m.getData(), m.getOraI(), m.getOraF(), m.getPiattaforma(), m.getNumeroLimite()});
     	}
 public void PopolaTabellaFisico(ArrayList<MeetingFisico> lista) {
     		
@@ -367,7 +367,7 @@ public void PopolaTabellaFisico(ArrayList<MeetingFisico> lista) {
     		
     		for (MeetingFisico mf : lista)
 
-    			model.addRow(new Object[] {mf.getCodMeeting(), mf.getData(), mf.getOraI(), mf.getOraF(), mf.getSalaRiunioni().getIndirizzo()});
+    			model.addRow(new Object[] {mf.getCodice(), mf.getData(), mf.getOraI(), mf.getOraF(), mf.getSalaRiunioni().getCittà()});
 
     	}
 }
