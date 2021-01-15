@@ -38,7 +38,7 @@ public class Controller {
 	private CercaPartecipanteFrame cercaPartecipante;
 	
 	private CercaMeetingFrame cercaMeeting;
-	
+	private InserisciMeetingFrame inserisciMeeting;
 	private CercaSalaFrame cercaSala;
 	
 	private DipendenteDAO dipendenteDao;
@@ -204,6 +204,18 @@ public class Controller {
 		cercaMeeting.dispose();
 		mainMenu.setVisible(true);
 	}
+	public void ApriFrameInserisciMeetingInCercaMeeting() {
+
+		inserisciMeeting = new InserisciMeetingFrame(this);
+		cercaMeeting.setEnabled(false);
+		inserisciMeeting.setVisible(true);
+	}
+public void ChiudiFrameInserisciMeetingInCercaMeeting() {
+		
+		inserisciMeeting.dispose();
+		cercaMeeting.toFront();
+		cercaMeeting.setEnabled(true);
+	}
 	
 	
 	
@@ -298,6 +310,7 @@ public class Controller {
 		p.getPartecipanti().remove(par);
 		progettoDao.deletePartecipante(p, par.getDipendente());
 	}
+	
 	public ArrayList<Progetto> RicercaProgettoPerAttributi(String codp, String tipologia, String ambito) throws SQLException {
 		
 		ProgettiSelezionati = progettoDao.getProgettoByAttributi(codp, tipologia, ambito);
@@ -328,10 +341,22 @@ public class Controller {
 		DipendentiSelezionati = dipendenteDao.getDipendenteByProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti);
 		return DipendentiSelezionati;
 	}
+
 	public void RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
 		ArrayList<MeetingFisico> lista = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine);
 		cercaMeeting.PopolaTabellaFisico(lista);
 	}
+    
+	public void InserimentoMeetingFisico(MeetingFisico mf)throws SQLException {
+		meetingDao.insertMeetingFisico(mf);
+	}
+	public void InserimentoMeetingTelematico(MeetingTelematico mt)throws SQLException {
+		meetingDao.insertMeetingTelematico(mt);
+	}
+
+
+		
+	
     public void RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
 		
 		ArrayList<MeetingTelematico> lista = meetingDao.getMeetingTelematicoByAttributi(CodMT, Data, OraInizio,  OraFine, Piattaforma, NumMassimo );

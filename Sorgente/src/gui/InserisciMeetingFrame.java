@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.Controller;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -19,11 +22,13 @@ public class InserisciMeetingFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	private Controller controller;
 
 	/**
 	 * Create the frame.
 	 */
-	public InserisciMeetingFrame() {
+	public InserisciMeetingFrame(Controller c) {
+		controller = c;
 		setTitle("Inserisci Meeting");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
