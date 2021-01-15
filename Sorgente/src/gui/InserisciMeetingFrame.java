@@ -11,12 +11,15 @@ import controller.Controller;
 import entità.Dipendente;
 import entità.Meeting;
 import entità.MeetingFisico;
+import entità.Progetto;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
@@ -41,6 +44,7 @@ public class InserisciMeetingFrame extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JButton btnInserisciMeeting;
+	private JTable tableProgetto;
 
 	/**
 	 * Create the frame.
@@ -48,8 +52,15 @@ public class InserisciMeetingFrame extends JFrame {
 	public InserisciMeetingFrame(Controller c) {
 		controller = c;
 		setTitle("Inserisci Meeting");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 440, 450);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				
+				controller.ChiudiFrameCercaProgettoMeeting();
+			}
+		});
+		setBounds(100, 100, 440, 510);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,7 +69,7 @@ public class InserisciMeetingFrame extends JFrame {
 		JButton btnNewButton = new JButton("Annulla");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.ChiudiFrameInserisciMeetingInCercaMeeting();
+				controller.ChiudiFrameCercaProgettoMeeting();
 			}
 		});
 		btnNewButton.setBounds(10, 11, 89, 23);
@@ -129,7 +140,7 @@ public class InserisciMeetingFrame extends JFrame {
 		panelTelematico.add(lblNewLabel_1);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 210, 412, 150);
+		scrollPane_1.setBounds(0, 276, 412, 150);
 		contentPane.add(scrollPane_1);
 		
 		tablePartecipanti = new JTable();
@@ -158,7 +169,7 @@ public class InserisciMeetingFrame extends JFrame {
 			}
 		});
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnNewButton_2.setBounds(10, 181, 183, 23);
+		btnNewButton_2.setBounds(10, 247, 183, 23);
 		contentPane.add(btnNewButton_2);
 		
 		JComboBox comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
@@ -205,7 +216,7 @@ public class InserisciMeetingFrame extends JFrame {
 		});
 		btnInserisciMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnInserisciMeeting.setEnabled(false);
-		btnInserisciMeeting.setBounds(81, 371, 259, 23);
+		btnInserisciMeeting.setBounds(81, 437, 259, 23);
 		contentPane.add(btnInserisciMeeting);
 		
 		JSpinner spinnerData = new JSpinner();
@@ -240,6 +251,37 @@ public class InserisciMeetingFrame extends JFrame {
 		labelOraFine.setBounds(10, 117, 63, 14);
 		contentPane.add(labelOraFine);
 		labelOraFine.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		JButton btnNewButton_3 = new JButton("Seleziona progetto...");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				controller.ApriFrameCercaProgettoMeeting();
+			}
+		});
+		btnNewButton_3.setBounds(10, 162, 183, 23);
+		contentPane.add(btnNewButton_3);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(10, 192, 404, 44);
+		contentPane.add(scrollPane_2);
+		
+		tableProgetto = new JTable();
+		tableProgetto.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"Codice Progetto", "Tipologia"
+			}
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
+		scrollPane_2.setViewportView(tableProgetto);
 		((JSpinner.DefaultEditor) spinnerOraFine.getEditor()).getTextField().setEditable(false);
 		((JSpinner.DefaultEditor) spinnerOraInizio.getEditor()).getTextField().setEditable(false);
 		((JSpinner.DefaultEditor) spinnerData.getEditor()).getTextField().setEditable(false);
@@ -247,9 +289,11 @@ public class InserisciMeetingFrame extends JFrame {
 	
 	public void addPartecipante(Dipendente d) {
 		
-		DefaultTableModel model = (DefaultTableModel) tablePartecipanti.getModel();
+		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
+	}
+	public void setProgetto(Progetto p) {
 		
-		model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
+		((DefaultTableModel) tableProgetto.getModel()).addRow(new Object[] {p.getCodice(), p.getTipologia()});
 	}
 	public void ToggleInsertButton() {
 		boolean ret = true;
@@ -258,8 +302,8 @@ public class InserisciMeetingFrame extends JFrame {
 			ret = false;
 		else if(tablePartecipanti.getModel().getRowCount() == 0)
 			ret = false;
-		
-		
+		else if(tableProgetto.getModel().getRowCount() == 0)
+			ret = false;
 		
 		btnInserisciMeeting.setEnabled(ret);
 	}

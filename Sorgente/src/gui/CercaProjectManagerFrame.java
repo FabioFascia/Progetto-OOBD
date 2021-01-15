@@ -256,10 +256,8 @@ public class CercaProjectManagerFrame extends JFrame {
 		buttonConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				int i = tableDipendenti.getSelectedRow();
-				
 				try {
-					controller.SelezioneProjectManager(controller.getDipendenteSelezionato(i));
+					controller.SelezioneProjectManager(controller.getDipendenteSelezionato(tableDipendenti.getSelectedRow()));
 					
 					controller.ChiudiFrameCercaProjectManager();
 				}
