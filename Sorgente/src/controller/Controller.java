@@ -230,7 +230,11 @@ public class Controller {
 		inserisciMeeting.toFront();
 		inserisciMeeting.setEnabled(true);
 	}
-	
+	public void ApriFrameCercaSala() {
+//		cercaSala = new CercaSalaFrame(this);
+//		inserisciMeeting.setEnabled(false);
+//		cercaSala.setVisible(true);
+	}
 	public void CambiaFrameMainMenuInCercaSala() {
 		
 		cercaSala = new CercaSalaFrame(this);
