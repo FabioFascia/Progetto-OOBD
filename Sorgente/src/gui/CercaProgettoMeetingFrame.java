@@ -39,6 +39,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLayeredPane;
 import java.awt.CardLayout;
 import javax.swing.SwingConstants;
+import javax.swing.ListSelectionModel;
 
 public class CercaProgettoMeetingFrame extends JFrame {
 
@@ -95,6 +96,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		contentPane.add(buttonConferma);
 		
 		tableProgetti = new JTable();
+		tableProgetti.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableProgetti.setModel(new DefaultTableModel(
 			new Object[][] {
 			},

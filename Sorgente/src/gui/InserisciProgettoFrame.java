@@ -53,7 +53,6 @@ public class InserisciProgettoFrame extends JFrame {
 	private JTable tableAmbiti;
 	private JTable tableProjectManager;
 	private JTable tablePartecipanti;
-	private JTable table;
 	private JButton buttonInserisciProgetto;
 	private JPopupMenu popupMenuTable;
 
@@ -403,12 +402,6 @@ public class InserisciProgettoFrame extends JFrame {
 			ret = false;
 		else if(tableProjectManager.getModel().getRowCount() == 0)
 			ret = false;
-		else {			
-			for(int i = 0 ; i < tablePartecipanti.getModel().getRowCount() ; i++) {
-				if(tablePartecipanti.getModel().getValueAt(i, 4).toString().isBlank())
-					ret = false;
-			}
-		}
 		
 		buttonInserisciProgetto.setEnabled(ret);
 	}

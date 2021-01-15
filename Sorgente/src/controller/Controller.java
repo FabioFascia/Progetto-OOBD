@@ -44,6 +44,7 @@ public class Controller {
 	private InserisciMeetingFrame inserisciMeeting;
 	private CercaPartecipanteMeetingFrame cercaPartecipanteMeeting;
 	private CercaProgettoMeetingFrame cercaProgettoMeeting;
+	private CercaSalaMeetingFrame cercaSalaMeeting;
 	
 	private CercaSalaFrame cercaSala;
 	
@@ -249,10 +250,17 @@ public class Controller {
 		inserisciMeeting.toFront();
 		inserisciMeeting.setEnabled(true);
 	}
-	public void ApriFrameCercaSala() {
-//		cercaSala = new CercaSalaFrame(this);
-//		inserisciMeeting.setEnabled(false);
-//		cercaSala.setVisible(true);
+	public void ApriFrameCercaSalaMeeting() {
+		
+		cercaSalaMeeting = new CercaSalaMeetingFrame(this);
+		inserisciMeeting.setEnabled(false);
+		cercaSalaMeeting.setVisible(true);
+	}
+	public void ChiudiFrameCercaSalaMeeting() {
+		
+		cercaSalaMeeting.dispose();
+		inserisciMeeting.toFront();
+		inserisciMeeting.setEnabled(true);
 	}
 	public void CambiaFrameMainMenuInCercaSala() {
 		
@@ -372,6 +380,10 @@ public class Controller {
 		
 		inserisciMeeting.setProgetto(p);
 	}
+	public void SelezioneSalaRiunioni(Sala s) throws SQLException {
+		
+		inserisciMeeting.setSala(s);
+	}
 	public ArrayList<MeetingFisico> RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
 		
 		MeetingFisiciSelezionati = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine);
@@ -401,6 +413,12 @@ public class Controller {
 	}
 	public MeetingFisico getMeetingFisicoSelezionato(int indice) {
 		return MeetingFisiciSelezionati.get(indice);
+	}
+	public MeetingTelematico getMeetingTelematicoSelezionato(int indice) {
+		return MeetingTelematiciSelezionati.get(indice);
+	}
+	public Sala getSalaSelezionata(int indice) {
+		return SaleRiunioniSelezionate.get(indice);
 	}
 	
 	public void setDaos(String dbms) throws SQLException {

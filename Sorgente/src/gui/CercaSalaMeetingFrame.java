@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import controller.Controller;
 import entità.Dipendente;
@@ -31,8 +33,9 @@ import javax.swing.SwingConstants;
 import java.awt.CardLayout;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
 
-public class CercaSalaFrame extends JFrame {
+public class CercaSalaMeetingFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
@@ -47,7 +50,7 @@ public class CercaSalaFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CercaSalaFrame(Controller c) {
+	public CercaSalaMeetingFrame(Controller c) {
 		setTitle("Cerca Sale Riunioni");
 		
 		controller = c;
@@ -57,10 +60,10 @@ public class CercaSalaFrame extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				
-				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				controller.ChiudiFrameCercaSalaMeeting();
 			}
 		});
-		setBounds(100, 100, 500, 440);
+		setBounds(100, 100, 500, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -75,11 +78,34 @@ public class CercaSalaFrame extends JFrame {
 		buttonIndietro.setBounds(10, 11, 116, 23);
 		contentPane.add(buttonIndietro);
 		
+		JButton btnInserisciSalaRiunioni = new JButton("Inserisci Sala Riunioni");
+		btnInserisciSalaRiunioni.setBounds(10, 211, 158, 23);
+		contentPane.add(btnInserisciSalaRiunioni);
+		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 245, 474, 156);
 		contentPane.add(scrollPane);
 		
+		JButton buttonConferma = new JButton("Conferma");
+		buttonConferma.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					controller.SelezioneSalaRiunioni(controller.getSalaSelezionata(tableSale.getSelectedRow()));
+					
+					controller.ChiudiFrameCercaSalaMeeting();
+				}
+				catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+			}
+		});
+		buttonConferma.setFont(new Font("Tahoma", Font.BOLD, 11));
+		buttonConferma.setEnabled(false);
+		buttonConferma.setBounds(109, 407, 242, 23);
+		contentPane.add(buttonConferma);
+		
 		tableSale = new JTable();
+		tableSale.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tableSale.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -99,6 +125,15 @@ public class CercaSalaFrame extends JFrame {
 				return false;
 			}
 		});
+		tableSale.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			public void valueChanged(ListSelectionEvent e) {
+				if(tableSale.getSelectedRowCount() > 0) {
+					buttonConferma.setEnabled(true);
+				}
+			}
+		});
+
 		scrollPane.setViewportView(tableSale);
 		
 		JLabel labelRicerca = new JLabel("Cerca per:");
@@ -189,24 +224,24 @@ public class CercaSalaFrame extends JFrame {
 		
 		textFieldMinNumeroPosti = new JTextField();
 		textFieldMinNumeroPosti.setColumns(10);
-		textFieldMinNumeroPosti.setBounds(39, 99, 68, 20);
+		textFieldMinNumeroPosti.setBounds(39, 97, 68, 20);
 		panelAttributi.add(textFieldMinNumeroPosti);
 		
 		JLabel labelMin = new JLabel("Min");
 		labelMin.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMin.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMin.setBounds(0, 102, 32, 14);
+		labelMin.setBounds(0, 100, 32, 14);
 		panelAttributi.add(labelMin);
 		
 		textFieldMaxNumeroPosti = new JTextField();
 		textFieldMaxNumeroPosti.setColumns(10);
-		textFieldMaxNumeroPosti.setBounds(129, 99, 68, 20);
+		textFieldMaxNumeroPosti.setBounds(129, 97, 68, 20);
 		panelAttributi.add(textFieldMaxNumeroPosti);
 		
 		JLabel labelMax = new JLabel("Max");
 		labelMax.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMax.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMax.setBounds(206, 102, 32, 14);
+		labelMax.setBounds(206, 100, 32, 14);
 		panelAttributi.add(labelMax);
 		
 		JButton buttonRicerca = new JButton("Cerca");

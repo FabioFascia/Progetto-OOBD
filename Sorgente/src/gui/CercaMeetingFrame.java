@@ -71,24 +71,24 @@ public class CercaMeetingFrame extends JFrame {
     	controller=c;
 		setTitle("Meeting");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 587, 460);
+		setBounds(100, 100, 508, 460);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(0, 45, 571, 386);
+		layeredPane.setBounds(0, 45, 502, 386);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
-		JPanel panelMeetingFisico = new JPanel();
-		layeredPane.add(panelMeetingFisico, "name_19490538713400");
-		panelMeetingFisico.setLayout(null);
+		JPanel panelFisico = new JPanel();
+		layeredPane.add(panelFisico, "name_19490538713400");
+		panelFisico.setLayout(null);
 		
 		JLayeredPane layeredPaneFisici = new JLayeredPane();
 		layeredPaneFisici.setBounds(0, 0, 285, 152);
-		panelMeetingFisico.add(layeredPaneFisici);
+		panelFisico.add(layeredPaneFisici);
 		layeredPaneFisici.setLayout(new CardLayout(0, 0));
 		
 		JPanel panelAttributi = new JPanel();
@@ -142,8 +142,8 @@ public class CercaMeetingFrame extends JFrame {
 		panelAttributi.add(lblNewLabel_2);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 210, 571, 176);
-		panelMeetingFisico.add(scrollPane);
+		scrollPane.setBounds(0, 210, 492, 176);
+		panelFisico.add(scrollPane);
 		
 		tableMeetingFisico = new JTable();
 		tableMeetingFisico.setModel(new DefaultTableModel(
@@ -171,12 +171,12 @@ public class CercaMeetingFrame extends JFrame {
 			}
 		});
 		btnInserisciMeeting.setBounds(10, 176, 170, 23);
-		panelMeetingFisico.add(btnInserisciMeeting);
+		panelFisico.add(btnInserisciMeeting);
 		
 		JLabel labelRicerca = new JLabel("Cerca per:");
 		labelRicerca.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelRicerca.setBounds(400, 11, 89, 14);
-		panelMeetingFisico.add(labelRicerca);
+		labelRicerca.setBounds(325, 11, 89, 14);
+		panelFisico.add(labelRicerca);
 		
 		JButton btnCerca = new JButton("Cerca");
 		btnCerca.addActionListener(new ActionListener() {
@@ -191,15 +191,16 @@ public class CercaMeetingFrame extends JFrame {
 				String oraFine = of.format((java.util.Date)spinnerOraFineFisico.getValue());
 				
 				try {
-					controller.RicercaMeetingFisicoPerAttributi(codiceMeeting, data, oraInizio, oraFine);
-				} catch (SQLException ex) {
+					PopolaTabellaFisico(controller.RicercaMeetingFisicoPerAttributi(codiceMeeting, data, oraInizio, oraFine));
+				}
+				catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
 				}
 				
      		}
 		});
-		btnCerca.setBounds(424, 176, 115, 23);
-		panelMeetingFisico.add(btnCerca);
+		btnCerca.setBounds(349, 176, 115, 23);
+		panelFisico.add(btnCerca);
 		
 		JComboBox comboBoxMeetingFisico = new JComboBox(new String[] {"Attributi", "Per Dipendenti", "Per Progetti"});
 		comboBoxMeetingFisico.addItemListener(new ItemListener() {
@@ -217,16 +218,16 @@ public class CercaMeetingFrame extends JFrame {
 		
 		
 		
-		comboBoxMeetingFisico.setBounds(400, 28, 150, 22);
-		panelMeetingFisico.add(comboBoxMeetingFisico);
+		comboBoxMeetingFisico.setBounds(325, 28, 150, 22);
+		panelFisico.add(comboBoxMeetingFisico);
 		
-		JPanel panelMeetingTelematico = new JPanel();
-		layeredPane.add(panelMeetingTelematico, "name_19511124629900");
-		panelMeetingTelematico.setLayout(null);
+		JPanel panelTelematico = new JPanel();
+		layeredPane.add(panelTelematico, "name_19511124629900");
+		panelTelematico.setLayout(null);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 204, 571, 182);
-		panelMeetingTelematico.add(scrollPane_1);
+		scrollPane_1.setBounds(0, 204, 492, 182);
+		panelTelematico.add(scrollPane_1);
 		
 		tableMeetingTelematico = new JTable();
 		tableMeetingTelematico.setModel(new DefaultTableModel(
@@ -247,53 +248,53 @@ public class CercaMeetingFrame extends JFrame {
 		
 		tfCodiceMeetingTelematico = new JTextField();
 		tfCodiceMeetingTelematico.setBounds(29, 29, 150, 20);
-		panelMeetingTelematico.add(tfCodiceMeetingTelematico);
+		panelTelematico.add(tfCodiceMeetingTelematico);
 		tfCodiceMeetingTelematico.setColumns(10);
 		
 		textPiattaforma = new JTextField();
 		textPiattaforma.setBounds(29, 139, 150, 20);
-		panelMeetingTelematico.add(textPiattaforma);
+		panelTelematico.add(textPiattaforma);
 		textPiattaforma.setColumns(10);
 		
 		textNumeroMassimo = new JTextField();
 		textNumeroMassimo.setBounds(189, 139, 65, 20);
-		panelMeetingTelematico.add(textNumeroMassimo);
+		panelTelematico.add(textNumeroMassimo);
 		textNumeroMassimo.setColumns(10);
 		
 		JButton btnInserisciMeetingTelematico = new JButton("Inserisci Meeting");
 		btnInserisciMeetingTelematico.setBounds(9, 170, 170, 23);
-		panelMeetingTelematico.add(btnInserisciMeetingTelematico);
+		panelTelematico.add(btnInserisciMeetingTelematico);
 		
 		JComboBox comboBoxMeetingTelematico = new JComboBox(new String[] {"Codice Meeting", "Data e ora", "Piattaforma", "Numero limite"});
 		comboBoxMeetingTelematico.setModel(new DefaultComboBoxModel(new String[] {"Attributi", "Per Dipendenti", "Per Progetti"}));
-		comboBoxMeetingTelematico.setBounds(400, 28, 150, 22);
-		panelMeetingTelematico.add(comboBoxMeetingTelematico);
+		comboBoxMeetingTelematico.setBounds(325, 28, 150, 22);
+		panelTelematico.add(comboBoxMeetingTelematico);
 		
 		JLabel labelRicerca_1 = new JLabel("Cerca per:");
 		labelRicerca_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelRicerca_1.setBounds(400, 11, 89, 14);
-		panelMeetingTelematico.add(labelRicerca_1);
+		labelRicerca_1.setBounds(325, 11, 89, 14);
+		panelTelematico.add(labelRicerca_1);
 		
 		JSpinner spinnerData = new JSpinner();
 		spinnerData.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
 		spinnerData.setEditor(new JSpinner.DateEditor(spinnerData, "dd/MM/yyyy"));
 		((JSpinner.DefaultEditor) spinnerData.getEditor()).getTextField().setEditable(false);
 		spinnerData.setBounds(29, 64, 150, 20);
-		panelMeetingTelematico.add(spinnerData);
+		panelTelematico.add(spinnerData);
 		
 		JSpinner spinnerOraInizio = new JSpinner();
 		spinnerOraInizio.setModel(new SpinnerDateModel(new Date(1610233200000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraInizio.setEditor(new JSpinner.DateEditor(spinnerOraInizio, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraInizio.getEditor()).getTextField().setEditable(false);
 		spinnerOraInizio.setBounds(29, 100, 65, 20);
-		panelMeetingTelematico.add(spinnerOraInizio);
+		panelTelematico.add(spinnerOraInizio);
 		
 		JSpinner spinnerOraFine = new JSpinner();
 		spinnerOraFine.setModel(new SpinnerDateModel(new Date(1610319540000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraFine.setEditor(new JSpinner.DateEditor(spinnerOraFine, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraFine.getEditor()).getTextField().setEditable(false);
 		spinnerOraFine.setBounds(117, 100, 62, 20);
-		panelMeetingTelematico.add(spinnerOraFine);
+		panelTelematico.add(spinnerOraFine);
 		
 		JButton btnCercaTelematico = new JButton("Cerca");
 		btnCercaTelematico.addActionListener(new ActionListener() {
@@ -309,72 +310,47 @@ public class CercaMeetingFrame extends JFrame {
 				String oraInizio = of.format((java.util.Date)spinnerOraInizio.getValue());
 				String oraFine = of.format((java.util.Date)spinnerOraFine.getValue());
                
-						try {
-					controller.RicercaMeetingTelematicoPerAttributi(codmt, data, oraInizio, oraFine, piattaforma, numMassimo);
-				} catch (SQLException e1) {
-					JOptionPane.showMessageDialog(null, e1.getMessage());
+				try {
+					PopolaTabellaTelematico(controller.RicercaMeetingTelematicoPerAttributi(codmt, data, oraInizio, oraFine, piattaforma, numMassimo));
+				}
+				catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
 				}
 				
-				}
+			}
 		});
-		btnCercaTelematico.setBounds(424, 170, 115, 23);
-		panelMeetingTelematico.add(btnCercaTelematico);
+		btnCercaTelematico.setBounds(347, 170, 115, 23);
+		panelTelematico.add(btnCercaTelematico);
 		
 		JLabel lblNewLabel_3 = new JLabel("Piattaforma");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_3.setBounds(29, 125, 85, 14);
-		panelMeetingTelematico.add(lblNewLabel_3);
+		panelTelematico.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_4 = new JLabel("Limite Partecipanti");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_4.setBounds(189, 125, 124, 14);
-		panelMeetingTelematico.add(lblNewLabel_4);
+		panelTelematico.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Ora Inizio");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_5.setBounds(29, 86, 65, 14);
-		panelMeetingTelematico.add(lblNewLabel_5);
+		panelTelematico.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("Ora Fine");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_6.setBounds(117, 86, 62, 14);
-		panelMeetingTelematico.add(lblNewLabel_6);
+		panelTelematico.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("Data");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_7.setBounds(29, 51, 85, 14);
-		panelMeetingTelematico.add(lblNewLabel_7);
+		panelTelematico.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("Codice Meeting");
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_8.setBounds(30, 15, 101, 14);
-		panelMeetingTelematico.add(lblNewLabel_8);
-		
-		JButton btnMeetingFisico = new JButton("Meeting Fisico");
-		btnMeetingFisico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				layeredPane.removeAll();
-				layeredPane.add(panelMeetingFisico);
-				layeredPane.repaint();
-				layeredPane.revalidate();
-				
-			
-			}
-		});
-		btnMeetingFisico.setBounds(254, 11, 150, 23);
-		contentPane.add(btnMeetingFisico);
-		
-		JButton btnMeetingTelematico = new JButton("Meeting Telematico");
-		btnMeetingTelematico.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				layeredPane.removeAll();
-				layeredPane.add(panelMeetingTelematico);
-				layeredPane.repaint();
-				layeredPane.revalidate();
-			}
-		});
-		btnMeetingTelematico.setBounds(414, 11, 150, 23);
-		contentPane.add(btnMeetingTelematico);
+		panelTelematico.add(lblNewLabel_8);
 		
 		JButton btnIndietro = new JButton("Indietro");
 		btnIndietro.addActionListener(new ActionListener() {
@@ -387,31 +363,53 @@ public class CercaMeetingFrame extends JFrame {
 		
 		JLabel lblTipologiaMeeting = new JLabel("Tipologia Meeting:");
 		lblTipologiaMeeting.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTipologiaMeeting.setBounds(119, 12, 145, 17);
+		lblTipologiaMeeting.setBounds(181, 11, 133, 17);
 		contentPane.add(lblTipologiaMeeting);
+		
+		JComboBox comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
+		comboBoxTipoMeeting.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+
+					switch (e.getItem().toString()) {
+					case "Fisico":
+						layeredPane.removeAll();
+						layeredPane.add(panelFisico);
+						layeredPane.repaint();
+						layeredPane.revalidate();
+						break;
+					case "Telematico":
+						layeredPane.removeAll();
+						layeredPane.add(panelTelematico);
+						layeredPane.repaint();
+						layeredPane.revalidate();
+					}
+			}
+		});
+		comboBoxTipoMeeting.setBounds(324, 11, 150, 22);
+		contentPane.add(comboBoxTipoMeeting);
 		
 	
 	}
     	
 	
-		public void PopolaTabella(ArrayList<MeetingTelematico> lista) {
+	public void PopolaTabellaTelematico(ArrayList<MeetingTelematico> lista) {
     		
-    		DefaultTableModel model = (DefaultTableModel) tableMeetingTelematico.getModel();
+    	DefaultTableModel model = (DefaultTableModel) tableMeetingTelematico.getModel();
     		
-    		model.setRowCount(0);
+    	model.setRowCount(0);
     		
-    		for (MeetingTelematico m : lista)
-    			model.addRow(new Object[] {m.getCodice(), m.getData(), m.getOraI(), m.getOraF(), m.getPiattaforma(), m.getNumeroLimite()});
-    	}
-public void PopolaTabellaFisico(ArrayList<MeetingFisico> lista) {
+    	for (MeetingTelematico m : lista)
+    		model.addRow(new Object[] {m.getCodice(), m.getData(), m.getOraI(), m.getOraF(), m.getPiattaforma(), m.getNumeroLimite()});
+    }
+	
+	public void PopolaTabellaFisico(ArrayList<MeetingFisico> lista) {
     		
-    		DefaultTableModel model = (DefaultTableModel) tableMeetingFisico.getModel();
+    	DefaultTableModel model = (DefaultTableModel) tableMeetingFisico.getModel();
     		
-    		model.setRowCount(0);
+    	model.setRowCount(0);
     		
-    		for (MeetingFisico mf : lista)
+    	for (MeetingFisico mf : lista)
+    		model.addRow(new Object[] {mf.getCodice(), mf.getData(), mf.getOraI(), mf.getOraF(), mf.getSalaRiunioni().getCittà()});
 
-    			model.addRow(new Object[] {mf.getCodice(), mf.getData(), mf.getOraI(), mf.getOraF(), mf.getSalaRiunioni().getCittà()});
-
-    	}
+    }
 }
