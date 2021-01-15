@@ -23,8 +23,8 @@ CREATE TABLE PROGETTO
 CREATE TABLE SALA
 (
     CodSala INTEGER PRIMARY KEY,
-    Città VARCHAR(30) NOT NULL CHECK (Città ~* '^[A-Za-z ]$'),
-    Provincia CHAR(2) NOT NULL CHECK (Provincia ~* '^[A-Z]$'),
+    Città VARCHAR(30) NOT NULL CHECK (Città ~* '^[A-Za-z ]+$'),
+    Provincia CHAR(2) NOT NULL CHECK (Provincia ~* '^[A-Z]{2}$'),
     Indirizzo VARCHAR(50) NOT NULL CHECK (Indirizzo ~* '^[A-Za-z ]+$'),
     NumeroCivico INTEGER,
     NumPosti INTEGER NOT NULL

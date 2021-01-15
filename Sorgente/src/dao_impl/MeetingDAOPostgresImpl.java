@@ -76,20 +76,20 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     }
     
-    public void insertMeetingTelematico (Date Data, Time  OraI, Time OraF, String Piattaforma, int NumLimite) throws SQLException{
+    public void insertMeetingTelematico (MeetingTelematico mt) throws SQLException{
     	
-    	insertMeetingTelematicoPS.setDate(1, Data);
-    	insertMeetingTelematicoPS.setTime(2, OraI);
-    	insertMeetingTelematicoPS.setTime(3, OraF);
-    	insertMeetingTelematicoPS.setString(4, Piattaforma);
-    	insertMeetingTelematicoPS.setInt(5, NumLimite);
+    	insertMeetingTelematicoPS.setDate(1, mt.getData());
+    	insertMeetingTelematicoPS.setTime(2, mt.getOraI());
+    	insertMeetingTelematicoPS.setTime(3, mt.getOraF());
+    	insertMeetingTelematicoPS.setString(4, mt.getPiattaforma());
+    	insertMeetingTelematicoPS.setInt(5, mt.getNumeroLimite());
     }
 
-    public void updateMeetingFisico (Date Data, Time OraI, Time OraF) throws SQLException{
+    public void updateMeetingFisico (MeetingFisico mf) throws SQLException{
     	
-    	updateMeetingFisicoPS.setDate(1, Data);
-    	updateMeetingFisicoPS.setTime(2, OraI);
-    	updateMeetingFisicoPS.setTime(3, OraF);
+    	updateMeetingFisicoPS.setDate(1, mf.getData());
+    	updateMeetingFisicoPS.setTime(2, mf.getOraI());
+    	updateMeetingFisicoPS.setTime(3, mf.getOraF());
     	
     	updateMeetingFisicoPS.execute();
     	

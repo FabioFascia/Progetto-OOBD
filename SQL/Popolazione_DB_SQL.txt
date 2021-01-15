@@ -15,22 +15,22 @@ BEGIN
 	    ('Jeff', 'Bezos', 10101010.10, 'BZSJFF93J59N238S'),
 	    ('Francesco', 'Cilurzo', 3250.00, 'CLRFRN93J43A134V');
 
---Insert_Progetto(Tipologia, CodF [Project Manager])
+--Insert_Progetto(Tipologia, CodF [Project Manager], Descrizione)
 
-    CALL Insert_Progetto('Ricerca Sperimentale', 'NGLLBR73D21D836K');
-    CALL Insert_Progetto('Indagine di Mercato', 'BZSJFF93J59N238S');
-    CALL Insert_Progetto('Ricerca di base', 'PGGMCH93H89S038D');
-    CALL Insert_Progetto('Spionaggio Industriale', 'CMPSTF85V39G238F');
-    CALL Insert_Progetto('Ricerca di base', 'MMGLSS82B56N290D');
-    CALL Insert_Progetto('Ricerca Industriale', 'CLRFRN93J43A134V');
+    CALL Insert_Progetto('Ricerca Sperimentale', 'NGLLBR73D21D836K', 'Un progetto');
+    CALL Insert_Progetto('Indagine di Mercato', 'BZSJFF93J59N238S', 'Un altro progetto');
+    CALL Insert_Progetto('Ricerca di base', 'PGGMCH93H89S038D', '');
+    CALL Insert_Progetto('Spionaggio Industriale', 'CMPSTF85V39G238F', 'Un altro progetto ancora');
+    CALL Insert_Progetto('Ricerca di base', 'MMGLSS82B56N290D', 'Un progetto ancora diverso');
+    CALL Insert_Progetto('Ricerca Industriale', 'CLRFRN93J43A134V', 'Un ultimo progetto');
 
---Insert_Sala(Città, Indirizzo, NumPosti)
+--Insert_Sala(Città, Provincia, Indirizzo, NumeroCivico NumPosti)
 
-    CALL Insert_Sala('San Giorgio a Cremano (NA)', 'Corso Roma, 48', 20);
-    CALL Insert_Sala('Pozzuoli (NA)', 'via Alessandro Manzoni, 53', 30);
-    CALL Insert_Sala('Castelpizzuto (IS)', 'via La Monaca, 7', 35);
-    CALL Insert_Sala('Milano (MI)', 'via Albert Einstein, 103', 50);
-    CALL Insert_Sala('Scalea (CS)', 'via Andrea Spinelli, 4', 45);
+    CALL Insert_Sala('San Giorgio a Cremano', 'NA', 'Corso Roma', 48, 20);
+    CALL Insert_Sala('Pozzuoli', 'NA', 'via Alessandro Manzoni', 53, 30);
+    CALL Insert_Sala('Castelpizzuto', 'IS', 'via La Monaca', 7, 35);
+    CALL Insert_Sala('Milano', 'MI', 'via Albert Einstein', 103, 50);
+    CALL Insert_Sala('Scalea', 'CS', 'via Andrea Spinelli', 4, 45);
 
 --Insert_MeetingF(CodP, Data, OraI, OraF, CodSala)
 

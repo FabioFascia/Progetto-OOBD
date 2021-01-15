@@ -23,14 +23,16 @@ LANGUAGE plpgsql;
 CREATE PROCEDURE Insert_Sala
 (
     IN città VARCHAR(30),
+    IN provincia CHAR(2),
     IN indirizzo VARCHAR(50),
+    IN numero_civico INTEGER,
     IN num_posti INTEGER
 )
 AS
 $$
 BEGIN
-    INSERT INTO SALA (CodSala, Città, Indirizzo, NumPosti)
-    VALUES (NEXTVAL('N_SALA'), città, indirizzo, num_posti);
+    INSERT INTO SALA (CodSala, Città, Provincia, Indirizzo, NumeroCivico, NumPosti)
+    VALUES (NEXTVAL('N_SALA'), città, provincia, indirizzo, numero_civico, num_posti);
 END;
 $$
 LANGUAGE plpgsql;

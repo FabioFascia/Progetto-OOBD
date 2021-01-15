@@ -4,7 +4,9 @@ public class Sala {
 
 	//		Attributi
 	private String Città;
+	private String Provincia;
 	private String Indirizzo;
+	private int NumeroCivico;
 	private int NumeroPosti;
 	
 	//		Getter/Setter
