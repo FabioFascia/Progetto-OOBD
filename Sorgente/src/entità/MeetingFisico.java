@@ -6,7 +6,7 @@ import java.sql.Time;
 public class MeetingFisico implements Meeting {
 
 	//		Attributi
-	private int CodMF;
+	private int Codice;
     private Date Data;
     private Time OraI;
     private Time OraF;
@@ -16,8 +16,8 @@ public class MeetingFisico implements Meeting {
 	private Progetto ArgomentoMeeting;
 	
 	//		Getter/Setter
-	public int getCodMeeting() {
-		return CodMF;
+	public int getCodice() {
+		return Codice;
 	}
 	public Date getData() {
 		return Data;
@@ -43,8 +43,8 @@ public class MeetingFisico implements Meeting {
 	public void setArgomentoMeeting(Progetto argomentoMeeting) {
 		ArgomentoMeeting = argomentoMeeting;
 	}
-	public void setCodMeeting(int CodMeeting) {
-		CodMF = CodMeeting;
+	public void setCodice(int CodMeeting) {
+		Codice = CodMeeting;
 	}
 	public Sala getSalaRiunioni() {
 		return salaRiunioni;

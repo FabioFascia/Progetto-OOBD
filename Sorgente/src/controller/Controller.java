@@ -14,6 +14,7 @@ import dao_impl.MeetingDAOPostgresImpl;
 import dao_impl.ProgettoDAOPostgresImpl;
 import db_config.DBConnection;
 import entità.Dipendente;
+import entità.Meeting;
 import entità.MeetingFisico;
 import entità.MeetingTelematico;
 import entità.Partecipante;
@@ -46,6 +47,7 @@ public class Controller {
 	
 	private ArrayList<Dipendente> DipendentiSelezionati;
 	private ArrayList<Progetto> ProgettiSelezionati;
+	private ArrayList<Meeting> MeetingSelezionati;
 
 	public static void main(String[] args) {
 		
@@ -342,6 +344,9 @@ public class Controller {
 	}
 	public Progetto getProgettoSelezionato(int indice) {
 		return ProgettiSelezionati.get(indice);
+	}
+	public Meeting getMeetingSelezionato(int indice) {
+		return MeetingSelezionati.get(indice);
 	}
 	
 	public void setDaos(String dbms) throws SQLException {
