@@ -9,6 +9,8 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
 import entità.Dipendente;
+import entità.Meeting;
+import entità.MeetingFisico;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -38,6 +40,7 @@ public class InserisciMeetingFrame extends JFrame {
 	private JTable tablePartecipanti;
 	private JTextField textField;
 	private JTextField textField_1;
+	private JButton btnInserisciMeeting;
 
 	/**
 	 * Create the frame.
@@ -148,6 +151,12 @@ public class InserisciMeetingFrame extends JFrame {
 		scrollPane_1.setViewportView(tablePartecipanti);
 		
 		JButton btnNewButton_2 = new JButton("Seleziona partecipanti...");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.ApriFrameCercaPartecipanteMeeting();
+				
+			}
+		});
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnNewButton_2.setBounds(10, 181, 183, 23);
 		contentPane.add(btnNewButton_2);
@@ -179,7 +188,21 @@ public class InserisciMeetingFrame extends JFrame {
 		lblNewLabel_3.setBounds(172, 15, 85, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		JButton btnInserisciMeeting = new JButton("Inserisci Meeting");
+		btnInserisciMeeting = new JButton("Inserisci Meeting");
+		btnInserisciMeeting.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Meeting m;
+				switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
+				case "Fisico" :
+					m = new MeetingFisico();
+					
+					
+					break;
+				case "Telematico" :
+					break;
+				}
+			}
+		});
 		btnInserisciMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnInserisciMeeting.setEnabled(false);
 		btnInserisciMeeting.setBounds(81, 371, 259, 23);
@@ -227,5 +250,17 @@ public class InserisciMeetingFrame extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tablePartecipanti.getModel();
 		
 		model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
+	}
+	public void ToggleInsertButton() {
+		boolean ret = true;
+		
+		if(tableSala.getModel().getRowCount() == 0)
+			ret = false;
+		else if(tablePartecipanti.getModel().getRowCount() == 0)
+			ret = false;
+		
+		
+		
+		btnInserisciMeeting.setEnabled(ret);
 	}
 }
