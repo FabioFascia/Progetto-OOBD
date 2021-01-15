@@ -328,8 +328,8 @@ public class Controller {
 		DipendentiSelezionati = dipendenteDao.getDipendenteByProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti);
 		return DipendentiSelezionati;
 	}
-	public void RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine, String CodSala) throws SQLException {
-		ArrayList<MeetingFisico> lista = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine, CodSala);
+	public void RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
+		ArrayList<MeetingFisico> lista = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine);
 		cercaMeeting.PopolaTabellaFisico(lista);
 	}
     public void RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {

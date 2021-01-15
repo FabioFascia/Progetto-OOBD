@@ -48,11 +48,11 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		deleteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM MEETING WHERE CodMT = ?;");
 		
 		getMeetingFisicoByAttributiPS = connection.prepareStatement("SELECT * "
-				                                                         +"FROM MEETINGF NATURAL JOIN SALA "
-				                                                           +"WHERE (CodMF = ? OR ? = -1) AND "
-				                                                            +"(? = '2000-01-01'::date OR Data::date = ?) AND "
-				                                                              +"((OraI BETWEEN ? AND ?) OR (OraF BETWEEN ? AND ?)) AND "
-				                                                              + "(? = '' OR SALA.Indirizzo = ?) ORDER BY CodMF; ");
+				                                                   +"FROM MEETINGF "
+				                                                   +"WHERE (CodMF = ? OR ? = -1) AND "
+				                                                   		+"(? = '2000-01-01'::date OR Data::date = ?) AND "
+				                                                   		+"((OraI BETWEEN ? AND ?) OR (OraF BETWEEN ? AND ?)) "
+				                                                   + "ORDER BY CodMF;");
 		
 		getMeetingTelematicoByAttributiPS = connection.prepareStatement("SELECT * "  
 		                                                                         + "FROM MEETINGT "
@@ -77,7 +77,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	insertMeetingFisicoPS.execute();
     }
     
-    public void insertMeetingTelematico (MeetingTelematico mt) throws SQLException{
+    public void insertMeetingTelematico (MeetingTelematico mt) throws SQLException {
     	
     	insertMeetingTelematicoPS.setDate(1, mt.getData());
     	insertMeetingTelematicoPS.setTime(2, mt.getOraI());
@@ -88,7 +88,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	insertMeetingTelematicoPS.execute();
     }
 
-    public void updateMeetingFisico (MeetingFisico mf) throws SQLException{
+    public void updateMeetingFisico (MeetingFisico mf) throws SQLException {
     	
     	updateMeetingFisicoPS.setDate(1, mf.getData());
     	updateMeetingFisicoPS.setTime(2, mf.getOraI());
@@ -100,7 +100,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     }
     
-    public void updateMeetingTelematico (MeetingTelematico mt) throws SQLException{
+    public void updateMeetingTelematico (MeetingTelematico mt) throws SQLException {
     	
     	updateMeetingTelematicoPS.setDate(1, mt.getData());
     	updateMeetingTelematicoPS.setTime(2, mt.getOraI());
@@ -126,7 +126,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	deleteMeetingTelematicoPS.execute();
     }
     
-  public ArrayList<MeetingFisico> getMeetingFisicoByAttributi (String CodMF, String Data, String OraInizio, String OraFine, String CodSala) throws SQLException {
+    public ArrayList<MeetingFisico> getMeetingFisicoByAttributi (String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
     	
 	    Date data; Time oraInizio, oraFine; int codice;
 	    
@@ -149,8 +149,6 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	getMeetingFisicoByAttributiPS.setTime(6, oraInizio);
     	getMeetingFisicoByAttributiPS.setTime(7, oraInizio);
     	getMeetingFisicoByAttributiPS.setTime(8, oraFine);
-    	getMeetingFisicoByAttributiPS.setString(9, CodSala);
-    	getMeetingFisicoByAttributiPS.setString(10, CodSala);
     	
     	
     	
@@ -176,9 +174,9 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	}
 		return lista;
     	
-   }
+    }
     
- public ArrayList<MeetingTelematico> getMeetingTelematicoByAttributi (String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
+    public ArrayList<MeetingTelematico> getMeetingTelematicoByAttributi (String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
     	
     	int codice, numeroMassimo; Date data; Time oraInizio, oraFine; 
   
@@ -228,24 +226,24 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     		
     	}
 		return lista;
- }
- 
- public Sala getSalaMeetingFisico(int codSala) throws SQLException {
-	 
-	 getSalaMeetingFisicoPS.setInt(1, codSala);
-	 
-	 ResultSet rs = getSalaMeetingFisicoPS.executeQuery();
-	 
-	 rs.next();
-	 Sala s = new Sala();
-	 s.setCodice(rs.getInt("CodSala"));
-	 s.setCittà(rs.getString("Città"));
-	 s.setProvincia(rs.getString("Provincia"));
-	 s.setIndirizzo(rs.getString("Indirizzo"));
-	 s.setNumeroCivico(rs.getInt("NumeroCivico"));
-	 
-	 return s;
- }
+    }
+
+    public Sala getSalaMeetingFisico(int codSala) throws SQLException {
+		 
+		 getSalaMeetingFisicoPS.setInt(1, codSala);
+		 
+		 ResultSet rs = getSalaMeetingFisicoPS.executeQuery();
+		 
+		 rs.next();
+		 Sala s = new Sala();
+		 s.setCodice(rs.getInt("CodSala"));
+		 s.setCittà(rs.getString("Città"));
+		 s.setProvincia(rs.getString("Provincia"));
+		 s.setIndirizzo(rs.getString("Indirizzo"));
+		 s.setNumeroCivico(rs.getInt("NumeroCivico"));
+		 
+		 return s;
+	 }
 }
 
 
