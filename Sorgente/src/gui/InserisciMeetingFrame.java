@@ -26,6 +26,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.CardLayout;
 import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class InserisciMeetingFrame extends JFrame {
 
@@ -50,6 +52,11 @@ public class InserisciMeetingFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnNewButton = new JButton("Annulla");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.ChiudiFrameInserisciMeetingInCercaMeeting();
+			}
+		});
 		btnNewButton.setBounds(10, 11, 89, 23);
 		contentPane.add(btnNewButton);
 		
@@ -84,6 +91,11 @@ public class InserisciMeetingFrame extends JFrame {
 		scrollPane.setViewportView(tableSala);
 		
 		JButton btnNewButton_1 = new JButton("Seleziona sala...");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.ApriFrameCercaSala();
+			}
+		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		btnNewButton_1.setBounds(0, 11, 146, 23);
 		panelFisico.add(btnNewButton_1);

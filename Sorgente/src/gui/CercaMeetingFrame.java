@@ -167,6 +167,7 @@ public class CercaMeetingFrame extends JFrame {
 		JButton btnInserisciMeeting = new JButton("Inserisci Meeting");
 		btnInserisciMeeting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controller.ApriFrameInserisciMeetingInCercaMeeting();
 			}
 		});
 		btnInserisciMeeting.setBounds(10, 176, 170, 23);
