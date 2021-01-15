@@ -2,6 +2,7 @@ package entità;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class MeetingFisico implements Meeting {
 
@@ -14,6 +15,7 @@ public class MeetingFisico implements Meeting {
 	//		Relazioni
 	private Sala salaRiunioni;
 	private Progetto ArgomentoMeeting;
+	private ArrayList<Partecipante> Partecipanti;
 	
 	//		Getter/Setter
 	public int getCodice() {
@@ -51,6 +53,12 @@ public class MeetingFisico implements Meeting {
 	}
 	public void setSalaRiunioni(Sala salaRiunioni) {
 		this.salaRiunioni = salaRiunioni;
+	}
+	public ArrayList<Partecipante> getPartecipanti() {
+		return Partecipanti;
+	}
+	public void setPartecipanti(ArrayList<Partecipante> partecipanti) {
+		Partecipanti = partecipanti;
 	}
 	
 	

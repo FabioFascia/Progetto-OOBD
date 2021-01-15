@@ -2,6 +2,7 @@ package entità;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 
 public class MeetingTelematico implements Meeting {
 
@@ -15,7 +16,7 @@ public class MeetingTelematico implements Meeting {
 	
 	//		Relazioni
 	private Progetto ArgomentoMeeting;
-	
+	private ArrayList<Partecipante> Partecipanti;
 	//	Getter/Setter
 	public int getCodice() {
 		return Codice;
@@ -58,6 +59,12 @@ public class MeetingTelematico implements Meeting {
 	}
 	public void setArgomentoMeeting(Progetto argomentoMeeting) {
 		ArgomentoMeeting = argomentoMeeting;
+	}
+	public ArrayList<Partecipante> getPartecipanti() {
+		return Partecipanti;
+	}
+	public void setPartecipanti(ArrayList<Partecipante> partecipanti) {
+		Partecipanti = partecipanti;
 	}
 
 }
