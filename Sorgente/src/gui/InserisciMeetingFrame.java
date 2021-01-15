@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
+import entità.Dipendente;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -34,7 +35,7 @@ public class InserisciMeetingFrame extends JFrame {
 	private JPanel contentPane;
 	private Controller controller;
 	private JTable tableSala;
-	private JTable table;
+	private JTable tablePartecipanti;
 	private JTextField textField;
 	private JTextField textField_1;
 
@@ -128,8 +129,8 @@ public class InserisciMeetingFrame extends JFrame {
 		scrollPane_1.setBounds(0, 210, 412, 150);
 		contentPane.add(scrollPane_1);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		tablePartecipanti = new JTable();
+		tablePartecipanti.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -143,8 +144,8 @@ public class InserisciMeetingFrame extends JFrame {
 				return columnTypes[columnIndex];
 			}
 		});
-		table.getColumnModel().getColumn(0).setPreferredWidth(103);
-		scrollPane_1.setViewportView(table);
+		tablePartecipanti.getColumnModel().getColumn(0).setPreferredWidth(103);
+		scrollPane_1.setViewportView(tablePartecipanti);
 		
 		JButton btnNewButton_2 = new JButton("Seleziona partecipanti...");
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
@@ -219,5 +220,12 @@ public class InserisciMeetingFrame extends JFrame {
 		((JSpinner.DefaultEditor) spinnerOraFine.getEditor()).getTextField().setEditable(false);
 		((JSpinner.DefaultEditor) spinnerOraInizio.getEditor()).getTextField().setEditable(false);
 		((JSpinner.DefaultEditor) spinnerData.getEditor()).getTextField().setEditable(false);
+	}
+	
+	public void addPartecipante(Dipendente d) {
+		
+		DefaultTableModel model = (DefaultTableModel) tablePartecipanti.getModel();
+		
+		model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 	}
 }

@@ -39,6 +39,8 @@ public class Controller {
 	
 	private CercaMeetingFrame cercaMeeting;
 	private InserisciMeetingFrame inserisciMeeting;
+	private CercaPartecipanteMeetingFrame cercaPartecipanteMeeting;
+	
 	private CercaSalaFrame cercaSala;
 	
 	private DipendenteDAO dipendenteDao;
@@ -210,14 +212,24 @@ public class Controller {
 		cercaMeeting.setEnabled(false);
 		inserisciMeeting.setVisible(true);
 	}
-public void ChiudiFrameInserisciMeetingInCercaMeeting() {
+	public void ChiudiFrameInserisciMeetingInCercaMeeting() {
 		
 		inserisciMeeting.dispose();
 		cercaMeeting.toFront();
 		cercaMeeting.setEnabled(true);
 	}
-	
-	
+	public void ApriFrameCercaPartecipanteMeeting() {
+		
+		cercaPartecipanteMeeting = new CercaPartecipanteMeetingFrame(this);
+		inserisciMeeting.setEnabled(false);
+		cercaPartecipanteMeeting.setVisible(true);
+	}
+	public void ChiudiFrameCercaPartecipanteMeeting() {
+		
+		cercaPartecipanteMeeting.dispose();
+		inserisciMeeting.toFront();
+		inserisciMeeting.setEnabled(true);
+	}
 	
 	public void CambiaFrameMainMenuInCercaSala() {
 		
@@ -310,7 +322,6 @@ public void ChiudiFrameInserisciMeetingInCercaMeeting() {
 		p.getPartecipanti().remove(par);
 		progettoDao.deletePartecipante(p, par.getDipendente());
 	}
-	
 	public ArrayList<Progetto> RicercaProgettoPerAttributi(String codp, String tipologia, String ambito) throws SQLException {
 		
 		ProgettiSelezionati = progettoDao.getProgettoByAttributi(codp, tipologia, ambito);
@@ -321,42 +332,23 @@ public void ChiudiFrameInserisciMeetingInCercaMeeting() {
 		ProgettiSelezionati = progettoDao.getProgettoByPartecipanti(codf, nome, cognome, minSalario, maxSalario);
 		return ProgettiSelezionati;
 	}
-	public ArrayList<Dipendente> RicercaProjectManagerPerAttributi(String codf, String nome, String cognome, String minSalario, String maxSalario) throws SQLException {
-		
-		DipendentiSelezionati = dipendenteDao.getDipendenteByAttributi(codf, nome, cognome, minSalario ,maxSalario);
-		return DipendentiSelezionati;
+	
+	
+    
+	public void InserimentoMeetingFisico(MeetingFisico mf) throws SQLException {
+		meetingDao.insertMeetingFisico(mf);
 	}
-	public ArrayList<Dipendente> RicercaProjectManagerPerProgetti(String codp, String tipologia, String ambito, String ruolo, String minProgetti, String maxProgetti) throws SQLException {
-		
-		DipendentiSelezionati = dipendenteDao.getDipendenteByProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti);
-		return DipendentiSelezionati;
+	public void InserimentoMeetingTelematico(MeetingTelematico mt) throws SQLException {
+		meetingDao.insertMeetingTelematico(mt);
 	}
-	public ArrayList<Dipendente> RicercaPartecipantePerAttributi(String codf, String nome, String cognome, String minSalario, String maxSalario) throws SQLException {
+	public void SelezionePartecipanteMeeting(Dipendente d) throws SQLException {
 		
-		DipendentiSelezionati = dipendenteDao.getDipendenteByAttributi(codf, nome, cognome, minSalario ,maxSalario);
-		return DipendentiSelezionati;
+		inserisciMeeting.addPartecipante(d);
 	}
-	public ArrayList<Dipendente> RicercaPartecipantePerProgetti(String codp, String tipologia, String ambito, String ruolo, String minProgetti, String maxProgetti) throws SQLException {
-		
-		DipendentiSelezionati = dipendenteDao.getDipendenteByProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti);
-		return DipendentiSelezionati;
-	}
-
 	public void RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
 		ArrayList<MeetingFisico> lista = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine);
 		cercaMeeting.PopolaTabellaFisico(lista);
 	}
-    
-	public void InserimentoMeetingFisico(MeetingFisico mf)throws SQLException {
-		meetingDao.insertMeetingFisico(mf);
-	}
-	public void InserimentoMeetingTelematico(MeetingTelematico mt)throws SQLException {
-		meetingDao.insertMeetingTelematico(mt);
-	}
-
-
-		
-	
     public void RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
 		
 		ArrayList<MeetingTelematico> lista = meetingDao.getMeetingTelematicoByAttributi(CodMT, Data, OraInizio,  OraFine, Piattaforma, NumMassimo );

@@ -44,7 +44,7 @@ import java.awt.CardLayout;
 import javax.swing.ListSelectionModel;
 
 
-public class CercaProjectManagerFrame extends JFrame {
+public class CercaPartecipanteMeetingFrame extends JFrame {
 
 	private Controller controller;
 	private JPanel contentPane;
@@ -64,19 +64,19 @@ public class CercaProjectManagerFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public CercaProjectManagerFrame(Controller c) {
+	public CercaPartecipanteMeetingFrame(Controller c) {
 		
 		controller = c;
 
 		setResizable(false);
-		setTitle("Cerca Project Manager");
+		setTitle("Cerca Partecipante Meeting");
 		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				
-				controller.ChiudiFrameCercaProjectManager();
+				controller.ChiudiFrameCercaPartecipanteMeeting();
 			}
 		});
 		setBounds(100, 100, 480, 510);
@@ -259,9 +259,9 @@ public class CercaProjectManagerFrame extends JFrame {
 				int i = tableDipendenti.getSelectedRow();
 				
 				try {
-					controller.SelezioneProjectManager(controller.getDipendenteSelezionato(i));
+					controller.SelezionePartecipanteMeeting(controller.getDipendenteSelezionato(i));
 					
-					controller.ChiudiFrameCercaProjectManager();
+					controller.ChiudiFrameCercaPartecipanteMeeting();
 				}
 				catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -309,7 +309,7 @@ public class CercaProjectManagerFrame extends JFrame {
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				controller.ChiudiFrameCercaProjectManager();
+				controller.ChiudiFrameCercaPartecipanteMeeting();
 			}
 		});
 		buttonIndietro.setBounds(10, 5, 116, 23);
