@@ -9,9 +9,11 @@ import javax.swing.JPanel;
 import dao.DipendenteDAO;
 import dao.MeetingDAO;
 import dao.ProgettoDAO;
+import dao.SalaDAO;
 import dao_impl.DipendenteDAOPostgresImpl;
 import dao_impl.MeetingDAOPostgresImpl;
 import dao_impl.ProgettoDAOPostgresImpl;
+import dao_impl.SalaDAOPostgresImpl;
 import db_config.DBConnection;
 import entità.Dipendente;
 import entità.Meeting;
@@ -19,6 +21,7 @@ import entità.MeetingFisico;
 import entità.MeetingTelematico;
 import entità.Partecipante;
 import entità.Progetto;
+import entità.Sala;
 import gui.*;
 
 public class Controller {
@@ -40,16 +43,20 @@ public class Controller {
 	private CercaMeetingFrame cercaMeeting;
 	private InserisciMeetingFrame inserisciMeeting;
 	private CercaPartecipanteMeetingFrame cercaPartecipanteMeeting;
+	private CercaProgettoMeetingFrame cercaProgettoMeeting;
 	
 	private CercaSalaFrame cercaSala;
 	
 	private DipendenteDAO dipendenteDao;
 	private ProgettoDAO progettoDao;
 	private MeetingDAO meetingDao;
+	private SalaDAO salaDao;
 	
 	private ArrayList<Dipendente> DipendentiSelezionati;
 	private ArrayList<Progetto> ProgettiSelezionati;
-	private ArrayList<Meeting> MeetingSelezionati;
+	private ArrayList<MeetingFisico> MeetingFisiciSelezionati;
+	private ArrayList<MeetingTelematico> MeetingTelematiciSelezionati;
+	private ArrayList<Sala> SaleRiunioniSelezionate;
 
 	public static void main(String[] args) {
 		
@@ -230,6 +237,18 @@ public class Controller {
 		inserisciMeeting.toFront();
 		inserisciMeeting.setEnabled(true);
 	}
+	public void ApriFrameCercaProgettoMeeting() {
+		
+		cercaProgettoMeeting = new CercaProgettoMeetingFrame(this);
+		inserisciMeeting.setEnabled(false);
+		cercaProgettoMeeting.setVisible(true);
+	}
+	public void ChiudiFrameCercaProgettoMeeting() {
+		
+		cercaProgettoMeeting.dispose();
+		inserisciMeeting.toFront();
+		inserisciMeeting.setEnabled(true);
+	}
 	public void ApriFrameCercaSala() {
 //		cercaSala = new CercaSalaFrame(this);
 //		inserisciMeeting.setEnabled(false);
@@ -349,16 +368,30 @@ public class Controller {
 		
 		inserisciMeeting.addPartecipante(d);
 	}
-	public void RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
-		ArrayList<MeetingFisico> lista = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine);
-		cercaMeeting.PopolaTabellaFisico(lista);
-	}
-    public void RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
+	public void SelezioneProgettoMeeting(Progetto p) throws SQLException {
 		
-		ArrayList<MeetingTelematico> lista = meetingDao.getMeetingTelematicoByAttributi(CodMT, Data, OraInizio,  OraFine, Piattaforma, NumMassimo );
-		
-		cercaMeeting.PopolaTabella(lista);
+		inserisciMeeting.setProgetto(p);
 	}
+	public ArrayList<MeetingFisico> RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
+		
+		MeetingFisiciSelezionati = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine);
+
+		return MeetingFisiciSelezionati;
+	}
+    public ArrayList<MeetingTelematico> RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
+		
+		MeetingTelematiciSelezionati = meetingDao.getMeetingTelematicoByAttributi(CodMT, Data, OraInizio,  OraFine, Piattaforma, NumMassimo );
+		
+		return MeetingTelematiciSelezionati;
+	}
+    
+    
+    public ArrayList<Sala> RicercaSalaPerAttributi(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
+    	
+    	SaleRiunioniSelezionate = salaDao.getSalaByAttributi(città, provincia, indirizzo, numCivico, minPosti, maxPosti);
+    	
+    	return SaleRiunioniSelezionate;
+    }
 	
 	public Dipendente getDipendenteSelezionato(int indice) {
 		return DipendentiSelezionati.get(indice);
@@ -366,8 +399,8 @@ public class Controller {
 	public Progetto getProgettoSelezionato(int indice) {
 		return ProgettiSelezionati.get(indice);
 	}
-	public Meeting getMeetingSelezionato(int indice) {
-		return MeetingSelezionati.get(indice);
+	public MeetingFisico getMeetingFisicoSelezionato(int indice) {
+		return MeetingFisiciSelezionati.get(indice);
 	}
 	
 	public void setDaos(String dbms) throws SQLException {
@@ -377,6 +410,7 @@ public class Controller {
 			dipendenteDao = new DipendenteDAOPostgresImpl(connection);
 			progettoDao = new ProgettoDAOPostgresImpl(connection);
 			meetingDao = new MeetingDAOPostgresImpl(connection);
+			salaDao = new SalaDAOPostgresImpl(connection);
 			break;
 		}
 	}

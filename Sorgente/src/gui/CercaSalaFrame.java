@@ -8,11 +8,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
+import entità.Dipendente;
+import entità.Sala;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -36,7 +40,7 @@ public class CercaSalaFrame extends JFrame {
 	private JTextField textFieldNumeroCivico;
 	private JTextField textFieldMinNumeroPosti;
 	private JTextField textFieldMaxNumeroPosti;
-	private JTable table;
+	private JTable tableSale;
 
 	/**
 	 * Create the frame.
@@ -70,22 +74,27 @@ public class CercaSalaFrame extends JFrame {
 		scrollPane.setBounds(0, 245, 464, 156);
 		contentPane.add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		tableSale = new JTable();
+		tableSale.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"Indirizzo"
+				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class
+				String.class, String.class, String.class, Integer.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		});
-		scrollPane.setViewportView(table);
+		scrollPane.setViewportView(tableSale);
 		
 		JLabel labelRicerca = new JLabel("Cerca per:");
 		labelRicerca.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -200,17 +209,17 @@ public class CercaSalaFrame extends JFrame {
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-//				try {
+				try {
 					switch(comboBoxCercaSala.getSelectedItem().toString()) {
 					case "Attributi":
 						String città = textFieldCittà.getText();
 						String provincia = textFieldProvincia.getText();
 						String indirizzo = textFieldIndirizzo.getText();
 						String numeroCivico = textFieldNumeroCivico.getText();
-						String minNumeroPosti = textFieldMinNumeroPosti.getText();
-						String maxNumeroPosti = textFieldMaxNumeroPosti.getText();
+						String minPosti = textFieldMinNumeroPosti.getText();
+						String maxPosti = textFieldMaxNumeroPosti.getText();
 						
-//						PopolaTabella(controller.RicercaDipendentePerAttributi(codf, nome, cognome, minSalario, maxSalario));
+						PopolaTabella(controller.RicercaSalaPerAttributi(città, provincia, indirizzo, numeroCivico, minPosti, maxPosti));
 //						break;
 //					case "Progetti a cui partecipa":
 //						String codp = textFieldCodiceProgetto.getText();
@@ -223,12 +232,22 @@ public class CercaSalaFrame extends JFrame {
 //						PopolaTabella(controller.RicercaDipendentePerProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti));
 //						break;
 					}
-//				}
-//				catch (SQLException ex) {
-//					JOptionPane.showMessageDialog(null, ex.getMessage());
-//				}
+				}
+				catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
 			}
 		});
 		contentPane.add(buttonRicerca);
+	}
+	
+	public void PopolaTabella(ArrayList<Sala> lista) {
+		
+		DefaultTableModel model = (DefaultTableModel) tableSale.getModel();
+		
+		((DefaultTableModel) tableSale.getModel()).setRowCount(0);
+		
+		for (Sala s : lista)
+			model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
 	}
 }
