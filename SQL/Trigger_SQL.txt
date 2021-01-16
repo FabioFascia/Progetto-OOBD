@@ -229,6 +229,72 @@ EXECUTE PROCEDURE Funzione_Limite_MeetingT();
 
 
 
+--La valutazione di un dipendente sale di 1 punto quando inserito come partecipante ad un progetto o ad un meeting:
+
+CREATE FUNCTION Funzione_Aumento_Valutazione()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    New_Val INTEGER := NEW.Valutazione + 1;
+BEGIN
+    UPDATE DIPENDENTE
+    SET Valutazione = New_Val
+    WHERE CodF = NEW.CodF;
+
+    RETURN NULL;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Trigger_Aumento_Valutazione_Progetto
+AFTER INSERT ON PARTECIPANTE
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Aumento_Valutazione();
+
+CREATE TRIGGER Trigger_Aumento_Valutazione_MeetingF
+AFTER INSERT ON PARTECIPAMF
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Aumento_Valutazione();
+
+CREATE TRIGGER Trigger_Aumento_Valutazione_MeetingT
+AFTER INSERT ON PARTECIPAMT
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Aumento_Valutazione();
+
+
+--La valutazione di un dipendente scende di 1 punto quando cancellato come partecipante ad un progetto o ad un meeting:
+
+CREATE FUNCTION Funzione_Diminuzione_Valutazione()
+RETURNS TRIGGER AS
+$$
+DECLARE
+    New_Val INTEGER := NEW.Valutazione - 1;
+BEGIN
+    UPDATE DIPENDENTE
+    SET Valutazione = New_Val
+    WHERE CodF = OLD.CodF;
+
+    RETURN NULL;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Trigger_Diminuzione_Valutazione_Progetto
+AFTER DELETE ON PARTECIPANTE
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Diminuzione_Valutazione();
+
+CREATE TRIGGER Trigger_Diminuzione_Valutazione_MeetingF
+AFTER DELETE ON PARTECIPAMF
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Diminuzione_Valutazione();
+
+CREATE TRIGGER Trigger_Diminuzione_Valutazione_MeetingT
+AFTER DELETE ON PARTECIPAMT
+FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Diminuzione_Valutazione();
+
+
 
 
 -----DA VERIFICARE-----
