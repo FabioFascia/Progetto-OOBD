@@ -280,11 +280,11 @@ public class CercaDipendenteFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Codice Fiscale", "Nome", "Cognome", "Salario"
+				"Codice Fiscale", "Nome", "Cognome", "Salario", "Valutazione"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Float.class
+				String.class, String.class, String.class, Float.class, Integer.class
 			};
 			
 			public Class getColumnClass(int columnIndex) {
@@ -396,7 +396,7 @@ public class CercaDipendenteFrame extends JFrame {
 		model.setRowCount(0);
 		
 		for (Dipendente d : lista)
-			model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
+			model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario(), d.getValutazione()});
 	}
 	
 	public void ShowPopupMenu(MouseEvent e) {

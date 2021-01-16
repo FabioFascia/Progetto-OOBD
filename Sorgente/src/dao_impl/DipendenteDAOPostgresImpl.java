@@ -38,7 +38,7 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 																	+ "Salario BETWEEN ? AND ? "
 																+ "ORDER BY Valutazione DESC;");
 		
-		getDipendenteByProgettiPS = connection.prepareStatement("SELECT DISTINCT D.CodF, D.Nome, D.Cognome, D.Salario "
+		getDipendenteByProgettiPS = connection.prepareStatement("SELECT DISTINCT D.CodF, D.Nome, D.Cognome, D.Salario, D.Valutazione "
 																+ "FROM DIPENDENTE AS D LEFT OUTER JOIN "
 																	+ "PARTECIPANTE AS PA ON "
 																	+ "D.CodF = PA.CodF "
@@ -49,7 +49,8 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 																					+ "AMBITO AS A) RIGHT OUTER JOIN "
 																					+ "DIPENDENTE AS DIP ON "
 																					+ "PAR.CodF = DIP.CodF "
-																				+ "WHERE (? IS NULL OR P.Tipologia ILIKE ?) AND "
+																				+ "WHERE (? = -1 OR P.CodP = ?) AND "
+																					+ "(? IS NULL OR P.Tipologia ILIKE ?) AND "
 																					+ "(? IS NULL OR A.Keyword ILIKE ?) AND "
 																					+ "(? IS NULL OR PAR.Ruolo ILIKE ?) "
 																				+ "GROUP BY DIP.CodF "
@@ -111,14 +112,15 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
 		
 		while(rs.next()) {
-			Dipendente row = new Dipendente();
+			Dipendente d = new Dipendente();
 			
-			row.setCodF(rs.getString("CodF"));
-			row.setNome(rs.getString("Nome"));
-			row.setCognome(rs.getString("Cognome"));
-			row.setSalario(rs.getFloat("Salario"));
+			d.setCodF(rs.getString("CodF"));
+			d.setNome(rs.getString("Nome"));
+			d.setCognome(rs.getString("Cognome"));
+			d.setSalario(rs.getFloat("Salario"));
+			d.setValutazione(rs.getInt("Valutazione"));
 			
-			lista.add(row);
+			lista.add(d);
 		}
 		
 		return lista;
@@ -180,6 +182,7 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 			d.setNome(rs.getString("Nome"));
 			d.setCognome(rs.getString("Cognome"));
 			d.setSalario(rs.getFloat("Salario"));
+			d.setValutazione(rs.getInt("Valutazione"));
 			
 			lista.add(d);
 		}

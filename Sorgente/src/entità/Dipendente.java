@@ -9,6 +9,7 @@ public class Dipendente {
 	private String Nome;
 	private String Cognome;
 	private float Salario;
+	private int Valutazione;
 	
 	//		Relazioni
 	public ArrayList<Partecipante> Progetti;
@@ -52,6 +53,14 @@ public class Dipendente {
 	}
 	public void setSalario(float salario) {
 		Salario = salario;
+	}
+
+	public int getValutazione() {
+		return Valutazione;
+	}
+
+	public void setValutazione(int valutazione) {
+		Valutazione = valutazione;
 	}
 	
 	
