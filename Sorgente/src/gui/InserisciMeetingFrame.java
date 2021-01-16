@@ -212,11 +212,6 @@ public class InserisciMeetingFrame extends JFrame {
 		lblNewLabel_3.setBounds(172, 15, 85, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		btnInserisciMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnInserisciMeeting.setEnabled(false);
-		btnInserisciMeeting.setBounds(81, 437, 259, 23);
-		contentPane.add(btnInserisciMeeting);
-		
 		JSpinner spinnerData = new JSpinner();
 		spinnerData.setBounds(10, 59, 80, 20);
 		spinnerData.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
@@ -312,6 +307,10 @@ public class InserisciMeetingFrame extends JFrame {
 				}
 			}
 		});
+		btnInserisciMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnInserisciMeeting.setEnabled(false);
+		btnInserisciMeeting.setBounds(81, 437, 259, 23);
+		contentPane.add(btnInserisciMeeting);
 	}
 	
 	public void addPartecipante(Dipendente d) {
