@@ -237,7 +237,7 @@ $$
 DECLARE
     New_Val INTEGER;
 BEGIN
-    SELECT Valutazione IN New_Val
+    SELECT Valutazione INTO New_Val
     FROM DIPENDENTE
     WHERE CodF = NEW.CodF;
 
@@ -276,11 +276,11 @@ $$
 DECLARE
     New_Val INTEGER;
 BEGIN
-    SELECT Valutazione IN New_Val
+    SELECT Valutazione INTO New_Val
     FROM DIPENDENTE
     WHERE CodF = NEW.CodF;
 
-    New_Val := New_Val + 1
+    New_Val := New_Val - 1
 
     UPDATE DIPENDENTE
     SET Valutazione = New_Val
