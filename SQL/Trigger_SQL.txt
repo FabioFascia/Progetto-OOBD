@@ -235,8 +235,14 @@ CREATE FUNCTION Funzione_Aumento_Valutazione()
 RETURNS TRIGGER AS
 $$
 DECLARE
-    New_Val INTEGER := NEW.Valutazione + 1;
+    New_Val INTEGER;
 BEGIN
+    SELECT Valutazione IN New_Val
+    FROM DIPENDENTE
+    WHERE CodF = NEW.CodF;
+
+    New_Val := New_Val + 1;
+
     UPDATE DIPENDENTE
     SET Valutazione = New_Val
     WHERE CodF = NEW.CodF;
@@ -268,8 +274,14 @@ CREATE FUNCTION Funzione_Diminuzione_Valutazione()
 RETURNS TRIGGER AS
 $$
 DECLARE
-    New_Val INTEGER := NEW.Valutazione - 1;
+    New_Val INTEGER;
 BEGIN
+    SELECT Valutazione IN New_Val
+    FROM DIPENDENTE
+    WHERE CodF = NEW.CodF;
+
+    New_Val := New_Val + 1
+
     UPDATE DIPENDENTE
     SET Valutazione = New_Val
     WHERE CodF = OLD.CodF;
