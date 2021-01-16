@@ -2,18 +2,18 @@ CREATE PROCEDURE Popola_DB ()
 AS
 $$
 BEGIN
-    INSERT INTO DIPENDENTE (Nome, Cognome, Salario, CodF)
-    VALUES ('Alberto', 'Angela', 3400.00,  'NGLLBR73D21D836K'),
-	    ('Cristoforo', 'Colombo', 1250.00, 'CLMCRS38G09S395M'),
-	    ('Alan', 'Turing', 1600.66, 'TRNLNA29F98A145S'),
-	    ('Fabio', 'Fascia', 10.21, 'FSCFBA12J43C847J'),
-	    ('Salvatore', 'Conte', 2464.80, 'CNTSLV86V20D975G'),
-	    ('Stefano', 'Campanile', 0.58, 'CMPSTF85V39G238F'),
-	    ('Alessandro', 'Immagno', 3203.59, 'MMGLSS82B56N290D'),
-	    ('Michele', 'Poggi', 8000.00, 'PGGMCH93H89S038D'),
-	    ('Marco', 'Montemagno', 11999.99, 'MNTMRC92H84H194H'),
-	    ('Jeff', 'Bezos', 10101010.10, 'BZSJFF93J59N238S'),
-	    ('Francesco', 'Cilurzo', 3250.00, 'CLRFRN93J43A134V');
+    INSERT INTO DIPENDENTE (Nome, Cognome, Salario, CodF, Valutazione)
+    VALUES ('Alberto', 'Angela', 3400.00,  'NGLLBR73D21D836K', 0),
+	    ('Cristoforo', 'Colombo', 1250.00, 'CLMCRS38G09S395M', 0),
+	    ('Alan', 'Turing', 1600.66, 'TRNLNA29F98A145S', 0),
+	    ('Fabio', 'Fascia', 10.21, 'FSCFBA12J43C847J', 0),
+	    ('Salvatore', 'Conte', 2464.80, 'CNTSLV86V20D975G', 0),
+	    ('Stefano', 'Campanile', 0.58, 'CMPSTF85V39G238F', 0),
+	    ('Alessandro', 'Immagno', 3203.59, 'MMGLSS82B56N290D', 0),
+	    ('Michele', 'Poggi', 8000.00, 'PGGMCH93H89S038D', 0),
+	    ('Marco', 'Montemagno', 11999.99, 'MNTMRC92H84H194H', 0),
+	    ('Jeff', 'Bezos', 10101010.10, 'BZSJFF93J59N238S', 0),
+	    ('Francesco', 'Cilurzo', 3250.00, 'CLRFRN93J43A134V', 0);
 
 --Insert_Progetto(Tipologia, CodF [Project Manager], Descrizione)
 

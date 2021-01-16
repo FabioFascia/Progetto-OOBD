@@ -10,7 +10,8 @@ CREATE TABLE DIPENDENTE
 	CHECK (Nome ~* '^[A-Za-z ]+$'),
     Cognome VARCHAR(30) NOT NULL
 	CHECK (Cognome ~* '^[A-Za-z ]+$'),
-    Salario REAL
+    Salario REAL,
+    Valutazione INTEGER NOT NULL
 );
 
 CREATE TABLE PROGETTO
