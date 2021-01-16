@@ -24,7 +24,7 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		
 		connection = c;
 		
-		insertDipendentePS = connection.prepareStatement("INSERT INTO DIPENDENTE VALUES (?, ?, ?, ?);");
+		insertDipendentePS = connection.prepareStatement("INSERT INTO DIPENDENTE VALUES (?, ?, ?, ?, ?);");
 		
 		updateDipendentePS = connection.prepareStatement("UPDATE DIPENDENTE SET CodF = ?, Nome = ?, Cognome = ?, Salario = ? WHERE Codf = ?;");
 		
@@ -36,7 +36,7 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 																	+ "Nome ILIKE ? AND "
 																	+ "Cognome ILIKE ? AND "
 																	+ "Salario BETWEEN ? AND ? "
-																+ "ORDER BY Nome, Cognome;");
+																+ "ORDER BY Valutazione DESC;");
 		
 		getDipendenteByProgettiPS = connection.prepareStatement("SELECT DISTINCT D.CodF, D.Nome, D.Cognome, D.Salario "
 																+ "FROM DIPENDENTE AS D LEFT OUTER JOIN "
@@ -54,7 +54,7 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 																					+ "(? IS NULL OR PAR.Ruolo ILIKE ?) "
 																				+ "GROUP BY DIP.CodF "
 																				+ "HAVING COUNT(P.CodP) BETWEEN ? AND ?) "
-																				+ "ORDER BY D.Nome, D.Cognome;");
+																+ "ORDER BY D.Valutazione DESC;");
 		}
 	
 	public void insertDipendente(Dipendente d) throws SQLException {
@@ -63,6 +63,7 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		insertDipendentePS.setString(2, d.getNome());
 		insertDipendentePS.setString(3, d.getCognome());
 		insertDipendentePS.setFloat(4, d.getSalario());
+		insertDipendentePS.setInt(5, 0);
 		
 		insertDipendentePS.execute();
 	}

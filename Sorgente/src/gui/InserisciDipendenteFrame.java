@@ -132,6 +132,8 @@ public class InserisciDipendenteFrame extends JFrame {
 				try {
 					controller.InserimentoDipendente(d);
 					JOptionPane.showMessageDialog(null, "Inserimento riuscito!");
+					
+					controller.ChiudiFrameInserisciDipendenteInCercaDipendente();
 				}
 				catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
