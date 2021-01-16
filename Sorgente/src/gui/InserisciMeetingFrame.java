@@ -202,6 +202,7 @@ public class InserisciMeetingFrame extends JFrame {
 						layeredPane.add(panelTelematico);
 						layeredPane.repaint();
 						layeredPane.revalidate();
+						break;
 					}
 			}
 		});
