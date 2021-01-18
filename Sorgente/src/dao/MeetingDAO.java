@@ -4,9 +4,11 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import entità.Dipendente;
 import entità.Meeting;
 import entità.MeetingFisico;
 import entità.MeetingTelematico;
+import entità.Progetto;
 import entità.Sala;
 
 public interface MeetingDAO {
@@ -18,7 +20,7 @@ public interface MeetingDAO {
     public void updateMeetingTelematico (MeetingTelematico mt) throws SQLException;
     public void deleteMeetingFisico (MeetingFisico mf) throws SQLException;
     public void deleteMeetingTelematico (MeetingTelematico mt) throws SQLException;
-	
+    public void deletePartecipanteMeeting(MeetingFisico mf, Dipendente d) throws SQLException;
 	public  ArrayList<MeetingFisico> getMeetingFisicoByAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException;
 
 

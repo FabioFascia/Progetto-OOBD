@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
@@ -32,6 +33,7 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -40,8 +42,10 @@ import java.awt.CardLayout;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class InserisciMeetingFrame extends JFrame {
+public class ModificaMeetingFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
@@ -51,12 +55,14 @@ public class InserisciMeetingFrame extends JFrame {
 	private JTextField textFieldLimitePartecipanti;
 	private JButton btnInserisciMeeting;
 	private JTable tableProgetto;
-
+	private MeetingFisico oldMeeting;
+    private JPopupMenu popupMenuTable;
 	/**
 	 * Create the frame.
 	 */
-	public InserisciMeetingFrame(Controller c) {
+	public ModificaMeetingFrame(Controller c, MeetingFisico mf) {
 		controller = c;
+		oldMeeting = mf;
 		setTitle("Inserisci Meeting");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -257,6 +263,20 @@ public class InserisciMeetingFrame extends JFrame {
 		contentPane.add(scrollPane_2);
 		
 		tableProgetto = new JTable();
+		tableProgetto.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			}
+		});
 		tableProgetto.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -378,5 +398,63 @@ public class InserisciMeetingFrame extends JFrame {
 			ret = false;
 		
 		btnInserisciMeeting.setEnabled(ret);
+	}
+	public void ShowPopupMenu(MouseEvent e) {
+		
+		popupMenuTable = new JPopupMenu();
+				
+		JMenuItem itemElimina = new JMenuItem("Elimina righe");
+		if (e.getSource() == tablePartecipanti) {
+			
+			itemElimina.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+					case JOptionPane.YES_OPTION:
+						while (tablePartecipanti.getSelectedRowCount() > 0) {
+							try {
+								deletePartecipante(tablePartecipanti.getSelectedRow());
+							}
+							catch (SQLException ex) {
+								JOptionPane.showMessageDialog(null, ex.getMessage());
+							}
+						}
+						break;
+					case JOptionPane.NO_OPTION:
+						break;
+					}
+				}
+			});
+			if(tablePartecipanti.getSelectedRowCount() > 0)
+				popupMenuTable.add(itemElimina);
+		}
+		else if (e.getSource() == tableProgetto) {
+			
+			itemElimina.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+					switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+					case JOptionPane.YES_OPTION:
+						while (tableProgetto.getSelectedRowCount() > 0) {
+							int i = tableProgetto.getSelectedRow();
+							((DefaultTableModel)tableProgetto.getModel()).removeRow(i);
+						}
+						break;
+					case JOptionPane.NO_OPTION:
+						break;
+					}
+				}
+			});
+			if(tableProgetto.getSelectedRowCount() > 0)
+				popupMenuTable.add(itemElimina);
+		}
+		
+		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
+	}
+	public void deletePartecipante(int indice) throws SQLException {
+		
+		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
+		
+		controller.CancellazionePartecipanteMeeting(oldMeeting, oldMeeting.getPartecipanti().get(indice));
 	}
 }

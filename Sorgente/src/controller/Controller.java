@@ -41,6 +41,7 @@ public class Controller {
 	private CercaPartecipanteFrame cercaPartecipante;
 	
 	private CercaMeetingFrame cercaMeeting;
+	private ModificaMeetingFrame modificaMeeting;
 	private InserisciMeetingFrame inserisciMeeting;
 	private CercaPartecipanteMeetingFrame cercaPartecipanteMeeting;
 	private CercaProgettoMeetingFrame cercaProgettoMeeting;
@@ -220,6 +221,11 @@ public class Controller {
 		cercaMeeting.setEnabled(false);
 		inserisciMeeting.setVisible(true);
 	}
+	public void ApriFrameModificaMeetingInCercaMeeting(MeetingFisico mf) {
+	     modificaMeeting = new ModificaMeetingFrame(this, mf);
+	     cercaMeeting.setEnabled(false);
+	     modificaMeeting.setVisible(true);
+	}
 	public void ChiudiFrameInserisciMeetingInCercaMeeting() {
 		
 		inserisciMeeting.dispose();
@@ -371,6 +377,15 @@ public class Controller {
 	}
 	public void InserimentoMeetingTelematico(MeetingTelematico mt) throws SQLException {
 		meetingDao.insertMeetingTelematico(mt);
+	}
+	public void CancellazioneMeetingFisico(MeetingFisico mf) throws SQLException{
+		meetingDao.deleteMeetingFisico(mf);
+	}
+	
+    public void CancellazionePartecipanteMeeting(MeetingFisico mf, Partecipante par) throws SQLException {
+		
+		mf.getPartecipanti().remove(par);
+		meetingDao.deletePartecipante(mf, par.getDipendente());
 	}
 	public void SelezionePartecipanteMeeting(Dipendente d) throws SQLException {
 		
