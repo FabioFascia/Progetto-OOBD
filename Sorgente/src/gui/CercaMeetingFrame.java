@@ -478,6 +478,11 @@ public class CercaMeetingFrame extends JFrame {
 		scrollPane_1.setViewportView(tableMeetingTelematico);
 		
 		JButton btnInserisciMeetingTelematico = new JButton("Inserisci Meeting");
+		btnInserisciMeetingTelematico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.ApriFrameInserisciMeetingInCercaMeeting();
+			}
+		});
 		btnInserisciMeetingTelematico.setBounds(9, 170, 170, 23);
 		panelTelematico.add(btnInserisciMeetingTelematico);
 		

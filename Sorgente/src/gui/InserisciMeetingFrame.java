@@ -91,7 +91,7 @@ public class InserisciMeetingFrame extends JFrame {
 		panelFisico.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 43, 302, 41);
+		scrollPane.setBounds(0, 43, 309, 41);
 		panelFisico.add(scrollPane);
 		
 		tableSala = new JTable();
@@ -184,7 +184,7 @@ public class InserisciMeetingFrame extends JFrame {
 		contentPane.add(btnNewButton_2);
 		
 		JComboBox comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
-		comboBoxTipoMeeting.setBounds(267, 11, 155, 22);
+		comboBoxTipoMeeting.setBounds(259, 12, 155, 22);
 		comboBoxTipoMeeting.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 
@@ -208,7 +208,7 @@ public class InserisciMeetingFrame extends JFrame {
 		
 		JLabel lblNewLabel_3 = new JLabel("Tipo Meeting:");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_3.setBounds(172, 15, 85, 14);
+		lblNewLabel_3.setBounds(169, 16, 85, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		JSpinner spinnerData = new JSpinner();
