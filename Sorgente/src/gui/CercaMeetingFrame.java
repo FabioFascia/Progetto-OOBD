@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
@@ -12,6 +13,7 @@ import entità.Dipendente;
 import entità.Meeting;
 import entità.MeetingFisico;
 import entità.MeetingTelematico;
+import entità.Progetto;
 
 import javax.swing.JRadioButton;
 import javax.swing.BoxLayout;
@@ -24,6 +26,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -48,6 +51,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import javax.swing.JCheckBox;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CercaMeetingFrame extends JFrame {
 
@@ -60,6 +65,7 @@ public class CercaMeetingFrame extends JFrame {
     private JTextField textPiattaforma;
     private JTextField textNumeroMassimo;
     private JTextField textCodiceMeetingFisico;
+    private JPopupMenu popupMenuTable;
     
    
 	/**
@@ -146,6 +152,21 @@ public class CercaMeetingFrame extends JFrame {
 		panelFisico.add(scrollPane);
 		
 		tableMeetingFisico = new JTable();
+		tableMeetingFisico.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			}
+		});
 		tableMeetingFisico.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -390,7 +411,58 @@ public class CercaMeetingFrame extends JFrame {
 		
 	
 	}
-    	
+    
+    	public void ShowPopupMenu(MouseEvent e) {
+    		
+    		popupMenuTable = new JPopupMenu();
+    		
+    		JMenuItem itemModifica = new JMenuItem("Modifica meeting");
+    		itemModifica.addActionListener(new ActionListener() {
+    			
+    			public void actionPerformed(ActionEvent e) {
+    				
+    				
+    				int i = tableMeetingFisico.getSelectedRow();
+    				
+    				controller.ApriFrameModificaMeetingInCercaMeeting(controller.getMeetingFisicoSelezionato(i));
+    			}
+    		});
+    		
+    		JMenuItem itemElimina = new JMenuItem("Elimina meeting");
+    		itemElimina.addActionListener(new ActionListener() {
+    			
+    			public void actionPerformed(ActionEvent e) {
+    				
+    				switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+    				case JOptionPane.YES_OPTION:
+    					try {
+    						ArrayList<MeetingFisico> selectedRows = new ArrayList<MeetingFisico>();
+    						
+    						for (int i :tableMeetingFisico.getSelectedRows()) {
+    							selectedRows.add(controller.getMeetingFisicoSelezionato(i));
+    						}
+    						
+    						for (MeetingFisico row : selectedRows)
+    							controller.CancellazioneMeetingFisico(row);
+    					}
+    					catch(SQLException ex) {
+    						JOptionPane.showMessageDialog(null, ex.getMessage());
+    					}
+    					break;
+    				case JOptionPane.NO_OPTION:
+    					
+    				}
+    			}
+    		});
+    		
+    		if(tableMeetingFisico.getSelectedRowCount() == 1)
+    			popupMenuTable.add(itemModifica);
+    		if(tableMeetingFisico.getSelectedRowCount() > 0)
+    			popupMenuTable.add(itemElimina);
+    		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
+    	}
+    
+    
 	
 	public void PopolaTabellaTelematico(ArrayList<MeetingTelematico> lista) {
     		
@@ -412,4 +484,5 @@ public class CercaMeetingFrame extends JFrame {
     		model.addRow(new Object[] {mf.getCodice(), mf.getData(), mf.getOraI(), mf.getOraF(), mf.getSalaRiunioni().getCittà()});
 
     }
+
 }
