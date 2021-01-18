@@ -319,7 +319,7 @@ public class InserisciMeetingFrame extends JFrame {
 					break;
 				case "Telematico" :
 					
-					mt= new MeetingTelematico();
+					mt = new MeetingTelematico();
 					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
 					mt.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
 					mt.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
@@ -369,7 +369,7 @@ public class InserisciMeetingFrame extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tableSala.getModel();
 		
 		model.setRowCount(0);
-		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
+		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti(), s.getCodice()});
 		
 		ToggleInsertButton();
 	}

@@ -42,7 +42,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		
 		connection = c;
 		
-		insertMeetingFisicoPS = connection.prepareStatement("CALL Insert_MeetingF(?, ?, ?, ?);");
+		insertMeetingFisicoPS = connection.prepareStatement("CALL Insert_MeetingF(?, ?, ?, ?, ?);");
 		insertMeetingTelematicoPS = connection.prepareStatement("CALL Insert_MeetingT(?, ?, ?, ?, ?, ?);");
 		
 		updateMeetingFisicoPS = connection.prepareStatement("UPDATE MEETINGF SET Data = ?, OraI = ?, OraF = ?, CodSala = ? WHERE CodMF = ?;");
@@ -76,21 +76,23 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 	
     public void insertMeetingFisico (MeetingFisico mf) throws SQLException {
     	
-    	insertMeetingFisicoPS.setDate(1, mf.getData());
-    	insertMeetingFisicoPS.setTime(2, mf.getOraI());
-    	insertMeetingFisicoPS.setTime(3, mf.getOraF());
-    	insertMeetingFisicoPS.setInt(4, mf.getSalaRiunioni().getCodice());
+    	insertMeetingFisicoPS.setInt(1, mf.getProgettoMeeting().getCodice());
+    	insertMeetingFisicoPS.setDate(2, mf.getData());
+    	insertMeetingFisicoPS.setTime(3, mf.getOraI());
+    	insertMeetingFisicoPS.setTime(4, mf.getOraF());
+    	insertMeetingFisicoPS.setInt(5, mf.getSalaRiunioni().getCodice());
     	
     	insertMeetingFisicoPS.execute();
     }
     
     public void insertMeetingTelematico (MeetingTelematico mt) throws SQLException {
     	
-    	insertMeetingTelematicoPS.setDate(1, mt.getData());
-    	insertMeetingTelematicoPS.setTime(2, mt.getOraI());
-    	insertMeetingTelematicoPS.setTime(3, mt.getOraF());
-    	insertMeetingTelematicoPS.setString(4, mt.getPiattaforma());
-    	insertMeetingTelematicoPS.setInt(5, mt.getNumeroLimite());
+    	insertMeetingTelematicoPS.setInt(1, mt.getProgettoMeeting().getCodice());
+    	insertMeetingTelematicoPS.setDate(2, mt.getData());
+    	insertMeetingTelematicoPS.setTime(3, mt.getOraI());
+    	insertMeetingTelematicoPS.setTime(4, mt.getOraF());
+    	insertMeetingTelematicoPS.setString(5, mt.getPiattaforma());
+    	insertMeetingTelematicoPS.setInt(6, mt.getNumeroLimite());
     	
     	insertMeetingTelematicoPS.execute();
     }

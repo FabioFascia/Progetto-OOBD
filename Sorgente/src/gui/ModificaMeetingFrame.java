@@ -55,14 +55,14 @@ public class ModificaMeetingFrame extends JFrame {
 	private JTextField textFieldLimitePartecipanti;
 	private JButton buttonModificaMeeting;
 	private JTable tableProgetto;
-	private MeetingFisico oldMeeting;
+	private Meeting oldMeeting;
     private JPopupMenu popupMenuTable;
 	/**
 	 * Create the frame.
 	 */
-	public ModificaMeetingFrame(Controller c, MeetingFisico mf) {
+	public ModificaMeetingFrame(Controller c, Meeting m) {
 		controller = c;
-		oldMeeting = mf;
+		oldMeeting = m;
 		setTitle("Inserisci Meeting");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
