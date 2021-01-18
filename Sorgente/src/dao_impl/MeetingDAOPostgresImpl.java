@@ -92,7 +92,10 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	insertMeetingTelematicoPS.setTime(3, mt.getOraI());
     	insertMeetingTelematicoPS.setTime(4, mt.getOraF());
     	insertMeetingTelematicoPS.setString(5, mt.getPiattaforma());
-    	insertMeetingTelematicoPS.setInt(6, mt.getNumeroLimite());
+    	if(mt.getNumeroLimite() == -1)
+    		insertMeetingTelematicoPS.setNull(6, java.sql.Types.INTEGER);
+    	else
+    		insertMeetingTelematicoPS.setInt(6, mt.getNumeroLimite());
     	
     	insertMeetingTelematicoPS.execute();
     }

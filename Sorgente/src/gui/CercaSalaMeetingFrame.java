@@ -72,7 +72,7 @@ public class CercaSalaMeetingFrame extends JFrame {
 		JButton buttonIndietro = new JButton("Indietro");
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.CambiaFrameCercaSalaInMainMenu();
+				controller.ChiudiFrameCercaSalaMeeting();
 			}
 		});
 		buttonIndietro.setBounds(10, 11, 116, 23);

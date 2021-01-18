@@ -45,6 +45,7 @@ public class InserisciMeetingFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
+	private JComboBox comboBoxTipoMeeting;
 	private JTable tableSala;
 	private JTable tablePartecipanti;
 	private JTextField textFieldPiattaforma;
@@ -183,7 +184,7 @@ public class InserisciMeetingFrame extends JFrame {
 		btnNewButton_2.setBounds(10, 247, 183, 23);
 		contentPane.add(btnNewButton_2);
 		
-		JComboBox comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
+		comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
 		comboBoxTipoMeeting.setBounds(259, 12, 155, 22);
 		comboBoxTipoMeeting.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -202,6 +203,7 @@ public class InserisciMeetingFrame extends JFrame {
 						layeredPane.revalidate();
 						break;
 					}
+					ToggleInsertButton();
 			}
 		});
 		contentPane.add(comboBoxTipoMeeting);
@@ -325,7 +327,10 @@ public class InserisciMeetingFrame extends JFrame {
 					mt.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
 					mt.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
 					mt.setPiattaforma(textFieldPiattaforma.getText());
-					mt.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
+					if(textFieldLimitePartecipanti.getText().isBlank())
+						mt.setNumeroLimite(-1);
+					else
+						mt.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
 					mt.setProgettoMeeting(p);
 					
 					for(int i : tablePartecipanti.getSelectedRows()) {
@@ -377,13 +382,26 @@ public class InserisciMeetingFrame extends JFrame {
 		
 		boolean ret = true;
 		
-		if(tableSala.getModel().getRowCount() == 0)
-			ret = false;
-		else if(tablePartecipanti.getModel().getRowCount() == 0)
-			ret = false;
-		else if(tableProgetto.getModel().getRowCount() == 0)
-			ret = false;
-		
-		btnInserisciMeeting.setEnabled(ret);
+		switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
+		case "Fisico":
+			if(tableSala.getModel().getRowCount() == 0)
+				ret = false;
+			else if(tablePartecipanti.getModel().getRowCount() == 0)
+				ret = false;
+			else if(tableProgetto.getModel().getRowCount() == 0)
+				ret = false;
+			
+			btnInserisciMeeting.setEnabled(ret);
+			break;
+		case "Telematico":
+			if(textFieldPiattaforma.getText().isBlank())
+				ret = false;
+			else if(tablePartecipanti.getModel().getRowCount() == 0)
+				ret = false;
+			else if(tableProgetto.getModel().getRowCount() == 0)
+				ret = false;
+			
+			btnInserisciMeeting.setEnabled(ret);
+		}
 	}
 }
