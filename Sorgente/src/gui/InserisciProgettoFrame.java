@@ -358,10 +358,8 @@ public class InserisciProgettoFrame extends JFrame {
 					
 					switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
 					case JOptionPane.YES_OPTION:
-						while (tablePartecipanti.getSelectedRowCount() > 0) {
-							int i = tablePartecipanti.getSelectedRow();
-							((DefaultTableModel)tablePartecipanti.getModel()).removeRow(i);
-						}
+						while (tablePartecipanti.getSelectedRowCount() > 0)
+							((DefaultTableModel) tablePartecipanti.getModel()).removeRow(tablePartecipanti.getSelectedRow());
 						break;
 					case JOptionPane.NO_OPTION:
 						break;

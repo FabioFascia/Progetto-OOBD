@@ -5,6 +5,7 @@ import entità.Dipendente;
 import entità.Meeting;
 import entità.MeetingFisico;
 import entità.MeetingTelematico;
+import entità.Progetto;
 import entità.Sala;
 
 import java.sql.Connection;
@@ -30,12 +31,18 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 	private PreparedStatement updateMeetingTelematicoPS;
 	private PreparedStatement deleteMeetingFisicoPS;
 	private PreparedStatement deleteMeetingTelematicoPS;
+	
+	private PreparedStatement insertPartecipanteMeetingFisicoPS;
+	private PreparedStatement insertPartecipanteMeetingTelematicoPS;
 	private PreparedStatement deletePartecipanteMeetingFisicoPS;
 	private PreparedStatement deletePartecipanteMeetingTelematicoPS;
 	
 	private PreparedStatement getMeetingFisicoByAttributiPS;
 	private PreparedStatement getMeetingTelematicoByAttributiPS;
+	
 	private PreparedStatement getSalaMeetingFisicoPS;
+	private PreparedStatement getProgettoMeetingPS;
+	private PreparedStatement getPartecipantiMeetingFisicoPS;
 
 	
 	public  MeetingDAOPostgresImpl (Connection c) throws SQLException{
@@ -51,6 +58,8 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		deleteMeetingFisicoPS = connection.prepareStatement("DELETE FROM MEETINGF WHERE CodMF = ?;");
 		deleteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM MEETING WHERE CodMT = ?;");
 		
+		insertPartecipanteMeetingFisicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMF VALUES (?, ?);");
+		insertPartecipanteMeetingTelematicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMT VALUES (?, ?);");
 		deletePartecipanteMeetingFisicoPS = connection.prepareStatement("DELETE FROM PARTECIPAMF WHERE CodMF = ? AND CodF = ?;");
 		deletePartecipanteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM PARTECIPAMT WHERE CodMT = ? AND CodF = ?;");
 		
@@ -68,7 +77,13 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		                                                                              + "  AND((OraI BETWEEN ? AND ?) OR (OraF BETWEEN ? AND ?)) AND "
 		                                                                                + "((Piattaforma ILIKE ?) AND (NumLimite = ? OR ? = -2)); ");
 		
-		getSalaMeetingFisicoPS = connection.prepareStatement("SELECT * FROM SALA WHERE CodSala = ?");
+		getSalaMeetingFisicoPS = connection.prepareStatement("SELECT * FROM SALA WHERE CodSala = ?;");
+		getProgettoMeetingPS = connection.prepareStatement("SELECT * FROM PROGETTO WHERE CodP = ?;");
+		getPartecipantiMeetingFisicoPS = connection.prepareStatement("SELECT D.CodF, D.Nome, D.Cognome, D.Salario, D.Valutazione "
+																	+ "FROM PARTECIPAMF AS PMF NATURAL JOIN "
+																			+ "DIPENDENTE AS D "
+																	+ "WHERE PMF.CodMF = ? "
+																	+ "ORDER BY D.Valutazione;");
 		   
 	}		                                                                            
 		                            
@@ -78,8 +93,8 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     	insertMeetingFisicoPS.setInt(1, mf.getProgettoMeeting().getCodice());
     	insertMeetingFisicoPS.setDate(2, mf.getData());
-    	insertMeetingFisicoPS.setTime(3, mf.getOraI());
-    	insertMeetingFisicoPS.setTime(4, mf.getOraF());
+    	insertMeetingFisicoPS.setTime(3, mf.getOraInizio());
+    	insertMeetingFisicoPS.setTime(4, mf.getOraFine());
     	insertMeetingFisicoPS.setInt(5, mf.getSalaRiunioni().getCodice());
     	
     	insertMeetingFisicoPS.execute();
@@ -89,8 +104,8 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     	insertMeetingTelematicoPS.setInt(1, mt.getProgettoMeeting().getCodice());
     	insertMeetingTelematicoPS.setDate(2, mt.getData());
-    	insertMeetingTelematicoPS.setTime(3, mt.getOraI());
-    	insertMeetingTelematicoPS.setTime(4, mt.getOraF());
+    	insertMeetingTelematicoPS.setTime(3, mt.getOraInizio());
+    	insertMeetingTelematicoPS.setTime(4, mt.getOraFine());
     	insertMeetingTelematicoPS.setString(5, mt.getPiattaforma());
     	if(mt.getNumeroLimite() == -1)
     		insertMeetingTelematicoPS.setNull(6, java.sql.Types.INTEGER);
@@ -115,8 +130,8 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     public void updateMeetingFisico (MeetingFisico mf) throws SQLException {
     	
     	updateMeetingFisicoPS.setDate(1, mf.getData());
-    	updateMeetingFisicoPS.setTime(2, mf.getOraI());
-    	updateMeetingFisicoPS.setTime(3, mf.getOraF());
+    	updateMeetingFisicoPS.setTime(2, mf.getOraInizio());
+    	updateMeetingFisicoPS.setTime(3, mf.getOraFine());
     	updateMeetingFisicoPS.setInt(4, mf.getSalaRiunioni().getCodice());
     	updateMeetingFisicoPS.setInt(5, mf.getCodice());
     	
@@ -127,8 +142,8 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     public void updateMeetingTelematico (MeetingTelematico mt) throws SQLException {
     	
     	updateMeetingTelematicoPS.setDate(1, mt.getData());
-    	updateMeetingTelematicoPS.setTime(2, mt.getOraI());
-    	updateMeetingTelematicoPS.setTime(3, mt.getOraF());
+    	updateMeetingTelematicoPS.setTime(2, mt.getOraInizio());
+    	updateMeetingTelematicoPS.setTime(3, mt.getOraFine());
     	updateMeetingTelematicoPS.setString(4, mt.getPiattaforma());
     	updateMeetingTelematicoPS.setInt(5, mt.getNumeroLimite());
     	updateMeetingTelematicoPS.setInt(6, mt.getCodice());
@@ -137,20 +152,32 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     }
     
-    public void deletePartecipanteMeeting (Meeting m, Dipendente d) throws SQLException {
+    public void insertPartecipanteMeetingFisico (MeetingFisico m, Dipendente d) throws SQLException {
     	
-    	if(Meeting.class.equals(MeetingFisico.class)) {
-    		deletePartecipanteMeetingFisicoPS.setInt(1, m.getCodice());
-    		deletePartecipanteMeetingFisicoPS.setString(2, d.getCodF());
-    		
-    		deletePartecipanteMeetingFisicoPS.execute();
-    	}
-    	else {
-    		deletePartecipanteMeetingTelematicoPS.setInt(1, m.getCodice());
-    		deletePartecipanteMeetingTelematicoPS.setString(2, d.getCodF());
-    		
-    		deletePartecipanteMeetingTelematicoPS.execute();
-    	}
+    	insertPartecipanteMeetingFisicoPS.setInt(1, m.getCodice());
+    	insertPartecipanteMeetingFisicoPS.setString(2, d.getCodF());
+    	
+    	insertPartecipanteMeetingFisicoPS.execute();
+//    	else {
+//    		insertPartecipanteMeetingTelematicoPS.setInt(1, m.getCodice());
+//    		insertPartecipanteMeetingTelematicoPS.setString(2, d.getCodF());
+//    		
+//    		insertPartecipanteMeetingTelematicoPS.execute();
+//    	}
+    }
+    
+    public void deletePartecipanteMeetingFisico (MeetingFisico m, Dipendente d) throws SQLException {
+    	
+    	deletePartecipanteMeetingFisicoPS.setInt(1, m.getCodice());
+    	deletePartecipanteMeetingFisicoPS.setString(2, d.getCodF());
+    	
+    	deletePartecipanteMeetingFisicoPS.execute();
+//    	else {
+//    		deletePartecipanteMeetingTelematicoPS.setInt(1, m.getCodice());
+//    		deletePartecipanteMeetingTelematicoPS.setString(2, d.getCodF());
+//    		
+//    		deletePartecipanteMeetingTelematicoPS.execute();
+//    	}
     }
     
 
@@ -193,13 +220,13 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     		
     		mf.setCodice(rs.getInt("CodMF"));
     		mf.setData(rs.getDate("Data"));
-    		mf.setOraI(rs.getTime("OraI"));
-    		mf.setOraF(rs.getTime("OraF"));
+    		mf.setOraInizio(rs.getTime("OraI"));
+    		mf.setOraFine(rs.getTime("OraF"));
             mf.setSalaRiunioni(getSalaMeetingFisico(rs.getInt("CodSala")));
-    		
+            mf.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
+            mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
     		
     		lista.add(mf);
-    		
     	}
 		return lista;
     	
@@ -246,8 +273,8 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     		
     		m.setCodice(rs.getInt("CodMT"));
     		m.setData(rs.getDate("Data"));
-    		m.setOraI(rs.getTime("OraI"));
-    		m.setOraF(rs.getTime("OraF"));
+    		m.setOraInizio(rs.getTime("OraI"));
+    		m.setOraFine(rs.getTime("OraF"));
     		m.setPiattaforma(rs.getString("Piattaforma"));
     		m.setNumeroLimite(rs.getInt("NumLimite"));
     		
@@ -273,6 +300,44 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		 
 		 return s;
 	 }
+    
+    public Progetto getProgettoMeeting(int codp) throws SQLException {
+    
+    	getProgettoMeetingPS.setInt(1, codp);
+    	
+    	ResultSet rs = getProgettoMeetingPS.executeQuery();
+    	
+    	rs.next();
+    	Progetto p = new Progetto();
+    	
+    	p.setCodice(rs.getInt("CodP"));
+    	p.setTipologia(rs.getString("Tipologia"));
+    	
+    	return p;
+    }
+    
+    public ArrayList<Dipendente> getPartecipantiMeetingFisico(int codmf) throws SQLException {
+    	
+    	getPartecipantiMeetingFisicoPS.setInt(1, codmf);
+    	
+    	ResultSet rs = getPartecipantiMeetingFisicoPS.executeQuery();
+    	
+    	ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
+    	
+    	while(rs.next()) {
+    		Dipendente d = new Dipendente();
+    		
+    		d.setCodF(rs.getString("CodF"));
+    		d.setNome(rs.getString("Nome"));
+    		d.setCognome(rs.getString("Cognome"));
+    		d.setSalario(rs.getFloat("Salario"));
+    		d.setValutazione(rs.getInt("Valutazione"));
+    		
+    		lista.add(d);
+    	}
+    	
+    	return lista;
+    }
 }
 
 

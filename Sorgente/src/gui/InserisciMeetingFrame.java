@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
@@ -20,6 +21,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -32,6 +35,7 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -52,6 +56,7 @@ public class InserisciMeetingFrame extends JFrame {
 	private JTextField textFieldLimitePartecipanti;
 	private JButton btnInserisciMeeting;
 	private JTable tableProgetto;
+	private JPopupMenu popupMenuTable;
 
 	/**
 	 * Create the frame.
@@ -155,11 +160,11 @@ public class InserisciMeetingFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Codice Fiscale", "Nome", "Cognome", "Salario"
+				"Codice Fiscale", "Nome", "Cognome", "Salario", "Valutazione"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Float.class
+				String.class, String.class, String.class, Float.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -168,6 +173,21 @@ public class InserisciMeetingFrame extends JFrame {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
+			}
+		});
+		tablePartecipanti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
 			}
 		});
 		tablePartecipanti.getColumnModel().getColumn(0).setPreferredWidth(103);
@@ -301,8 +321,8 @@ public class InserisciMeetingFrame extends JFrame {
 					Sala s = new Sala(Integer.parseInt(tableSala.getModel().getValueAt(0, 5).toString()));
 					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
 					mf.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-					mf.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-					mf.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+					mf.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
+					mf.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
 					mf.setSalaRiunioni(s);
 					mf.setProgettoMeeting(p);
 					
@@ -324,8 +344,8 @@ public class InserisciMeetingFrame extends JFrame {
 					mt = new MeetingTelematico();
 					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
 					mt.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-					mt.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-					mt.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+					mt.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
+					mt.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
 					mt.setPiattaforma(textFieldPiattaforma.getText());
 					if(textFieldLimitePartecipanti.getText().isBlank())
 						mt.setNumeroLimite(-1);
@@ -354,9 +374,34 @@ public class InserisciMeetingFrame extends JFrame {
 		contentPane.add(btnInserisciMeeting);
 	}
 	
+	public void ShowPopupMenu(MouseEvent e) {
+		
+		popupMenuTable = new JPopupMenu();
+				
+		JMenuItem itemElimina = new JMenuItem("Elimina righe");
+		
+		itemElimina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+				case JOptionPane.YES_OPTION:
+					while (tablePartecipanti.getSelectedRowCount() > 0)
+						((DefaultTableModel)tablePartecipanti.getModel()).removeRow(tablePartecipanti.getSelectedRow());
+					break;
+				case JOptionPane.NO_OPTION:
+					break;
+				}
+			}
+		});
+		if(tablePartecipanti.getSelectedRowCount() > 0)
+			popupMenuTable.add(itemElimina);
+		
+		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
+	}
+	
 	public void addPartecipante(Dipendente d) {
 		
-		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
+		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario(), d.getValutazione()});
 		
 		ToggleInsertButton();
 	}

@@ -428,14 +428,13 @@ public class ModificaProgettoFrame extends JFrame {
 	
 	public void setProjectManager(Dipendente pm) throws SQLException {
 		
+		controller.ModificaProjectManager(oldProgetto, pm);
 		
 		DefaultTableModel model = (DefaultTableModel) tableProjectManager.getModel();
 		
 		model.setRowCount(0);
 		
 		model.addRow(new Object[] {pm.getCodF(), pm.getNome(), pm.getCognome(), pm.getSalario()});
-		
-		controller.ModificaProjectManager(oldProgetto, pm);
 	}
 	
 	public void addAmbito(String ambito) throws SQLException {
