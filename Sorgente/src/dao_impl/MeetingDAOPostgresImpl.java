@@ -1,6 +1,7 @@
 package dao_impl;
 
 import dao.MeetingDAO;
+import entità.Dipendente;
 import entità.Meeting;
 import entità.MeetingFisico;
 import entità.MeetingTelematico;
@@ -29,6 +30,9 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 	private PreparedStatement updateMeetingTelematicoPS;
 	private PreparedStatement deleteMeetingFisicoPS;
 	private PreparedStatement deleteMeetingTelematicoPS;
+	private PreparedStatement deletePartecipanteMeetingFisicoPS;
+	private PreparedStatement deletePartecipanteMeetingTelematicoPS;
+	
 	private PreparedStatement getMeetingFisicoByAttributiPS;
 	private PreparedStatement getMeetingTelematicoByAttributiPS;
 	private PreparedStatement getSalaMeetingFisicoPS;
@@ -46,6 +50,9 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		
 		deleteMeetingFisicoPS = connection.prepareStatement("DELETE FROM MEETINGF WHERE CodMF = ?;");
 		deleteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM MEETING WHERE CodMT = ?;");
+		
+		deletePartecipanteMeetingFisicoPS = connection.prepareStatement("DELETE FROM PARTECIPAMF WHERE CodMF = ? AND CodF = ?;");
+		deletePartecipanteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM PARTECIPAMT WHERE CodMT = ? AND CodF = ?;");
 		
 		getMeetingFisicoByAttributiPS = connection.prepareStatement("SELECT * "
 				                                                   +"FROM MEETINGF "
@@ -87,6 +94,18 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     	insertMeetingTelematicoPS.execute();
     }
+    
+    public void deleteMeetingFisico (MeetingFisico mf) throws SQLException {
+    	
+    	deleteMeetingFisicoPS.setInt(1, mf.getCodice());
+    	deleteMeetingFisicoPS.execute();
+    }
+    
+    public void deleteMeetingTelematico (MeetingTelematico mt) throws SQLException {
+    	
+    	deleteMeetingTelematicoPS.setInt(1, mt.getCodice());
+    	deleteMeetingTelematicoPS.execute();
+    }
 
     public void updateMeetingFisico (MeetingFisico mf) throws SQLException {
     	
@@ -113,18 +132,23 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     }
     
-
-    public void deleteMeetingFisico (MeetingFisico mf) throws SQLException {
+    public void deletePartecipanteMeeting (Meeting m, Dipendente d) throws SQLException {
     	
-    	deleteMeetingFisicoPS.setInt(1, mf.getCodice());
-    	deleteMeetingFisicoPS.execute();
+    	if(Meeting.class.equals(MeetingFisico.class)) {
+    		deletePartecipanteMeetingFisicoPS.setInt(1, m.getCodice());
+    		deletePartecipanteMeetingFisicoPS.setString(2, d.getCodF());
+    		
+    		deletePartecipanteMeetingFisicoPS.execute();
+    	}
+    	else {
+    		deletePartecipanteMeetingTelematicoPS.setInt(1, m.getCodice());
+    		deletePartecipanteMeetingTelematicoPS.setString(2, d.getCodF());
+    		
+    		deletePartecipanteMeetingTelematicoPS.execute();
+    	}
     }
     
-    public void deleteMeetingTelematico (MeetingTelematico mt) throws SQLException {
-    	
-    	deleteMeetingTelematicoPS.setInt(1, mt.getCodice());
-    	deleteMeetingTelematicoPS.execute();
-    }
+
     
     public ArrayList<MeetingFisico> getMeetingFisicoByAttributi (String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
     	

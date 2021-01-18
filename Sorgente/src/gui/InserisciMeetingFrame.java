@@ -99,19 +99,14 @@ public class InserisciMeetingFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti"
+				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti", "Codice"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Integer.class, Integer.class
+				String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
-			}
-			
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
 			}
 		});
 		scrollPane.setViewportView(tableSala);
@@ -294,43 +289,55 @@ public class InserisciMeetingFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				MeetingFisico mf;
 				MeetingTelematico mt;
+				Progetto p;
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				DateFormat of = new SimpleDateFormat("HH:mm:ss");
 				switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
 				case "Fisico" :
-//					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//					DateFormat of = new SimpleDateFormat("HH:mm:ss");
 					
 					mf = new MeetingFisico();
-					Sala s = new Sala();
+					Sala s = new Sala(Integer.parseInt(tableSala.getModel().getValueAt(0, 5).toString()));
+					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
 					mf.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
 					mf.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
 					mf.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
 					mf.setSalaRiunioni(s);
+					mf.setProgettoMeeting(p);
+					
+					for(int i : tablePartecipanti.getSelectedRows()) {
+						Dipendente d = new Dipendente(tablePartecipanti.getModel().getValueAt(i, 0).toString());
+						mf.addPartecipante(d);
+					}
 					try {
 						controller.InserimentoMeetingFisico(mf);
 						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
-					} catch (SQLException e1) {
-						
-						JOptionPane.showMessageDialog(null, e1.getMessage());
-						
+					}
+					catch (SQLException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
 					
 					break;
 				case "Telematico" :
 					
 					mt= new MeetingTelematico();
+					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
 					mt.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
 					mt.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
 					mt.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
 					mt.setPiattaforma(textFieldPiattaforma.getText());
 					mt.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
+					mt.setProgettoMeeting(p);
+					
+					for(int i : tablePartecipanti.getSelectedRows()) {
+						Dipendente d = new Dipendente(tablePartecipanti.getModel().getValueAt(i, 0).toString());
+						mt.addPartecipante(d);
+					}
 					try {
 						controller.InserimentoMeetingTelematico(mt);
 						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
-					} catch (SQLException e2) {
-						
-						JOptionPane.showMessageDialog(null, e2.getMessage());
+					}
+					catch (SQLException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
 					break;
 				}

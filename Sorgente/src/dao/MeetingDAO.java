@@ -20,7 +20,7 @@ public interface MeetingDAO {
     public void updateMeetingTelematico (MeetingTelematico mt) throws SQLException;
     public void deleteMeetingFisico (MeetingFisico mf) throws SQLException;
     public void deleteMeetingTelematico (MeetingTelematico mt) throws SQLException;
-    public void deletePartecipanteMeeting(MeetingFisico mf, Dipendente d) throws SQLException;
+    public void deletePartecipanteMeeting(Meeting m, Dipendente d) throws SQLException;
 	public  ArrayList<MeetingFisico> getMeetingFisicoByAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException;
 
 

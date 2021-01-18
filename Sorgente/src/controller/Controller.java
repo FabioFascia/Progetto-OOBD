@@ -221,14 +221,19 @@ public class Controller {
 		cercaMeeting.setEnabled(false);
 		inserisciMeeting.setVisible(true);
 	}
-	public void ApriFrameModificaMeetingInCercaMeeting(MeetingFisico mf) {
-	     modificaMeeting = new ModificaMeetingFrame(this, mf);
-	     cercaMeeting.setEnabled(false);
-	     modificaMeeting.setVisible(true);
-	}
 	public void ChiudiFrameInserisciMeetingInCercaMeeting() {
 		
 		inserisciMeeting.dispose();
+		cercaMeeting.toFront();
+		cercaMeeting.setEnabled(true);
+	}
+	public void ApriFrameModificaMeetingInCercaMeeting(MeetingFisico mf) {
+		modificaMeeting = new ModificaMeetingFrame(this, mf);
+		cercaMeeting.setEnabled(false);
+		modificaMeeting.setVisible(true);
+	}
+	public void ChiudiFrameModificaMeetingInCercaMeeting() {
+		modificaMeeting.dispose();
 		cercaMeeting.toFront();
 		cercaMeeting.setEnabled(true);
 	}
@@ -381,11 +386,11 @@ public class Controller {
 	public void CancellazioneMeetingFisico(MeetingFisico mf) throws SQLException{
 		meetingDao.deleteMeetingFisico(mf);
 	}
+//	public void InserimentoPartecipanteMeetingFisico(MeetingFisico mf, )
 	
-    public void CancellazionePartecipanteMeeting(MeetingFisico mf, Partecipante par) throws SQLException {
-		
-		mf.getPartecipanti().remove(par);
-		meetingDao.deletePartecipante(mf, par.getDipendente());
+    public void CancellazionePartecipanteMeeting(Meeting m, Partecipante par) throws SQLException {
+		m.getPartecipanti().remove(par);
+		meetingDao.deletePartecipanteMeeting(m, par.getDipendente());
 	}
 	public void SelezionePartecipanteMeeting(Dipendente d) throws SQLException {
 		

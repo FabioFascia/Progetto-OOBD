@@ -84,19 +84,14 @@ public class CercaSalaFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti"
+				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti", "Codice"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Integer.class, Integer.class
+				String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
-			}
-			
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
 			}
 		});
 		scrollPane.setViewportView(tableSale);

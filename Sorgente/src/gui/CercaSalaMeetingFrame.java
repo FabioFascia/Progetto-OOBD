@@ -110,19 +110,14 @@ public class CercaSalaMeetingFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti"
+				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti", "Codice"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Integer.class, Integer.class
+				String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
-			}
-			
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
 			}
 		});
 		tableSale.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -288,6 +283,6 @@ public class CercaSalaMeetingFrame extends JFrame {
 		((DefaultTableModel) tableSale.getModel()).setRowCount(0);
 		
 		for (Sala s : lista)
-			model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
+			model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti(), s.getCodice()});
 	}
 }

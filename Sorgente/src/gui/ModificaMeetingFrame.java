@@ -53,7 +53,7 @@ public class ModificaMeetingFrame extends JFrame {
 	private JTable tablePartecipanti;
 	private JTextField textFieldPiattaforma;
 	private JTextField textFieldLimitePartecipanti;
-	private JButton btnInserisciMeeting;
+	private JButton buttonModificaMeeting;
 	private JTable tableProgetto;
 	private MeetingFisico oldMeeting;
     private JPopupMenu popupMenuTable;
@@ -69,7 +69,7 @@ public class ModificaMeetingFrame extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				
-				controller.ChiudiFrameInserisciMeetingInCercaMeeting();
+				controller.ChiudiFrameModificaMeetingInCercaMeeting();
 			}
 		});
 		setBounds(100, 100, 440, 510);
@@ -81,7 +81,7 @@ public class ModificaMeetingFrame extends JFrame {
 		JButton btnNewButton = new JButton("Annulla");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.ChiudiFrameInserisciMeetingInCercaMeeting();
+				controller.ChiudiFrameModificaMeetingInCercaMeeting();
 			}
 		});
 		btnNewButton.setBounds(10, 11, 89, 23);
@@ -309,8 +309,8 @@ public class ModificaMeetingFrame extends JFrame {
 			}
 		});
 		
-		btnInserisciMeeting = new JButton("Inserisci Meeting");
-		btnInserisciMeeting.addActionListener(new ActionListener() {
+		buttonModificaMeeting = new JButton("Modifica Meeting");
+		buttonModificaMeeting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MeetingFisico mf;
 				MeetingTelematico mt;
@@ -320,46 +320,46 @@ public class ModificaMeetingFrame extends JFrame {
 				case "Fisico" :
 //					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 //					DateFormat of = new SimpleDateFormat("HH:mm:ss");
-					
-					mf = new MeetingFisico();
-					Sala s = new Sala();
-					mf.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-					mf.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-					mf.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
-					mf.setSalaRiunioni(s);
-					try {
-						controller.InserimentoMeetingFisico(mf);
-						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
-					} catch (SQLException e1) {
-						
-						JOptionPane.showMessageDialog(null, e1.getMessage());
-						
-					}
+//					
+//					mf = new MeetingFisico();
+//					Sala s = new Sala();
+//					mf.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
+//					mf.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
+//					mf.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+//					mf.setSalaRiunioni(s);
+//					try {
+//						controller.InserimentoMeetingFisico(mf);
+//						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
+//					} catch (SQLException e1) {
+//						
+//						JOptionPane.showMessageDialog(null, e1.getMessage());
+//						
+//					}
 					
 					break;
 				case "Telematico" :
 					
-					mt= new MeetingTelematico();
-					mt.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-					mt.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-					mt.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
-					mt.setPiattaforma(textFieldPiattaforma.getText());
-					mt.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
-					try {
-						controller.InserimentoMeetingTelematico(mt);
-						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
-					} catch (SQLException e2) {
-						
-						JOptionPane.showMessageDialog(null, e2.getMessage());
-					}
+//					mt= new MeetingTelematico();
+//					mt.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
+//					mt.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
+//					mt.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+//					mt.setPiattaforma(textFieldPiattaforma.getText());
+//					mt.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
+//					try {
+//						controller.InserimentoMeetingTelematico(mt);
+//						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
+//					} catch (SQLException e2) {
+//						
+//						JOptionPane.showMessageDialog(null, e2.getMessage());
+//					}
 					break;
 				}
 			}
 		});
-		btnInserisciMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnInserisciMeeting.setEnabled(false);
-		btnInserisciMeeting.setBounds(81, 437, 259, 23);
-		contentPane.add(btnInserisciMeeting);
+		buttonModificaMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
+		buttonModificaMeeting.setEnabled(false);
+		buttonModificaMeeting.setBounds(81, 437, 259, 23);
+		contentPane.add(buttonModificaMeeting);
 	}
 	
 	public void addPartecipante(Dipendente d) {
@@ -397,7 +397,7 @@ public class ModificaMeetingFrame extends JFrame {
 		else if(tableProgetto.getModel().getRowCount() == 0)
 			ret = false;
 		
-		btnInserisciMeeting.setEnabled(ret);
+		buttonModificaMeeting.setEnabled(ret);
 	}
 	public void ShowPopupMenu(MouseEvent e) {
 		
