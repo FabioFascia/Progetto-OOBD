@@ -38,6 +38,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 	private PreparedStatement deletePartecipanteMeetingTelematicoPS;
 	
 	private PreparedStatement getMeetingFisicoByAttributiPS;
+	private PreparedStatement getMeetingFisicoByProgettiPS;
 	private PreparedStatement getMeetingTelematicoByAttributiPS;
 	
 	private PreparedStatement getSalaMeetingFisicoPS;
@@ -68,6 +69,16 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 				                                                   		+"(? = '2000-01-01'::date OR Data::date = ?) AND "
 				                                                   		+"((OraI BETWEEN ? AND ?) OR (OraF BETWEEN ? AND ?)) "
 				                                                   + "ORDER BY CodMF;");
+		getMeetingFisicoByProgettiPS = connection.prepareStatement("SELECT MF.CodMF, MF.Data, MF.OraI, MF.OraF, MF.CodP, MF.CodSala "
+																+ "FROM MEETINGF AS MF NATURAL JOIN "
+																		+ "PROGETTO AS P "
+																+ "WHERE (? = -1 OR P.CodP = ?) AND "
+																		+ "P.Tipologia ILIKE ? AND "
+																		+ "P.CodP IN (SELECT PR.CodP "
+																					+ "FROM PROGETTO AS PR LEFT OUTER JOIN "
+																							+ "AMBITO AS A ON "
+																							+ "PR.CodP = A.CodP "
+																					+ "WHERE (? IS NULL OR A.Keyword ILIKE ?))");
 		
 		getMeetingTelematicoByAttributiPS = connection.prepareStatement("SELECT * "  
 		                                                                         + "FROM MEETINGT "
@@ -206,10 +217,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	getMeetingFisicoByAttributiPS.setTime(7, oraInizio);
     	getMeetingFisicoByAttributiPS.setTime(8, oraFine);
     	
-    	
-    	
     	ResultSet rs = getMeetingFisicoByAttributiPS.executeQuery();
-    	
     	
     	ArrayList<MeetingFisico> lista = new ArrayList<MeetingFisico>();
     	
@@ -230,6 +238,49 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	}
 		return lista;
     	
+    }
+    
+    public ArrayList<MeetingFisico> getMeetingFisicoByProgetti(String codp, String tipologia, String ambito) throws SQLException {
+    	
+    	int codice;
+    	String amb;
+    	
+    	if(codp.isBlank())
+    		codice = -1;
+    	else
+    		codice = Integer.parseInt(codp);
+    	
+    	if(ambito.isBlank())
+    		amb = null;
+    	else
+    		amb = "%" + ambito + "%";
+    	
+    	getMeetingFisicoByProgettiPS.setInt(1, codice);
+    	getMeetingFisicoByProgettiPS.setInt(2, codice);
+    	getMeetingFisicoByProgettiPS.setString(3, "%" + tipologia + "%");
+    	getMeetingFisicoByProgettiPS.setString(4, amb);
+    	getMeetingFisicoByProgettiPS.setString(5, amb);
+    	
+    	ResultSet rs = getMeetingFisicoByProgettiPS.executeQuery();
+    	
+    	ArrayList<MeetingFisico> lista = new ArrayList<MeetingFisico>();
+    	
+    	while(rs.next()) {
+    		
+    		MeetingFisico mf = new MeetingFisico();
+    		Sala s = new Sala();
+    		
+    		mf.setCodice(rs.getInt("CodMF"));
+    		mf.setData(rs.getDate("Data"));
+    		mf.setOraInizio(rs.getTime("OraI"));
+    		mf.setOraFine(rs.getTime("OraF"));
+            mf.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
+            mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
+            mf.setSalaRiunioni(getSalaMeetingFisico(rs.getInt("CodSala")));
+    		
+    		lista.add(mf);
+    	}
+		return lista;
     }
     
     public ArrayList<MeetingTelematico> getMeetingTelematicoByAttributi (String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {

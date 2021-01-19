@@ -508,6 +508,12 @@ public class Controller {
 
 		return MeetingFisiciSelezionati;
 	}
+	public ArrayList<MeetingFisico> RicercaMeetingFisicoPerProgetti(String codp, String tipologia, String ambito) throws SQLException {
+		
+		MeetingFisiciSelezionati = meetingDao.getMeetingFisicoByProgetti(codp, tipologia, ambito);
+		
+		return MeetingFisiciSelezionati;
+	}
     public ArrayList<MeetingTelematico> RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
 		
 		MeetingTelematiciSelezionati = meetingDao.getMeetingTelematicoByAttributi(CodMT, Data, OraInizio,  OraFine, Piattaforma, NumMassimo );

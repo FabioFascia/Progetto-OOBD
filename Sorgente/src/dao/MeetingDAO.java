@@ -27,7 +27,8 @@ public interface MeetingDAO {
     public void insertPartecipanteMeetingTelematico (MeetingTelematico mt, Dipendente d) throws SQLException;
     public void deletePartecipanteMeetingTelematico(MeetingTelematico mt, Dipendente d) throws SQLException;
     
-	public  ArrayList<MeetingFisico> getMeetingFisicoByAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException;
+	public ArrayList<MeetingFisico> getMeetingFisicoByAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException;
+	public ArrayList<MeetingFisico> getMeetingFisicoByProgetti(String codp, String tipologia, String ambito) throws SQLException;
 	public ArrayList<MeetingTelematico> getMeetingTelematicoByAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo)throws SQLException;
 
 	public Sala getSalaMeetingFisico(int codSala) throws SQLException;

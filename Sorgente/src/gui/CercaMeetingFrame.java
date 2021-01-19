@@ -70,13 +70,14 @@ public class CercaMeetingFrame extends JFrame {
     private JTextField textField_3;
     private JTextField textField_4;
     private JTextField textField_5;
-    private JTextField textField_6;
-    private JTextField textField_7;
+    private JTextField textFieldCodiceProgetto;
+    private JTextField textFieldTipologia;
     private JTextField tfCodiceMeetingTelematico;
     private JTextField textPiattaforma;
     private JTextField textNumeroMassimo;
     private JTextField CodiceProgettoTelematico;
     private JTextField TipologiaProgettoTelematico;
+    private JTextField textFieldAmbito;
     
    
 	/**
@@ -226,25 +227,35 @@ public class CercaMeetingFrame extends JFrame {
 		layeredPaneFisici.add(panelProgetto, "name_8297324804800");
 		panelProgetto.setLayout(null);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(10, 42, 127, 20);
-		panelProgetto.add(textField_6);
-		textField_6.setColumns(10);
+		textFieldCodiceProgetto = new JTextField();
+		textFieldCodiceProgetto.setBounds(10, 25, 127, 20);
+		panelProgetto.add(textFieldCodiceProgetto);
+		textFieldCodiceProgetto.setColumns(10);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(10, 85, 127, 20);
-		panelProgetto.add(textField_7);
-		textField_7.setColumns(10);
+		textFieldTipologia = new JTextField();
+		textFieldTipologia.setBounds(10, 68, 127, 20);
+		panelProgetto.add(textFieldTipologia);
+		textFieldTipologia.setColumns(10);
 		
 		JLabel lblNewLabel_14 = new JLabel("Codice Progetto");
 		lblNewLabel_14.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_14.setBounds(10, 21, 107, 14);
+		lblNewLabel_14.setBounds(10, 11, 107, 14);
 		panelProgetto.add(lblNewLabel_14);
 		
 		JLabel lblNewLabel_15 = new JLabel("Tipologia");
 		lblNewLabel_15.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_15.setBounds(10, 66, 79, 14);
+		lblNewLabel_15.setBounds(10, 54, 79, 14);
 		panelProgetto.add(lblNewLabel_15);
+		
+		textFieldAmbito = new JTextField();
+		textFieldAmbito.setColumns(10);
+		textFieldAmbito.setBounds(10, 113, 127, 20);
+		panelProgetto.add(textFieldAmbito);
+		
+		JLabel labelAmbito = new JLabel("Ambito");
+		labelAmbito.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelAmbito.setBounds(10, 99, 79, 14);
+		panelProgetto.add(labelAmbito);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 210, 492, 176);
@@ -298,31 +309,7 @@ public class CercaMeetingFrame extends JFrame {
 		labelRicerca.setBounds(325, 11, 89, 14);
 		panelFisico.add(labelRicerca);
 		
-		JButton btnCerca = new JButton("Cerca");
-		btnCerca.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				DateFormat of = new SimpleDateFormat("HH:mm:ss");
-				
-				String codiceMeeting = textCodiceMeetingFisico.getText();
-				String data = df.format((java.util.Date)spinnerDataFisico.getValue());
-				String oraInizio = of.format((java.util.Date)spinnerOraInizioFisico.getValue());
-				String oraFine = of.format((java.util.Date)spinnerOraFineFisico.getValue());
-				
-				try {
-					PopolaTabellaFisico(controller.RicercaMeetingFisicoPerAttributi(codiceMeeting, data, oraInizio, oraFine));
-				}
-				catch (SQLException ex) {
-					JOptionPane.showMessageDialog(null, ex.getMessage());
-				}
-				
-     		}
-		});
-		btnCerca.setBounds(349, 176, 115, 23);
-		panelFisico.add(btnCerca);
-		
-		JComboBox comboBoxMeetingFisico = new JComboBox(new String[] {"Attributi", "Per Sale", "Per Progetti"});
+		JComboBox comboBoxMeetingFisico = new JComboBox(new String[] {"Attributi", "Progetto associato", "Sala riunioni"});
 		comboBoxMeetingFisico.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				switch(e.getItem().toString()) {
@@ -333,26 +320,57 @@ public class CercaMeetingFrame extends JFrame {
 					layeredPaneFisici.repaint();
 					layeredPaneFisici.revalidate();
 					break;
-				case "Per Sale":
-					layeredPaneFisici.removeAll();
-					layeredPaneFisici.add(panelSala);
-					layeredPaneFisici.repaint();
-					layeredPaneFisici.revalidate();
-					break;
-				case "Per Progetti":
+				case "Progetto associato":
 					layeredPaneFisici.removeAll();
 					layeredPaneFisici.add(panelProgetto);
 					layeredPaneFisici.repaint();
 					layeredPaneFisici.revalidate();
 					break;
+				case "Sala riunioni":
+					layeredPaneFisici.removeAll();
+					layeredPaneFisici.add(panelSala);
+					layeredPaneFisici.repaint();
+					layeredPaneFisici.revalidate();
+					break;
+				}
 			}
-		}
-	});
-		
-		
-		
+		});
 		comboBoxMeetingFisico.setBounds(325, 28, 150, 22);
 		panelFisico.add(comboBoxMeetingFisico);
+		
+		JButton btnCercaFisico = new JButton("Cerca");
+		btnCercaFisico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				try {
+					switch(comboBoxMeetingFisico.getSelectedItem().toString()) {
+					case "Attributi":
+						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+						DateFormat of = new SimpleDateFormat("HH:mm:ss");
+						
+						String codiceMeeting = textCodiceMeetingFisico.getText();
+						String data = df.format((java.util.Date)spinnerDataFisico.getValue());
+						String oraInizio = of.format((java.util.Date)spinnerOraInizioFisico.getValue());
+						String oraFine = of.format((java.util.Date)spinnerOraFineFisico.getValue());
+						
+						PopolaTabellaFisico(controller.RicercaMeetingFisicoPerAttributi(codiceMeeting, data, oraInizio, oraFine));
+						break;
+					case "Progetto associato":
+						String codp = textFieldCodiceProgetto.getText();
+						String tipologia = textFieldTipologia.getText();
+						String ambito = textFieldAmbito.getText();
+						
+						PopolaTabellaFisico(controller.RicercaMeetingFisicoPerProgetti(codp, tipologia, ambito));
+					}
+				}
+				catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+				
+     		}
+		});
+		btnCercaFisico.setBounds(349, 176, 115, 23);
+		panelFisico.add(btnCercaFisico);
 		
 		JPanel panelTelematico = new JPanel();
 		layeredPane.add(panelTelematico, "name_19511124629900");
