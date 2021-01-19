@@ -256,8 +256,6 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 		buttonConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				
-				
 				try {
 					controller.SelezionePartecipanteMeeting(controller.getDipendenteSelezionato(tableDipendenti.getSelectedRow()));
 					

@@ -231,13 +231,13 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 				oldMeeting.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
 				oldMeeting.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
 				oldMeeting.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
-//					try {
-//						controller.InserimentoMeetingFisico(mf);
-//						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
-//					}
-//					catch (SQLException ex) {
-//						JOptionPane.showMessageDialog(null, e1.getMessage());
-//					}
+				try {
+					controller.ModificaMeetingFisico(oldMeeting);
+					controller.ChiudiFrameModificaMeetingFisicoInCercaMeeting();
+				}
+				catch (SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
 			}
 		});
 		buttonModificaMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -292,12 +292,19 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		
 		ToggleInsertButton();
 	}
-	public void setProgetto(Progetto p) {
+	public void deletePartecipante(int indice) throws SQLException {
+		
+		controller.CancellazionePartecipanteMeetingFisico(oldMeeting, oldMeeting.getPartecipanti().get(indice));
+		
+		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
+	}
+	public void setProgetto(Progetto p) throws SQLException {
 		
 		DefaultTableModel model = (DefaultTableModel) tableProgetto.getModel();
 		
 		model.setRowCount(0);
 		model.addRow(new Object[] {p.getCodice(), p.getTipologia()});
+		oldMeeting.setProgettoMeeting(p);
 		
 		ToggleInsertButton();
 	}
@@ -307,6 +314,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		
 		model.setRowCount(0);
 		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
+		oldMeeting.setSalaRiunioni(s);
 		
 		ToggleInsertButton();
 	}
@@ -352,11 +360,5 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 			popupMenuTable.add(itemElimina);
 		
 		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
-	}
-	public void deletePartecipante(int indice) throws SQLException {
-		
-		controller.CancellazionePartecipanteMeeting(oldMeeting, oldMeeting.getPartecipanti().get(indice));
-		
-		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 	}
 }

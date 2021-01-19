@@ -50,16 +50,15 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		connection = c;
 		
 		insertMeetingFisicoPS = connection.prepareStatement("CALL Insert_MeetingF(?, ?, ?, ?, ?);");
-		insertMeetingTelematicoPS = connection.prepareStatement("CALL Insert_MeetingT(?, ?, ?, ?, ?, ?);");
+		deleteMeetingFisicoPS = connection.prepareStatement("DELETE FROM MEETINGF WHERE CodMF = ?;");
+		updateMeetingFisicoPS = connection.prepareStatement("UPDATE MEETINGF SET CodP = ?, Data = ?, OraI = ?, OraF = ?, CodSala = ? WHERE CodMF = ?;");
 		
-		updateMeetingFisicoPS = connection.prepareStatement("UPDATE MEETINGF SET Data = ?, OraI = ?, OraF = ?, CodSala = ? WHERE CodMF = ?;");
+		insertMeetingTelematicoPS = connection.prepareStatement("CALL Insert_MeetingT(?, ?, ?, ?, ?, ?);");
+		deleteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM MEETING WHERE CodMT = ?;");
 		updateMeetingTelematicoPS = connection.prepareStatement("UPDATE MEETINGT SET Data = ?, OraI = ?, Oraf = ?, Piattaforma = ?, NumLimite = ? WHERE CodMT = ?;");
 		
-		deleteMeetingFisicoPS = connection.prepareStatement("DELETE FROM MEETINGF WHERE CodMF = ?;");
-		deleteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM MEETING WHERE CodMT = ?;");
-		
-		insertPartecipanteMeetingFisicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMF VALUES (?, ?);");
-		insertPartecipanteMeetingTelematicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMT VALUES (?, ?);");
+		insertPartecipanteMeetingFisicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMF(CodMF, CodF) VALUES (?, ?);");
+		insertPartecipanteMeetingTelematicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMT(CodMT, CodF) VALUES (?, ?);");
 		deletePartecipanteMeetingFisicoPS = connection.prepareStatement("DELETE FROM PARTECIPAMF WHERE CodMF = ? AND CodF = ?;");
 		deletePartecipanteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM PARTECIPAMT WHERE CodMT = ? AND CodF = ?;");
 		
@@ -129,14 +128,14 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 
     public void updateMeetingFisico (MeetingFisico mf) throws SQLException {
     	
-    	updateMeetingFisicoPS.setDate(1, mf.getData());
-    	updateMeetingFisicoPS.setTime(2, mf.getOraInizio());
-    	updateMeetingFisicoPS.setTime(3, mf.getOraFine());
-    	updateMeetingFisicoPS.setInt(4, mf.getSalaRiunioni().getCodice());
-    	updateMeetingFisicoPS.setInt(5, mf.getCodice());
+    	updateMeetingFisicoPS.setInt(1, mf.getProgettoMeeting().getCodice());
+    	updateMeetingFisicoPS.setDate(2, mf.getData());
+    	updateMeetingFisicoPS.setTime(3, mf.getOraInizio());
+    	updateMeetingFisicoPS.setTime(4, mf.getOraFine());
+    	updateMeetingFisicoPS.setInt(5, mf.getSalaRiunioni().getCodice());
+    	updateMeetingFisicoPS.setInt(6, mf.getCodice());
     	
     	updateMeetingFisicoPS.execute();
-    	
     }
     
     public void updateMeetingTelematico (MeetingTelematico mt) throws SQLException {
