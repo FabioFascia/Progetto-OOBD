@@ -41,8 +41,9 @@ public class Controller {
 	private CercaPartecipanteFrame cercaPartecipante;
 	
 	private CercaMeetingFrame cercaMeeting;
-	private ModificaMeetingFrame modificaMeeting;
 	private InserisciMeetingFrame inserisciMeeting;
+	private ModificaMeetingFisicoFrame modificaMeetingFisico;
+	private ModificaMeetingTelematicoFrame modificaMeetingTelematico;
 	private CercaPartecipanteMeetingFrame cercaPartecipanteMeeting;
 	private CercaProgettoMeetingFrame cercaProgettoMeeting;
 	private CercaSalaMeetingFrame cercaSalaMeeting;
@@ -221,53 +222,110 @@ public class Controller {
 		cercaMeeting.setEnabled(false);
 		inserisciMeeting.setVisible(true);
 	}
-	public void ApriFrameModificaMeetingInCercaMeeting(MeetingFisico mf) {
-	     modificaMeeting = new ModificaMeetingFrame(this, mf);
-	     cercaMeeting.setEnabled(false);
-	     modificaMeeting.setVisible(true);
-	}
 	public void ChiudiFrameInserisciMeetingInCercaMeeting() {
 		
 		inserisciMeeting.dispose();
 		cercaMeeting.toFront();
 		cercaMeeting.setEnabled(true);
 	}
+	public void ApriFrameModificaMeetingFisicoInCercaMeeting(MeetingFisico mf) {
+		modificaMeetingFisico = new ModificaMeetingFisicoFrame(this, mf);
+		cercaMeeting.setEnabled(false);
+		modificaMeetingFisico.setVisible(true);
+	}
+	public void ChiudiFrameModificaMeetingFisicoInCercaMeeting() {
+		modificaMeetingFisico.dispose();
+		cercaMeeting.toFront();
+		cercaMeeting.setEnabled(true);
+	}
+	public void ApriFrameModificaMeetingTelematicoInCercaMeeting(MeetingTelematico mt) {
+		modificaMeetingTelematico = new ModificaMeetingTelematicoFrame(this, mt);
+		cercaMeeting.setEnabled(false);
+		modificaMeetingTelematico.setVisible(true);
+	}
+	public void ChiudiFrameModificaMeetingTelematicoInCercaMeeting() {
+		modificaMeetingTelematico.dispose();
+		cercaMeeting.toFront();
+		cercaMeeting.setEnabled(true);
+	}
 	public void ApriFrameCercaPartecipanteMeeting() {
 		
 		cercaPartecipanteMeeting = new CercaPartecipanteMeetingFrame(this);
-		inserisciMeeting.setEnabled(false);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
+			inserisciMeeting.setEnabled(false);
+		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable())
+			modificaMeetingFisico.setEnabled(false);
+		else
+			modificaMeetingTelematico.setEnabled(false);
 		cercaPartecipanteMeeting.setVisible(true);
 	}
 	public void ChiudiFrameCercaPartecipanteMeeting() {
 		
 		cercaPartecipanteMeeting.dispose();
-		inserisciMeeting.toFront();
-		inserisciMeeting.setEnabled(true);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable()) {
+			inserisciMeeting.toFront();
+			inserisciMeeting.setEnabled(true);
+		}
+		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable()) {
+			modificaMeetingFisico.toFront();
+			modificaMeetingFisico.setEnabled(true);
+		}
+		else {
+			modificaMeetingTelematico.toFront();
+			modificaMeetingTelematico.setEnabled(true);
+		}
 	}
 	public void ApriFrameCercaProgettoMeeting() {
 		
 		cercaProgettoMeeting = new CercaProgettoMeetingFrame(this);
-		inserisciMeeting.setEnabled(false);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
+			inserisciMeeting.setEnabled(false);
+		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable())
+			modificaMeetingFisico.setEnabled(false);
+		else
+			modificaMeetingTelematico.setEnabled(false);
 		cercaProgettoMeeting.setVisible(true);
 	}
 	public void ChiudiFrameCercaProgettoMeeting() {
 		
 		cercaProgettoMeeting.dispose();
-		inserisciMeeting.toFront();
-		inserisciMeeting.setEnabled(true);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable()) {
+			inserisciMeeting.toFront();
+			inserisciMeeting.setEnabled(true);
+		}
+		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable()) {
+			modificaMeetingFisico.toFront();
+			modificaMeetingFisico.setEnabled(true);
+		}
+		else {
+			modificaMeetingTelematico.toFront();
+			modificaMeetingTelematico.setEnabled(true);
+		}
 	}
 	public void ApriFrameCercaSalaMeeting() {
 		
 		cercaSalaMeeting = new CercaSalaMeetingFrame(this);
-		inserisciMeeting.setEnabled(false);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
+			inserisciMeeting.setEnabled(false);
+		else
+			modificaMeetingFisico.setEnabled(false);
 		cercaSalaMeeting.setVisible(true);
 	}
 	public void ChiudiFrameCercaSalaMeeting() {
 		
 		cercaSalaMeeting.dispose();
-		inserisciMeeting.toFront();
-		inserisciMeeting.setEnabled(true);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable()) {
+			inserisciMeeting.toFront();
+			inserisciMeeting.setEnabled(true);
+		}
+		else {
+			modificaMeetingFisico.toFront();
+			modificaMeetingFisico.setEnabled(true);
+		}
 	}
+	
+	
+	
 	public void CambiaFrameMainMenuInCercaSala() {
 		
 		cercaSala = new CercaSalaFrame(this);
@@ -375,29 +433,58 @@ public class Controller {
 	public void InserimentoMeetingFisico(MeetingFisico mf) throws SQLException {
 		meetingDao.insertMeetingFisico(mf);
 	}
+	public void CancellazioneMeetingFisico(MeetingFisico mf) throws SQLException {
+		meetingDao.deleteMeetingFisico(mf);
+	}
+	public void ModificaMeetingFisico(MeetingFisico mf) throws SQLException {
+		meetingDao.updateMeetingFisico(mf);
+	}
 	public void InserimentoMeetingTelematico(MeetingTelematico mt) throws SQLException {
 		meetingDao.insertMeetingTelematico(mt);
 	}
-	public void CancellazioneMeetingFisico(MeetingFisico mf) throws SQLException{
-		meetingDao.deleteMeetingFisico(mf);
-	}
-	
-    public void CancellazionePartecipanteMeeting(MeetingFisico mf, Partecipante par) throws SQLException {
-		
-		mf.getPartecipanti().remove(par);
-		meetingDao.deletePartecipante(mf, par.getDipendente());
+	public void ModificaMeetingTelematico(MeetingTelematico mt) throws SQLException {
+		meetingDao.updateMeetingTelematico(mt);
 	}
 	public void SelezionePartecipanteMeeting(Dipendente d) throws SQLException {
 		
-		inserisciMeeting.addPartecipante(d);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
+			inserisciMeeting.addPartecipante(d);
+		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable())
+			modificaMeetingFisico.addPartecipante(d);
+		else
+			modificaMeetingTelematico.addPartecipante(d);
 	}
+	public void InserimentoPartecipanteMeetingFisico(MeetingFisico mf, Dipendente d) throws SQLException {
+		meetingDao.insertPartecipanteMeetingFisico(mf, d);
+		mf.addPartecipante(d);
+	}
+    public void CancellazionePartecipanteMeetingFisico(MeetingFisico mf, Dipendente d) throws SQLException {
+		meetingDao.deletePartecipanteMeetingFisico(mf, d);
+		mf.getPartecipanti().remove(d);
+	}
+    public void InserimentoPartecipanteMeetingTelematico(MeetingTelematico mt, Dipendente d) throws SQLException {
+    	meetingDao.insertPartecipanteMeetingTelematico(mt, d);
+    	mt.addPartecipante(d);
+    }
+    public void CancellazionePartecipanteMeetingTelematico(MeetingTelematico mt, Dipendente d) throws SQLException {
+    	meetingDao.deletePartecipanteMeetingTelematico(mt, d);
+    	mt.getPartecipanti().remove(d);
+    }
 	public void SelezioneProgettoMeeting(Progetto p) throws SQLException {
 		
-		inserisciMeeting.setProgetto(p);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
+			inserisciMeeting.setProgetto(p);
+		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable())
+			modificaMeetingFisico.setProgetto(p);
+		else
+			modificaMeetingTelematico.setProgetto(p);
 	}
 	public void SelezioneSalaRiunioni(Sala s) throws SQLException {
 		
-		inserisciMeeting.setSala(s);
+		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
+			inserisciMeeting.setSala(s);
+		else
+			modificaMeetingFisico.setSala(s);
 	}
 	public ArrayList<MeetingFisico> RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
 		

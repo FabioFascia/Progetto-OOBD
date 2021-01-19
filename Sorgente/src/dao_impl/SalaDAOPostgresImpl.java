@@ -69,6 +69,7 @@ public class SalaDAOPostgresImpl implements SalaDAO {
 			s.setIndirizzo(rs.getString("Indirizzo"));
 			s.setNumeroCivico(rs.getInt("NumeroCivico"));
 			s.setNumeroPosti(rs.getInt("NumPosti"));
+			s.setCodice(rs.getInt("CodSala"));
 			
 			lista.add(s);
 		}

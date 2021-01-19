@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
@@ -20,6 +21,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -32,6 +35,7 @@ import javax.swing.SpinnerDateModel;
 import java.util.Date;
 import java.util.Calendar;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -45,12 +49,14 @@ public class InserisciMeetingFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
+	private JComboBox comboBoxTipoMeeting;
 	private JTable tableSala;
 	private JTable tablePartecipanti;
 	private JTextField textFieldPiattaforma;
 	private JTextField textFieldLimitePartecipanti;
 	private JButton btnInserisciMeeting;
 	private JTable tableProgetto;
+	private JPopupMenu popupMenuTable;
 
 	/**
 	 * Create the frame.
@@ -91,7 +97,7 @@ public class InserisciMeetingFrame extends JFrame {
 		panelFisico.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 43, 302, 41);
+		scrollPane.setBounds(0, 43, 309, 41);
 		panelFisico.add(scrollPane);
 		
 		tableSala = new JTable();
@@ -99,19 +105,14 @@ public class InserisciMeetingFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti"
+				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti", "Codice"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Integer.class, Integer.class
+				String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
-			}
-			
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
 			}
 		});
 		scrollPane.setViewportView(tableSala);
@@ -159,11 +160,11 @@ public class InserisciMeetingFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Codice Fiscale", "Nome", "Cognome", "Salario"
+				"Codice Fiscale", "Nome", "Cognome", "Salario", "Valutazione"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Float.class
+				String.class, String.class, String.class, Float.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -172,6 +173,21 @@ public class InserisciMeetingFrame extends JFrame {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
+			}
+		});
+		tablePartecipanti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
 			}
 		});
 		tablePartecipanti.getColumnModel().getColumn(0).setPreferredWidth(103);
@@ -188,8 +204,8 @@ public class InserisciMeetingFrame extends JFrame {
 		btnNewButton_2.setBounds(10, 247, 183, 23);
 		contentPane.add(btnNewButton_2);
 		
-		JComboBox comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
-		comboBoxTipoMeeting.setBounds(267, 11, 155, 22);
+		comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
+		comboBoxTipoMeeting.setBounds(259, 12, 155, 22);
 		comboBoxTipoMeeting.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 
@@ -207,13 +223,14 @@ public class InserisciMeetingFrame extends JFrame {
 						layeredPane.revalidate();
 						break;
 					}
+					ToggleInsertButton();
 			}
 		});
 		contentPane.add(comboBoxTipoMeeting);
 		
 		JLabel lblNewLabel_3 = new JLabel("Tipo Meeting:");
 		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_3.setBounds(172, 15, 85, 14);
+		lblNewLabel_3.setBounds(169, 16, 85, 14);
 		contentPane.add(lblNewLabel_3);
 		
 		JSpinner spinnerData = new JSpinner();
@@ -294,43 +311,58 @@ public class InserisciMeetingFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				MeetingFisico mf;
 				MeetingTelematico mt;
+				Progetto p;
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				DateFormat of = new SimpleDateFormat("HH:mm:ss");
 				switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
 				case "Fisico" :
-//					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//					DateFormat of = new SimpleDateFormat("HH:mm:ss");
 					
 					mf = new MeetingFisico();
-					Sala s = new Sala();
+					Sala s = new Sala(Integer.parseInt(tableSala.getModel().getValueAt(0, 5).toString()));
+					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
 					mf.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-					mf.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-					mf.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+					mf.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
+					mf.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
 					mf.setSalaRiunioni(s);
+					mf.setProgettoMeeting(p);
+					
+					for(int i : tablePartecipanti.getSelectedRows()) {
+						Dipendente d = new Dipendente(tablePartecipanti.getModel().getValueAt(i, 0).toString());
+						mf.addPartecipante(d);
+					}
 					try {
 						controller.InserimentoMeetingFisico(mf);
 						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
-					} catch (SQLException e1) {
-						
-						JOptionPane.showMessageDialog(null, e1.getMessage());
-						
+					}
+					catch (SQLException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
 					
 					break;
 				case "Telematico" :
 					
-					mt= new MeetingTelematico();
+					mt = new MeetingTelematico();
+					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
 					mt.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-					mt.setOraI(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-					mt.setOraF(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+					mt.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
+					mt.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
 					mt.setPiattaforma(textFieldPiattaforma.getText());
-					mt.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
+					if(textFieldLimitePartecipanti.getText().isBlank())
+						mt.setNumeroLimite(-1);
+					else
+						mt.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
+					mt.setProgettoMeeting(p);
+					
+					for(int i : tablePartecipanti.getSelectedRows()) {
+						Dipendente d = new Dipendente(tablePartecipanti.getModel().getValueAt(i, 0).toString());
+						mt.addPartecipante(d);
+					}
 					try {
 						controller.InserimentoMeetingTelematico(mt);
 						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
-					} catch (SQLException e2) {
-						
-						JOptionPane.showMessageDialog(null, e2.getMessage());
+					}
+					catch (SQLException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage());
 					}
 					break;
 				}
@@ -342,9 +374,34 @@ public class InserisciMeetingFrame extends JFrame {
 		contentPane.add(btnInserisciMeeting);
 	}
 	
+	public void ShowPopupMenu(MouseEvent e) {
+		
+		popupMenuTable = new JPopupMenu();
+				
+		JMenuItem itemElimina = new JMenuItem("Elimina righe");
+		
+		itemElimina.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+				case JOptionPane.YES_OPTION:
+					while (tablePartecipanti.getSelectedRowCount() > 0)
+						((DefaultTableModel)tablePartecipanti.getModel()).removeRow(tablePartecipanti.getSelectedRow());
+					break;
+				case JOptionPane.NO_OPTION:
+					break;
+				}
+			}
+		});
+		if(tablePartecipanti.getSelectedRowCount() > 0)
+			popupMenuTable.add(itemElimina);
+		
+		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
+	}
+	
 	public void addPartecipante(Dipendente d) {
 		
-		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
+		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario(), d.getValutazione()});
 		
 		ToggleInsertButton();
 	}
@@ -362,7 +419,7 @@ public class InserisciMeetingFrame extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tableSala.getModel();
 		
 		model.setRowCount(0);
-		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
+		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti(), s.getCodice()});
 		
 		ToggleInsertButton();
 	}
@@ -370,13 +427,26 @@ public class InserisciMeetingFrame extends JFrame {
 		
 		boolean ret = true;
 		
-		if(tableSala.getModel().getRowCount() == 0)
-			ret = false;
-		else if(tablePartecipanti.getModel().getRowCount() == 0)
-			ret = false;
-		else if(tableProgetto.getModel().getRowCount() == 0)
-			ret = false;
-		
-		btnInserisciMeeting.setEnabled(ret);
+		switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
+		case "Fisico":
+			if(tableSala.getModel().getRowCount() == 0)
+				ret = false;
+			else if(tablePartecipanti.getModel().getRowCount() == 0)
+				ret = false;
+			else if(tableProgetto.getModel().getRowCount() == 0)
+				ret = false;
+			
+			btnInserisciMeeting.setEnabled(ret);
+			break;
+		case "Telematico":
+			if(textFieldPiattaforma.getText().isBlank())
+				ret = false;
+			else if(tablePartecipanti.getModel().getRowCount() == 0)
+				ret = false;
+			else if(tableProgetto.getModel().getRowCount() == 0)
+				ret = false;
+			
+			btnInserisciMeeting.setEnabled(ret);
+		}
 	}
 }

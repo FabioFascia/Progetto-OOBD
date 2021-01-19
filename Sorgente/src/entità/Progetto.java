@@ -14,6 +14,9 @@ public class Progetto {
 	private ArrayList<Partecipante> Partecipanti = new ArrayList<Partecipante>();
 	
 	public Progetto() {}
+	public Progetto(int codice) {
+		Codice = codice;
+	}
 	public Progetto(int codice, String tipologia) {
 		Codice = codice;
 		Tipologia = tipologia;

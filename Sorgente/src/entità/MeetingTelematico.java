@@ -9,14 +9,14 @@ public class MeetingTelematico implements Meeting {
 	//		Attributi
 	private int Codice;
 	private Date Data;
-	private Time OraI;
-	private Time OraF;
+	private Time OraInizio;
+	private Time OraFine;
 	private String Piattaforma;
 	private int NumeroLimite;
 	
 	//		Relazioni
-	private Progetto ArgomentoMeeting;
-	private ArrayList<Partecipante> Partecipanti;
+	private Progetto ProgettoMeeting;
+	private ArrayList<Dipendente> Partecipanti;
 	//	Getter/Setter
 	public int getCodice() {
 		return Codice;
@@ -42,29 +42,32 @@ public class MeetingTelematico implements Meeting {
 	public void setData(Date data) {
 		Data = data;
 	}
-	public Time getOraI() {
-		return OraI;
+	public Time getOraInizio() {
+		return OraInizio;
 	}
-	public void setOraI(Time oraI) {
-		OraI = oraI;
+	public void setOraInizio(Time oraInizio) {
+		OraInizio = oraInizio;
 	}
-	public Time getOraF() {
-		return OraF;
+	public Time getOraFine() {
+		return OraFine;
 	}
-	public void setOraF(Time oraF) {
-		OraF = oraF;
+	public void setOraFine(Time oraFine) {
+		OraFine = oraFine;
 	}
-	public Progetto getArgomentoMeeting() {
-		return ArgomentoMeeting;
+	public Progetto getProgettoMeeting() {
+		return ProgettoMeeting;
 	}
-	public void setArgomentoMeeting(Progetto argomentoMeeting) {
-		ArgomentoMeeting = argomentoMeeting;
+	public void setProgettoMeeting(Progetto argomentoMeeting) {
+		ProgettoMeeting = argomentoMeeting;
 	}
-	public ArrayList<Partecipante> getPartecipanti() {
+	public ArrayList<Dipendente> getPartecipanti() {
 		return Partecipanti;
 	}
-	public void setPartecipanti(ArrayList<Partecipante> partecipanti) {
+	public void setPartecipanti(ArrayList<Dipendente> partecipanti) {
 		Partecipanti = partecipanti;
+	}
+	public void addPartecipante(Dipendente d) {
+		Partecipanti.add(d);
 	}
 
 }

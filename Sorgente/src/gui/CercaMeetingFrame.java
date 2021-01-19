@@ -63,6 +63,7 @@ public class CercaMeetingFrame extends JFrame {
     private JTable tableMeetingTelematico;
     private JTextField textCodiceMeetingFisico;
     private JPopupMenu popupMenuTable;
+    private JComboBox comboBoxTipoMeeting;
     private JTextField textField;
     private JTextField textField_1;
     private JTextField textField_2;
@@ -250,21 +251,6 @@ public class CercaMeetingFrame extends JFrame {
 		panelFisico.add(scrollPane);
 		
 		tableMeetingFisico = new JTable();
-		tableMeetingFisico.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
-				}
-			
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
-				}
-			}
-		});
 		tableMeetingFisico.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -279,6 +265,21 @@ public class CercaMeetingFrame extends JFrame {
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
+			}
+		});
+		tableMeetingFisico.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
 			}
 		});
 		scrollPane.setViewportView(tableMeetingFisico);
@@ -475,9 +476,29 @@ public class CercaMeetingFrame extends JFrame {
 				return columnTypes[columnIndex];
 			}
 		});
+		tableMeetingTelematico.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			}
+		});
 		scrollPane_1.setViewportView(tableMeetingTelematico);
 		
 		JButton btnInserisciMeetingTelematico = new JButton("Inserisci Meeting");
+		btnInserisciMeetingTelematico.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.ApriFrameInserisciMeetingInCercaMeeting();
+			}
+		});
 		btnInserisciMeetingTelematico.setBounds(9, 170, 170, 23);
 		panelTelematico.add(btnInserisciMeetingTelematico);
 		
@@ -550,7 +571,7 @@ public class CercaMeetingFrame extends JFrame {
 		lblTipologiaMeeting.setBounds(181, 11, 133, 17);
 		contentPane.add(lblTipologiaMeeting);
 		
-		JComboBox comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
+		comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
 		comboBoxTipoMeeting.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 
@@ -572,32 +593,32 @@ public class CercaMeetingFrame extends JFrame {
 		comboBoxTipoMeeting.setBounds(324, 11, 150, 22);
 		contentPane.add(comboBoxTipoMeeting);
 		
-	
 	}
     
-    	public void ShowPopupMenu(MouseEvent e) {
+    public void ShowPopupMenu(MouseEvent e) {
+    	
+    	popupMenuTable = new JPopupMenu();
+		JMenuItem itemModifica = new JMenuItem("Modifica meeting");
+		JMenuItem itemElimina = new JMenuItem("Elimina meeting");
+		
+    	switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
+    	
+    	case "Fisico":
     		
-    		popupMenuTable = new JPopupMenu();
-    		
-    		JMenuItem itemModifica = new JMenuItem("Modifica meeting");
-    		itemModifica.addActionListener(new ActionListener() {
-    			
-    			public void actionPerformed(ActionEvent e) {
-    				
-    				
-    				int i = tableMeetingFisico.getSelectedRow();
-    				
-    				controller.ApriFrameModificaMeetingInCercaMeeting(controller.getMeetingFisicoSelezionato(i));
-    			}
-    		});
-    		
-    		JMenuItem itemElimina = new JMenuItem("Elimina meeting");
-    		itemElimina.addActionListener(new ActionListener() {
-    			
-    			public void actionPerformed(ActionEvent e) {
-    				
-    				switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
-    				case JOptionPane.YES_OPTION:
+   			itemModifica.addActionListener(new ActionListener() {
+   				
+   				public void actionPerformed(ActionEvent e) {
+   					
+   					controller.ApriFrameModificaMeetingFisicoInCercaMeeting(controller.getMeetingFisicoSelezionato(tableMeetingFisico.getSelectedRow()));
+   				}
+   			});
+   			
+   			itemElimina.addActionListener(new ActionListener() {
+   				
+   				public void actionPerformed(ActionEvent e) {
+   					
+   					switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+   					case JOptionPane.YES_OPTION:
     					try {
     						ArrayList<MeetingFisico> selectedRows = new ArrayList<MeetingFisico>();
     						
@@ -618,25 +639,57 @@ public class CercaMeetingFrame extends JFrame {
     			}
     		});
     		
-    		if(tableMeetingFisico.getSelectedRowCount() == 1)
+   			if(tableMeetingFisico.getSelectedRowCount() == 1)
     			popupMenuTable.add(itemModifica);
     		if(tableMeetingFisico.getSelectedRowCount() > 0)
     			popupMenuTable.add(itemElimina);
     		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
+    		break;
+    		
+    	case "Telematico":
+    		
+    		itemModifica.addActionListener(new ActionListener() {
+    			
+    			public void actionPerformed(ActionEvent e) {
+    				
+    				controller.ApriFrameModificaMeetingTelematicoInCercaMeeting(controller.getMeetingTelematicoSelezionato(tableMeetingTelematico.getSelectedRow()));
+    			}
+    		});
+    		
+    		itemElimina.addActionListener(new ActionListener() {
+    			
+    			public void actionPerformed(ActionEvent e) {
+    				
+    				switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+    				case JOptionPane.YES_OPTION:
+//   						try {
+//   							ArrayList<MeetingTelematico> selectedRows = new ArrayList<MeetingTelematico>();
+//   							
+//  							for (int i :tableMeetingTelematico.getSelectedRows()) {
+//   								selectedRows.add(controller.getMeetingTelematicoSelezionato(i));
+//   						}
+   							
+//   							for (MeetingTelematico row : selectedRows)
+//   								controller.CancellazioneMeetingTelematico(row);
+//   						catch(SQLException ex) {
+//   							JOptionPane.showMessageDialog(null, ex.getMessage());
+//    						}
+    					break;	
+    				case JOptionPane.NO_OPTION:
+    					
+    				}
+    			}
+    		});
+    		
+    		if(tableMeetingTelematico.getSelectedRowCount() == 1)
+    			popupMenuTable.add(itemModifica);
+    		if(tableMeetingTelematico.getSelectedRowCount() > 0)
+    			popupMenuTable.add(itemElimina);
+    		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
     	}
-    
-    
-	
-	public void PopolaTabellaTelematico(ArrayList<MeetingTelematico> lista) {
-    		
-    	DefaultTableModel model = (DefaultTableModel) tableMeetingTelematico.getModel();
-    		
-    	model.setRowCount(0);
-    		
-    	for (MeetingTelematico m : lista)
-    		model.addRow(new Object[] {m.getCodice(), m.getData(), m.getOraI(), m.getOraF(), m.getPiattaforma(), m.getNumeroLimite()});
     }
-	
+    
+    
 	public void PopolaTabellaFisico(ArrayList<MeetingFisico> lista) {
     		
     	DefaultTableModel model = (DefaultTableModel) tableMeetingFisico.getModel();
@@ -644,7 +697,17 @@ public class CercaMeetingFrame extends JFrame {
     	model.setRowCount(0);
     		
     	for (MeetingFisico mf : lista)
-    		model.addRow(new Object[] {mf.getCodice(), mf.getData(), mf.getOraI(), mf.getOraF(), mf.getSalaRiunioni().getCittà()});
+    		model.addRow(new Object[] {mf.getCodice(), mf.getData(), mf.getOraInizio(), mf.getOraFine(), mf.getSalaRiunioni().getCittà()});
 
     }
+	public void PopolaTabellaTelematico(ArrayList<MeetingTelematico> lista) {
+		
+		DefaultTableModel model = (DefaultTableModel) tableMeetingTelematico.getModel();
+		
+		model.setRowCount(0);
+		
+		for (MeetingTelematico m : lista)
+			model.addRow(new Object[] {m.getCodice(), m.getData(), m.getOraInizio(), m.getOraFine(), m.getPiattaforma(), m.getNumeroLimite()});
+	}
+	
 }

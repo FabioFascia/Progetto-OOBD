@@ -279,7 +279,6 @@ public class ModificaProgettoFrame extends JFrame {
 		});
 		buttonModificaProgetto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonModificaProgetto.setBounds(148, 391, 259, 23);
-		buttonModificaProgetto.setEnabled(false);
 		contentPane.add(buttonModificaProgetto);
 		
 		JScrollPane scrollPane_1_1 = new JScrollPane();
@@ -428,14 +427,13 @@ public class ModificaProgettoFrame extends JFrame {
 	
 	public void setProjectManager(Dipendente pm) throws SQLException {
 		
+		controller.ModificaProjectManager(oldProgetto, pm);
 		
 		DefaultTableModel model = (DefaultTableModel) tableProjectManager.getModel();
 		
 		model.setRowCount(0);
 		
 		model.addRow(new Object[] {pm.getCodF(), pm.getNome(), pm.getCognome(), pm.getSalario()});
-		
-		controller.ModificaProjectManager(oldProgetto, pm);
 	}
 	
 	public void addAmbito(String ambito) throws SQLException {

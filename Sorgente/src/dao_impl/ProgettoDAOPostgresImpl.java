@@ -18,7 +18,6 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 	private PreparedStatement insertProgettoPS;
 	private PreparedStatement deleteProgettoPS;
 	private PreparedStatement updateProgettoPS;
-	private PreparedStatement updateProjectManagerPS;
 	private PreparedStatement insertAmbitoPS;
 	private PreparedStatement deleteAmbitoPS;
 	private PreparedStatement insertPartecipantePS;
@@ -37,7 +36,6 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 		deleteProgettoPS = connection.prepareStatement("DELETE FROM PROGETTO WHERE CodP = ?");
 		updateProgettoPS = connection.prepareStatement("UPDATE PROGETTO SET Tipologia = ?, Descrizione = ? WHERE CodP = ?;");
 		
-		updateProjectManagerPS = connection.prepareStatement("UPDATE PARTECIPANTE SET CodF = ? WHERE CodP = ? AND Ruolo ILIKE 'Project Manager';");
 		insertAmbitoPS = connection.prepareStatement("INSERT INTO AMBITO VALUES (?, ?);");
 		deleteAmbitoPS = connection.prepareStatement("DELETE FROM AMBITO WHERE CodP = ? AND Keyword = ?;");
 		insertPartecipantePS = connection.prepareStatement("INSERT INTO PARTECIPANTE VALUES (?, ?, ?);");
@@ -110,11 +108,15 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 	}
 	
 	public void updateProjectManager(Progetto p, Dipendente d) throws SQLException {
+	
+		deletePartecipantePS.setInt(1, p.getCodice());
+		deletePartecipantePS.setString(2, p.getProjectManager().getCodF());
+		deletePartecipantePS.execute();
 		
-		updateProjectManagerPS.setString(1, d.getCodF());
-		updateProjectManagerPS.setInt(2, p.getCodice());
-		
-		updateProjectManagerPS.execute();
+		insertPartecipantePS.setString(1, p.getProjectManager().getCodF());
+		insertPartecipantePS.setInt(2, p.getCodice());
+		insertPartecipantePS.setString(3, "Project Manager");
+		insertPartecipantePS.execute();
 	}
 	public void insertAmbito(Progetto p ,String ambito) throws SQLException {
 		

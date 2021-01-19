@@ -11,6 +11,12 @@ public class Sala {
 	private int NumeroPosti;
 	
 	//		Getter/Setter
+	public Sala() {}
+	public Sala(int codice) {
+		Codice = codice;
+	}
+	
+	
 	public String getCittà() {
 		return Città;
 	}

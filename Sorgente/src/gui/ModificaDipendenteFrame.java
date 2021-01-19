@@ -42,7 +42,7 @@ public class ModificaDipendenteFrame extends JFrame {
 		controller = c;
 		oldDip = d;
 		
-		setTitle("Inserimento Dipendente");
+		setTitle("Modifica Dipendente");
 		setResizable(false);
 		
 		
