@@ -54,7 +54,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		updateMeetingFisicoPS = connection.prepareStatement("UPDATE MEETINGF SET CodP = ?, Data = ?, OraI = ?, OraF = ?, CodSala = ? WHERE CodMF = ?;");
 		
 		insertMeetingTelematicoPS = connection.prepareStatement("CALL Insert_MeetingT(?, ?, ?, ?, ?, ?);");
-		deleteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM MEETING WHERE CodMT = ?;");
+		deleteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM MEETINGT WHERE CodMT = ?;");
 		updateMeetingTelematicoPS = connection.prepareStatement("UPDATE MEETINGT SET Data = ?, OraI = ?, Oraf = ?, Piattaforma = ?, NumLimite = ? WHERE CodMT = ?;");
 		
 		insertPartecipanteMeetingFisicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMF(CodMF, CodF) VALUES (?, ?);");

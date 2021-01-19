@@ -662,18 +662,19 @@ public class CercaMeetingFrame extends JFrame {
     				
     				switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
     				case JOptionPane.YES_OPTION:
-//   						try {
-//   							ArrayList<MeetingTelematico> selectedRows = new ArrayList<MeetingTelematico>();
-//   							
-//  							for (int i :tableMeetingTelematico.getSelectedRows()) {
-//   								selectedRows.add(controller.getMeetingTelematicoSelezionato(i));
-//   						}
+   						try {
+   							ArrayList<MeetingTelematico> selectedRows = new ArrayList<MeetingTelematico>();
    							
-//   							for (MeetingTelematico row : selectedRows)
-//   								controller.CancellazioneMeetingTelematico(row);
-//   						catch(SQLException ex) {
-//   							JOptionPane.showMessageDialog(null, ex.getMessage());
-//    						}
+  							for (int i :tableMeetingTelematico.getSelectedRows()) {
+   								selectedRows.add(controller.getMeetingTelematicoSelezionato(i));
+  							}
+   							
+   							for (MeetingTelematico row : selectedRows)
+   								controller.CancellazioneMeetingTelematico(row);
+   						}
+   						catch(SQLException ex) {
+   							JOptionPane.showMessageDialog(null, ex.getMessage());
+    					}
     					break;	
     				case JOptionPane.NO_OPTION:
     					
