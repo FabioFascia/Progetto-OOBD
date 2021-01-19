@@ -251,21 +251,6 @@ public class CercaMeetingFrame extends JFrame {
 		panelFisico.add(scrollPane);
 		
 		tableMeetingFisico = new JTable();
-		tableMeetingFisico.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
-				}
-			
-			}
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
-				}
-			}
-		});
 		tableMeetingFisico.setModel(new DefaultTableModel(
 			new Object[][] {
 			},
@@ -280,6 +265,21 @@ public class CercaMeetingFrame extends JFrame {
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
+			}
+		});
+		tableMeetingFisico.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
 			}
 		});
 		scrollPane.setViewportView(tableMeetingFisico);
@@ -476,6 +476,21 @@ public class CercaMeetingFrame extends JFrame {
 				return columnTypes[columnIndex];
 			}
 		});
+		tableMeetingTelematico.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			}
+		});
 		scrollPane_1.setViewportView(tableMeetingTelematico);
 		
 		JButton btnInserisciMeetingTelematico = new JButton("Inserisci Meeting");
@@ -578,118 +593,103 @@ public class CercaMeetingFrame extends JFrame {
 		comboBoxTipoMeeting.setBounds(324, 11, 150, 22);
 		contentPane.add(comboBoxTipoMeeting);
 		
-	
 	}
     
-    	public void ShowPopupMenu(MouseEvent e) {
+    public void ShowPopupMenu(MouseEvent e) {
+    	
+    	popupMenuTable = new JPopupMenu();
+		JMenuItem itemModifica = new JMenuItem("Modifica meeting");
+		JMenuItem itemElimina = new JMenuItem("Elimina meeting");
+		
+    	switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
+    	
+    	case "Fisico":
     		
-    		popupMenuTable = new JPopupMenu();
-			JMenuItem itemModifica = new JMenuItem("Modifica meeting");
-			JMenuItem itemElimina = new JMenuItem("Elimina meeting");
-			
-    		switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
-    		
-    		case "Fisico":
-    			
-    			itemModifica.addActionListener(new ActionListener() {
-    				
-    				public void actionPerformed(ActionEvent e) {
-    					
-    					controller.ApriFrameModificaMeetingFisicoInCercaMeeting(controller.getMeetingFisicoSelezionato(tableMeetingFisico.getSelectedRow()));
-    				}
-    			});
-    			
-    			itemElimina.addActionListener(new ActionListener() {
-    				
-    				public void actionPerformed(ActionEvent e) {
-    					
-    					switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
-    					case JOptionPane.YES_OPTION:
-    						try {
-    							ArrayList<MeetingFisico> selectedRows = new ArrayList<MeetingFisico>();
-    							
-    							for (int i :tableMeetingFisico.getSelectedRows()) {
-    								selectedRows.add(controller.getMeetingFisicoSelezionato(i));
-    							}
-    							
-    							for (MeetingFisico row : selectedRows)
-    								controller.CancellazioneMeetingFisico(row);
-    						}
-    						catch(SQLException ex) {
-    							JOptionPane.showMessageDialog(null, ex.getMessage());
-    						}
-    						break;
-    					case JOptionPane.NO_OPTION:
+   			itemModifica.addActionListener(new ActionListener() {
+   				
+   				public void actionPerformed(ActionEvent e) {
+   					
+   					controller.ApriFrameModificaMeetingFisicoInCercaMeeting(controller.getMeetingFisicoSelezionato(tableMeetingFisico.getSelectedRow()));
+   				}
+   			});
+   			
+   			itemElimina.addActionListener(new ActionListener() {
+   				
+   				public void actionPerformed(ActionEvent e) {
+   					
+   					switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+   					case JOptionPane.YES_OPTION:
+    					try {
+    						ArrayList<MeetingFisico> selectedRows = new ArrayList<MeetingFisico>();
     						
+    						for (int i :tableMeetingFisico.getSelectedRows()) {
+    							selectedRows.add(controller.getMeetingFisicoSelezionato(i));
+    						}
+    						
+    						for (MeetingFisico row : selectedRows)
+    							controller.CancellazioneMeetingFisico(row);
     					}
+    					catch(SQLException ex) {
+    						JOptionPane.showMessageDialog(null, ex.getMessage());
+    					}
+    					break;
+    				case JOptionPane.NO_OPTION:
+    					
     				}
-    			});
+    			}
+    		});
+    		
+   			if(tableMeetingFisico.getSelectedRowCount() == 1)
+    			popupMenuTable.add(itemModifica);
+    		if(tableMeetingFisico.getSelectedRowCount() > 0)
+    			popupMenuTable.add(itemElimina);
+    		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
+    		break;
+    		
+    	case "Telematico":
+    		
+    		itemModifica.addActionListener(new ActionListener() {
     			
-    			if(tableMeetingFisico.getSelectedRowCount() == 1)
-    				popupMenuTable.add(itemModifica);
-    			if(tableMeetingFisico.getSelectedRowCount() > 0)
-    				popupMenuTable.add(itemElimina);
-    			popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
-    			break;
-    			
-    		case "Telematico":
-    			
-    			itemModifica.addActionListener(new ActionListener() {
+    			public void actionPerformed(ActionEvent e) {
     				
-    				public void actionPerformed(ActionEvent e) {
-    					
-    					
-    					int i = tableMeetingTelematico.getSelectedRow();
-    					
-//    					controller.ApriFrameModificaMeetingTelematicoInCercaMeeting(controller.getMeetingFisicoSelezionato(i));
-    				}
-    			});
+    				controller.ApriFrameModificaMeetingTelematicoInCercaMeeting(controller.getMeetingTelematicoSelezionato(tableMeetingTelematico.getSelectedRow()));
+    			}
+    		});
+    		
+    		itemElimina.addActionListener(new ActionListener() {
     			
-    			itemElimina.addActionListener(new ActionListener() {
+    			public void actionPerformed(ActionEvent e) {
     				
-    				public void actionPerformed(ActionEvent e) {
-    					
-    					switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
-    					case JOptionPane.YES_OPTION:
-//    						try {
-    							ArrayList<MeetingTelematico> selectedRows = new ArrayList<MeetingTelematico>();
-    							
-    							for (int i :tableMeetingTelematico.getSelectedRows()) {
-    								selectedRows.add(controller.getMeetingTelematicoSelezionato(i));
-    							}
-    							
-//    							for (MeetingTelematico row : selectedRows)
-//    								controller.CancellazioneMeetingTelematico(row);
-//    						catch(SQLException ex) {
-//    							JOptionPane.showMessageDialog(null, ex.getMessage());
+    				switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+    				case JOptionPane.YES_OPTION:
+//   						try {
+//   							ArrayList<MeetingTelematico> selectedRows = new ArrayList<MeetingTelematico>();
+//   							
+//  							for (int i :tableMeetingTelematico.getSelectedRows()) {
+//   								selectedRows.add(controller.getMeetingTelematicoSelezionato(i));
+//   						}
+   							
+//   							for (MeetingTelematico row : selectedRows)
+//   								controller.CancellazioneMeetingTelematico(row);
+//   						catch(SQLException ex) {
+//   							JOptionPane.showMessageDialog(null, ex.getMessage());
 //    						}
-    						break;	
-    					case JOptionPane.NO_OPTION:
-    						
-    					}
+    					break;	
+    				case JOptionPane.NO_OPTION:
+    					
     				}
-    			});
-    			
-    			if(tableMeetingFisico.getSelectedRowCount() == 1)
-    				popupMenuTable.add(itemModifica);
-    			if(tableMeetingFisico.getSelectedRowCount() > 0)
-    				popupMenuTable.add(itemElimina);
-    			popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
-    		}
+    			}
+    		});
+    		
+    		if(tableMeetingTelematico.getSelectedRowCount() == 1)
+    			popupMenuTable.add(itemModifica);
+    		if(tableMeetingTelematico.getSelectedRowCount() > 0)
+    			popupMenuTable.add(itemElimina);
+    		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
     	}
-    
-    
-	
-	public void PopolaTabellaTelematico(ArrayList<MeetingTelematico> lista) {
-    		
-    	DefaultTableModel model = (DefaultTableModel) tableMeetingTelematico.getModel();
-    		
-    	model.setRowCount(0);
-    		
-    	for (MeetingTelematico m : lista)
-    		model.addRow(new Object[] {m.getCodice(), m.getData(), m.getOraInizio(), m.getOraFine(), m.getPiattaforma(), m.getNumeroLimite()});
     }
-	
+    
+    
 	public void PopolaTabellaFisico(ArrayList<MeetingFisico> lista) {
     		
     	DefaultTableModel model = (DefaultTableModel) tableMeetingFisico.getModel();
@@ -700,4 +700,14 @@ public class CercaMeetingFrame extends JFrame {
     		model.addRow(new Object[] {mf.getCodice(), mf.getData(), mf.getOraInizio(), mf.getOraFine(), mf.getSalaRiunioni().getCittà()});
 
     }
+	public void PopolaTabellaTelematico(ArrayList<MeetingTelematico> lista) {
+		
+		DefaultTableModel model = (DefaultTableModel) tableMeetingTelematico.getModel();
+		
+		model.setRowCount(0);
+		
+		for (MeetingTelematico m : lista)
+			model.addRow(new Object[] {m.getCodice(), m.getData(), m.getOraInizio(), m.getOraFine(), m.getPiattaforma(), m.getNumeroLimite()});
+	}
+	
 }

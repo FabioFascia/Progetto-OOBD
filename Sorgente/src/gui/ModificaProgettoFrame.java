@@ -279,7 +279,6 @@ public class ModificaProgettoFrame extends JFrame {
 		});
 		buttonModificaProgetto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonModificaProgetto.setBounds(148, 391, 259, 23);
-		buttonModificaProgetto.setEnabled(false);
 		contentPane.add(buttonModificaProgetto);
 		
 		JScrollPane scrollPane_1_1 = new JScrollPane();

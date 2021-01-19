@@ -43,7 +43,7 @@ public class Controller {
 	private CercaMeetingFrame cercaMeeting;
 	private InserisciMeetingFrame inserisciMeeting;
 	private ModificaMeetingFisicoFrame modificaMeetingFisico;
-//	private ModificaMeetingTelematicoFrame modificaMeetingTelematico;
+	private ModificaMeetingTelematicoFrame modificaMeetingTelematico;
 	private CercaPartecipanteMeetingFrame cercaPartecipanteMeeting;
 	private CercaProgettoMeetingFrame cercaProgettoMeeting;
 	private CercaSalaMeetingFrame cercaSalaMeeting;
@@ -238,6 +238,16 @@ public class Controller {
 		cercaMeeting.toFront();
 		cercaMeeting.setEnabled(true);
 	}
+	public void ApriFrameModificaMeetingTelematicoInCercaMeeting(MeetingTelematico mt) {
+		modificaMeetingTelematico = new ModificaMeetingTelematicoFrame(this, mt);
+		cercaMeeting.setEnabled(false);
+		modificaMeetingTelematico.setVisible(true);
+	}
+	public void ChiudiFrameModificaMeetingTelematicoInCercaMeeting() {
+		modificaMeetingTelematico.dispose();
+		cercaMeeting.toFront();
+		cercaMeeting.setEnabled(true);
+	}
 	public void ApriFrameCercaPartecipanteMeeting() {
 		
 		cercaPartecipanteMeeting = new CercaPartecipanteMeetingFrame(this);
@@ -245,8 +255,8 @@ public class Controller {
 			inserisciMeeting.setEnabled(false);
 		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable())
 			modificaMeetingFisico.setEnabled(false);
-//		else
-//			modificaMeetingTelematico.setEnabled(false);
+		else
+			modificaMeetingTelematico.setEnabled(false);
 		cercaPartecipanteMeeting.setVisible(true);
 	}
 	public void ChiudiFrameCercaPartecipanteMeeting() {
@@ -260,6 +270,10 @@ public class Controller {
 			modificaMeetingFisico.toFront();
 			modificaMeetingFisico.setEnabled(true);
 		}
+		else {
+			modificaMeetingTelematico.toFront();
+			modificaMeetingTelematico.setEnabled(true);
+		}
 	}
 	public void ApriFrameCercaProgettoMeeting() {
 		
@@ -268,6 +282,8 @@ public class Controller {
 			inserisciMeeting.setEnabled(false);
 		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable())
 			modificaMeetingFisico.setEnabled(false);
+		else
+			modificaMeetingTelematico.setEnabled(false);
 		cercaProgettoMeeting.setVisible(true);
 	}
 	public void ChiudiFrameCercaProgettoMeeting() {
@@ -280,6 +296,10 @@ public class Controller {
 		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable()) {
 			modificaMeetingFisico.toFront();
 			modificaMeetingFisico.setEnabled(true);
+		}
+		else {
+			modificaMeetingTelematico.toFront();
+			modificaMeetingTelematico.setEnabled(true);
 		}
 	}
 	public void ApriFrameCercaSalaMeeting() {
@@ -422,14 +442,17 @@ public class Controller {
 	public void InserimentoMeetingTelematico(MeetingTelematico mt) throws SQLException {
 		meetingDao.insertMeetingTelematico(mt);
 	}
+	public void ModificaMeetingTelematico(MeetingTelematico mt) throws SQLException {
+		meetingDao.updateMeetingTelematico(mt);
+	}
 	public void SelezionePartecipanteMeeting(Dipendente d) throws SQLException {
 		
 		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
 			inserisciMeeting.addPartecipante(d);
 		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable())
 			modificaMeetingFisico.addPartecipante(d);
-//		else
-//			modificaMeetingTelematico.addPartecipante(d);
+		else
+			modificaMeetingTelematico.addPartecipante(d);
 	}
 	public void InserimentoPartecipanteMeetingFisico(MeetingFisico mf, Dipendente d) throws SQLException {
 		meetingDao.insertPartecipanteMeetingFisico(mf, d);
@@ -439,14 +462,22 @@ public class Controller {
 		meetingDao.deletePartecipanteMeetingFisico(mf, d);
 		mf.getPartecipanti().remove(d);
 	}
+    public void InserimentoPartecipanteMeetingTelematico(MeetingTelematico mt, Dipendente d) throws SQLException {
+    	meetingDao.insertPartecipanteMeetingTelematico(mt, d);
+    	mt.addPartecipante(d);
+    }
+    public void CancellazionePartecipanteMeetingTelematico(MeetingTelematico mt, Dipendente d) throws SQLException {
+    	meetingDao.deletePartecipanteMeetingTelematico(mt, d);
+    	mt.getPartecipanti().remove(d);
+    }
 	public void SelezioneProgettoMeeting(Progetto p) throws SQLException {
 		
 		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
 			inserisciMeeting.setProgetto(p);
 		else if(modificaMeetingFisico != null && modificaMeetingFisico.isDisplayable())
 			modificaMeetingFisico.setProgetto(p);
-//		else
-//			modificaMeetingTelematico.setProgetto(p);
+		else
+			modificaMeetingTelematico.setProgetto(p);
 	}
 	public void SelezioneSalaRiunioni(Sala s) throws SQLException {
 		

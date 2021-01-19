@@ -45,23 +45,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ModificaMeetingFisicoFrame extends JFrame {
+public class ModificaMeetingTelematicoFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
-	private JTable tableSala;
 	private JTable tablePartecipanti;
 	private JButton buttonModificaMeeting;
 	private JTable tableProgetto;
 	private JPopupMenu popupMenuTable;
-	private MeetingFisico oldMeeting;
+	private MeetingTelematico oldMeeting;
+	private JTextField textFieldPiattaforma;
+	private JTextField textFieldLimitePartecipanti;
 	/**
 	 * Create the frame.
 	 */
-	public ModificaMeetingFisicoFrame(Controller c, MeetingFisico mf) {
+	public ModificaMeetingTelematicoFrame(Controller c, MeetingTelematico mt) {
 		
 		controller = c;
-		oldMeeting = mf;
+		oldMeeting = mt;
 		
 		setTitle("Modifica Meeting");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -69,7 +70,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 			@Override
 			public void windowClosing(WindowEvent e) {
 				
-				controller.ChiudiFrameModificaMeetingFisicoInCercaMeeting();
+				controller.ChiudiFrameModificaMeetingTelematicoInCercaMeeting();
 			}
 		});
 		setBounds(100, 100, 440, 510);
@@ -81,7 +82,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		JButton btnNewButton = new JButton("Annulla");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.ChiudiFrameModificaMeetingFisicoInCercaMeeting();
+				controller.ChiudiFrameModificaMeetingTelematicoInCercaMeeting();
 			}
 		});
 		btnNewButton.setBounds(10, 11, 89, 23);
@@ -223,7 +224,6 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		buttonModificaMeeting = new JButton("Modifica Meeting");
 		buttonModificaMeeting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MeetingFisico mf;
 				MeetingTelematico mt;
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				DateFormat of = new SimpleDateFormat("HH:mm:ss");
@@ -231,9 +231,11 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 				oldMeeting.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
 				oldMeeting.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
 				oldMeeting.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+				oldMeeting.setPiattaforma(textFieldPiattaforma.getText());
+				oldMeeting.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
 				try {
-					controller.ModificaMeetingFisico(oldMeeting);
-					controller.ChiudiFrameModificaMeetingFisicoInCercaMeeting();
+					controller.ModificaMeetingTelematico(oldMeeting);
+					controller.ChiudiFrameModificaMeetingTelematicoInCercaMeeting();
 				}
 				catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -244,48 +246,32 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		buttonModificaMeeting.setBounds(81, 437, 259, 23);
 		contentPane.add(buttonModificaMeeting);
 		
-		JButton btnNewButton_1 = new JButton("Seleziona sala...");
-		btnNewButton_1.setBounds(112, 58, 146, 23);
-		contentPane.add(btnNewButton_1);
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.ApriFrameCercaSalaMeeting();
-			}
-		});
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		JLabel lblNewLabel = new JLabel("Piattaforma");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel.setBounds(117, 80, 96, 14);
+		contentPane.add(lblNewLabel);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(112, 90, 302, 41);
-		contentPane.add(scrollPane);
+		textFieldPiattaforma = new JTextField();
+		textFieldPiattaforma.setColumns(10);
+		textFieldPiattaforma.setBounds(117, 94, 142, 20);
+		textFieldPiattaforma.setText(oldMeeting.getPiattaforma());
+		contentPane.add(textFieldPiattaforma);
 		
-		tableSala = new JTable();
-		tableSala.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Integer.class, Integer.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-			
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		});
-		Sala s = oldMeeting.getSalaRiunioni();
-		((DefaultTableModel) tableSala.getModel()).addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti(), s.getCodice()});
-		scrollPane.setViewportView(tableSala);
+		textFieldLimitePartecipanti = new JTextField();
+		textFieldLimitePartecipanti.setColumns(10);
+		textFieldLimitePartecipanti.setBounds(282, 94, 61, 20);
+		textFieldLimitePartecipanti.setText(String.valueOf(oldMeeting.getNumeroLimite()));
+		contentPane.add(textFieldLimitePartecipanti);
+		
+		JLabel lblNewLabel_1 = new JLabel("Limite Partecipanti");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1.setBounds(282, 80, 114, 14);
+		contentPane.add(lblNewLabel_1);
 	}
 	
 	public void addPartecipante(Dipendente d) throws SQLException {
 		
-		controller.InserimentoPartecipanteMeetingFisico(oldMeeting, d);
+		controller.InserimentoPartecipanteMeetingTelematico(oldMeeting, d);
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		
@@ -293,7 +279,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 	}
 	public void deletePartecipante(int indice) throws SQLException {
 		
-		controller.CancellazionePartecipanteMeetingFisico(oldMeeting, oldMeeting.getPartecipanti().get(indice));
+		controller.CancellazionePartecipanteMeetingTelematico(oldMeeting, oldMeeting.getPartecipanti().get(indice));
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 		
@@ -309,21 +295,11 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		
 		ToggleUpdateButton();
 	}
-	public void setSala(Sala s) {
-		
-		DefaultTableModel model = (DefaultTableModel) tableSala.getModel();
-		
-		model.setRowCount(0);
-		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
-		oldMeeting.setSalaRiunioni(s);
-		
-		ToggleUpdateButton();
-	}
 	public void ToggleUpdateButton() {
 		
 		boolean ret = true;
 		
-		if(tableSala.getModel().getRowCount() == 0)
+		if(textFieldPiattaforma.getText().isBlank())
 			ret = false;
 		else if(tablePartecipanti.getModel().getRowCount() == 0)
 			ret = false;
