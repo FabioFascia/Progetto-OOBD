@@ -76,7 +76,7 @@ public class CercaSalaFrame extends JFrame {
 		contentPane.add(buttonIndietro);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 245, 474, 156);
+		scrollPane.setBounds(0, 245, 484, 156);
 		contentPane.add(scrollPane);
 		
 		tableSale = new JTable();
@@ -84,11 +84,11 @@ public class CercaSalaFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti", "Codice"
+				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
+				String.class, String.class, String.class, Integer.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -114,7 +114,7 @@ public class CercaSalaFrame extends JFrame {
 		layeredPane.add(panelMeeting, "name_14079937632200");
 		panelMeeting.setLayout(null);
 		
-		JComboBox comboBoxCercaSala = new JComboBox(new Object[]{"Attributi", "Meeting Fisici tenutisi"});
+		JComboBox comboBoxCercaSala = new JComboBox(new Object[]{"Attributi", "Meeting Fisici tenutivisi"});
 		comboBoxCercaSala.setBounds(285, 25, 168, 23);
 		comboBoxCercaSala.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -126,7 +126,7 @@ public class CercaSalaFrame extends JFrame {
 						layeredPane.repaint();
 						layeredPane.revalidate();
 						break;
-					case "Meeting Fisici tenutisi":
+					case "Meeting Fisici tenutivisi":
 						layeredPane.removeAll();
 						layeredPane.add(panelMeeting);
 						layeredPane.repaint();
@@ -205,7 +205,7 @@ public class CercaSalaFrame extends JFrame {
 		panelAttributi.add(labelMax);
 		
 		JButton buttonRicerca = new JButton("Cerca");
-		buttonRicerca.setBounds(350, 211, 104, 23);
+		buttonRicerca.setBounds(349, 211, 104, 23);
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

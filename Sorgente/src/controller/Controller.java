@@ -27,6 +27,7 @@ import gui.*;
 public class Controller {
 	
 	private Connection connection;
+	
 	private MainMenuFrame mainMenu;
 	
 	private CercaDipendenteFrame cercaDipendente;
@@ -85,6 +86,8 @@ public class Controller {
 		mainMenu.setVisible(true);
 	}
 	
+	
+	
 	public void CambiaFrameMainMenuInCercaDipendente() {
 		
 		cercaDipendente = new CercaDipendenteFrame(this);
@@ -96,6 +99,7 @@ public class Controller {
 		cercaDipendente.dispose();
 		mainMenu.setVisible(true);
 	}
+	
 	public void ApriFrameInserisciDipendenteInCercaDipendente() {
 		
 		inserisciDipendente = new InserisciDipendenteFrame(this);
@@ -134,6 +138,7 @@ public class Controller {
 		cercaProgetto.dispose();
 		mainMenu.setVisible(true);
 	}
+	
 	public void ApriFrameInserisciProgettoInCercaProgetto() {
 		
 		inserisciProgetto = new InserisciProgettoFrame(this);
@@ -158,6 +163,7 @@ public class Controller {
 		cercaProgetto.toFront();
 		cercaProgetto.setEnabled(true);
 	}
+	
 	public void ApriFrameCercaProjectManager() {
 		
 		cercaProjectManager = new CercaProjectManagerFrame(this);
@@ -216,6 +222,7 @@ public class Controller {
 		cercaMeeting.dispose();
 		mainMenu.setVisible(true);
 	}
+	
 	public void ApriFrameInserisciMeetingInCercaMeeting() {
 
 		inserisciMeeting = new InserisciMeetingFrame(this);
@@ -248,6 +255,7 @@ public class Controller {
 		cercaMeeting.toFront();
 		cercaMeeting.setEnabled(true);
 	}
+	
 	public void ApriFrameCercaPartecipanteMeeting() {
 		
 		cercaPartecipanteMeeting = new CercaPartecipanteMeetingFrame(this);
@@ -341,8 +349,6 @@ public class Controller {
 	
 	
 	
-	
-	
 	public void InserimentoDipendente(Dipendente d) throws SQLException {
 		
 		dipendenteDao.insertDipendente(d);
@@ -355,6 +361,7 @@ public class Controller {
 		
 		dipendenteDao.deleteDipendente(d);
 	}
+	
 	public ArrayList<Dipendente> RicercaDipendentePerAttributi(String codf, String nome, String cognome, String minSalario, String maxSalario) throws SQLException {
 		
 		DipendentiSelezionati = dipendenteDao.getDipendenteByAttributi(codf, nome, cognome, minSalario ,maxSalario);
@@ -365,6 +372,8 @@ public class Controller {
 		DipendentiSelezionati = dipendenteDao.getDipendenteByProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti);
 		return DipendentiSelezionati;
 	}
+	
+	
 	
 	public void InserimentoProgetto(Progetto p) throws SQLException {
 		
@@ -378,6 +387,7 @@ public class Controller {
 		
 		progettoDao.updateProgetto(p);
 	}
+	
 	public void SelezioneProjectManager(Dipendente pm) throws SQLException {
 
 		if(inserisciProgetto != null && inserisciProgetto.isDisplayable())
@@ -417,6 +427,7 @@ public class Controller {
 		p.getPartecipanti().remove(par);
 		progettoDao.deletePartecipante(p, par.getDipendente());
 	}
+	
 	public ArrayList<Progetto> RicercaProgettoPerAttributi(String codp, String tipologia, String ambito) throws SQLException {
 		
 		ProgettiSelezionati = progettoDao.getProgettoByAttributi(codp, tipologia, ambito);
@@ -429,7 +440,7 @@ public class Controller {
 	}
 	
 	
-    
+	
 	public void InserimentoMeetingFisico(MeetingFisico mf) throws SQLException {
 		meetingDao.insertMeetingFisico(mf);
 	}
@@ -442,9 +453,13 @@ public class Controller {
 	public void InserimentoMeetingTelematico(MeetingTelematico mt) throws SQLException {
 		meetingDao.insertMeetingTelematico(mt);
 	}
+	public void CancellazioneMeetingTelematico(MeetingTelematico mt) throws SQLException {
+		meetingDao.deleteMeetingTelematico(mt);
+	}
 	public void ModificaMeetingTelematico(MeetingTelematico mt) throws SQLException {
 		meetingDao.updateMeetingTelematico(mt);
 	}
+	
 	public void SelezionePartecipanteMeeting(Dipendente d) throws SQLException {
 		
 		if(inserisciMeeting != null && inserisciMeeting.isDisplayable())
@@ -486,10 +501,23 @@ public class Controller {
 		else
 			modificaMeetingFisico.setSala(s);
 	}
+	
 	public ArrayList<MeetingFisico> RicercaMeetingFisicoPerAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
 		
 		MeetingFisiciSelezionati = meetingDao.getMeetingFisicoByAttributi(CodMF,Data, OraInizio,  OraFine);
 
+		return MeetingFisiciSelezionati;
+	}
+	public ArrayList<MeetingFisico> RicercaMeetingFisicoPerProgetti(String codp, String tipologia, String ambito) throws SQLException {
+		
+		MeetingFisiciSelezionati = meetingDao.getMeetingFisicoByProgetti(codp, tipologia, ambito);
+		
+		return MeetingFisiciSelezionati;
+	}
+	public ArrayList<MeetingFisico> RicercaMeetingFisicoPerSala(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
+		
+		MeetingFisiciSelezionati = meetingDao.getMeetingFisicoBySala(città, provincia, indirizzo, numCivico, minPosti, maxPosti);
+		
 		return MeetingFisiciSelezionati;
 	}
     public ArrayList<MeetingTelematico> RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
@@ -498,6 +526,13 @@ public class Controller {
 		
 		return MeetingTelematiciSelezionati;
 	}
+    public ArrayList<MeetingTelematico> RicercaMeetingTelematicoPerProgetti(String codp, String tipologia, String ambito) throws SQLException {
+    	
+    	MeetingTelematiciSelezionati = meetingDao.getMeetingTelematicoByProgetti(codp, tipologia, ambito);
+    	
+    	return MeetingTelematiciSelezionati;
+    }
+    
     
     
     public ArrayList<Sala> RicercaSalaPerAttributi(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
@@ -507,6 +542,8 @@ public class Controller {
     	return SaleRiunioniSelezionate;
     }
 	
+    
+    
 	public Dipendente getDipendenteSelezionato(int indice) {
 		return DipendentiSelezionati.get(indice);
 	}
@@ -534,7 +571,6 @@ public class Controller {
 			break;
 		}
 	}
-
-	    
+	
 }
 	
