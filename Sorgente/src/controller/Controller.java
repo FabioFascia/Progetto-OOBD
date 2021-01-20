@@ -514,12 +514,24 @@ public class Controller {
 		
 		return MeetingFisiciSelezionati;
 	}
+	public ArrayList<MeetingFisico> RicercaMeetingFisicoPerSala(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
+		
+		MeetingFisiciSelezionati = meetingDao.getMeetingFisicoBySala(città, provincia, indirizzo, numCivico, minPosti, maxPosti);
+		
+		return MeetingFisiciSelezionati;
+	}
     public ArrayList<MeetingTelematico> RicercaMeetingTelematicoPerAttributi(String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
 		
 		MeetingTelematiciSelezionati = meetingDao.getMeetingTelematicoByAttributi(CodMT, Data, OraInizio,  OraFine, Piattaforma, NumMassimo );
 		
 		return MeetingTelematiciSelezionati;
 	}
+    public ArrayList<MeetingTelematico> RicercaMeetingTelematicoPerProgetti(String codp, String tipologia, String ambito) throws SQLException {
+    	
+    	MeetingTelematiciSelezionati = meetingDao.getMeetingTelematicoByProgetti(codp, tipologia, ambito);
+    	
+    	return MeetingTelematiciSelezionati;
+    }
     
     
     

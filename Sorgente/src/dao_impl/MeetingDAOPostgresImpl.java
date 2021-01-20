@@ -39,11 +39,14 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 	
 	private PreparedStatement getMeetingFisicoByAttributiPS;
 	private PreparedStatement getMeetingFisicoByProgettiPS;
+	private PreparedStatement getMeetingFisicoBySalaPS;
 	private PreparedStatement getMeetingTelematicoByAttributiPS;
+	private PreparedStatement getMeetingTelematicoByProgettiPS;
 	
 	private PreparedStatement getSalaMeetingFisicoPS;
 	private PreparedStatement getProgettoMeetingPS;
 	private PreparedStatement getPartecipantiMeetingFisicoPS;
+	private PreparedStatement getPartecipantiMeetingTelematicoPS;
 
 	
 	public  MeetingDAOPostgresImpl (Connection c) throws SQLException{
@@ -78,7 +81,16 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 																					+ "FROM PROGETTO AS PR LEFT OUTER JOIN "
 																							+ "AMBITO AS A ON "
 																							+ "PR.CodP = A.CodP "
-																					+ "WHERE (? IS NULL OR A.Keyword ILIKE ?))");
+																					+ "WHERE (? IS NULL OR A.Keyword ILIKE ?));");
+		
+		getMeetingFisicoBySalaPS = connection.prepareStatement("SELECT MF.CodMF, MF.Data, MF.OraI, MF.OraF, MF.CodP, MF.CodSala "
+															+ "FROM MEETINGF AS MF NATURAL JOIN "
+																	+ "SALA AS S "
+															+ "WHERE S.Città ILIKE ? AND "
+																	+ "S.Provincia ILIKE ? AND "
+																	+ "S.Indirizzo ILIKE ? AND "
+																	+ "(? = -1 OR S.NumeroCivico = ?) AND "
+																	+ "S.NumPosti BETWEEN ? AND ?;");
 		
 		getMeetingTelematicoByAttributiPS = connection.prepareStatement("SELECT * "  
 		                                                                         + "FROM MEETINGT "
@@ -87,6 +99,17 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		                                                                              + "  AND((OraI BETWEEN ? AND ?) OR (OraF BETWEEN ? AND ?)) AND "
 		                                                                                + "((Piattaforma ILIKE ?) AND (NumLimite = ? OR ? = -2)); ");
 		
+		getMeetingTelematicoByProgettiPS = connection.prepareStatement("SELECT MT.CodMT, MT.Data, MT.OraI, MT.OraF, MT.CodP, MT.Piattaforma, MT.NumLimite "
+																	+ "FROM MEETINGT AS MT NATURAL JOIN "
+																			+ "PROGETTO AS P "
+																	+ "WHERE (? = -1 OR P.CodP = ?) AND "
+																			+ "P.Tipologia ILIKE ? AND "
+																			+ "P.CodP IN (SELECT PR.CodP "
+																						+ "FROM PROGETTO AS PR LEFT OUTER JOIN "
+																								+ "AMBITO AS A ON "
+																								+ "PR.CodP = A.CodP "
+																						+ "WHERE (? IS NULL OR A.Keyword ILIKE ?));");
+		
 		getSalaMeetingFisicoPS = connection.prepareStatement("SELECT * FROM SALA WHERE CodSala = ?;");
 		getProgettoMeetingPS = connection.prepareStatement("SELECT * FROM PROGETTO WHERE CodP = ?;");
 		getPartecipantiMeetingFisicoPS = connection.prepareStatement("SELECT D.CodF, D.Nome, D.Cognome, D.Salario, D.Valutazione "
@@ -94,6 +117,10 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 																			+ "DIPENDENTE AS D "
 																	+ "WHERE PMF.CodMF = ? "
 																	+ "ORDER BY D.Valutazione;");
+		getPartecipantiMeetingTelematicoPS = connection.prepareStatement("SELECT D.CodF, D.Nome, D.Cognome, D.Salario, D.Valutazione "
+																		+ "FROM PARTECIPAMT AS PMT NATURAL JOIN "
+																			+ "DIPENDENTE AS D "
+																		+ "WHERE PMT.CodMT = ?;");
 		   
 	}		                                                                            
 		                            
@@ -283,6 +310,55 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		return lista;
     }
     
+	public ArrayList<MeetingFisico> getMeetingFisicoBySala(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
+		
+		int civico, minimo, massimo;
+		
+		if(numCivico.isBlank())
+			civico = -1;
+		else
+			civico = Integer.parseInt(numCivico);
+		
+		if(minPosti.isBlank())
+			minimo = Integer.MIN_VALUE;
+		else
+			minimo = Integer.parseInt(minPosti);
+		
+		if(maxPosti.isBlank())
+			massimo = Integer.MAX_VALUE;
+		else
+			massimo = Integer.parseInt(maxPosti);
+		
+		getMeetingFisicoBySalaPS.setString(1, "%" + città + "%");
+		getMeetingFisicoBySalaPS.setString(2, "%" + provincia + "%");
+		getMeetingFisicoBySalaPS.setString(3, "%" + indirizzo + "%");
+		getMeetingFisicoBySalaPS.setInt(4, civico);
+		getMeetingFisicoBySalaPS.setInt(5, civico);
+		getMeetingFisicoBySalaPS.setInt(6, minimo);
+		getMeetingFisicoBySalaPS.setInt(7, massimo);
+		
+		ResultSet rs = getMeetingFisicoBySalaPS.executeQuery();
+		
+    	ArrayList<MeetingFisico> lista = new ArrayList<MeetingFisico>();
+    	
+    	while(rs.next()) {
+    		
+    		MeetingFisico mf = new MeetingFisico();
+    		Sala s = new Sala();
+    		
+    		mf.setCodice(rs.getInt("CodMF"));
+    		mf.setData(rs.getDate("Data"));
+    		mf.setOraInizio(rs.getTime("OraI"));
+    		mf.setOraFine(rs.getTime("OraF"));
+            mf.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
+            mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
+            mf.setSalaRiunioni(getSalaMeetingFisico(rs.getInt("CodSala")));
+    		
+    		lista.add(mf);
+    	}
+		return lista;
+	}
+    
     public ArrayList<MeetingTelematico> getMeetingTelematicoByAttributi (String CodMT, String Data, String OraInizio, String OraFine, String Piattaforma, String NumMassimo) throws SQLException {
     	
     	int codice, numeroMassimo; Date data; Time oraInizio, oraFine; 
@@ -328,7 +404,50 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     		mt.setPiattaforma(rs.getString("Piattaforma"));
     		mt.setNumeroLimite(rs.getInt("NumLimite"));
             mt.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
-            mt.setPartecipanti(getPartecipantiMeetingFisico(mt.getCodice()));
+            mt.setPartecipanti(getPartecipantiMeetingTelematico(mt.getCodice()));
+    		
+    		lista.add(mt);
+    		
+    	}
+		return lista;
+    }
+    
+    public ArrayList<MeetingTelematico> getMeetingTelematicoByProgetti(String codp, String tipologia, String ambito) throws SQLException {
+    	
+    	int codice;
+    	String amb;
+    	
+    	if(codp.isBlank())
+    		codice = -1;
+    	else
+    		codice = Integer.parseInt(codp);
+    	
+    	if(ambito.isBlank())
+    		amb = null;
+    	else
+    		amb = "%" + ambito + "%";
+    	
+    	getMeetingTelematicoByProgettiPS.setInt(1, codice);
+    	getMeetingTelematicoByProgettiPS.setInt(2, codice);
+    	getMeetingTelematicoByProgettiPS.setString(3, "%" + tipologia + "%");
+    	getMeetingTelematicoByProgettiPS.setString(4, amb);
+    	getMeetingTelematicoByProgettiPS.setString(5, amb);
+    	
+    	ResultSet rs = getMeetingTelematicoByProgettiPS.executeQuery();
+    	
+    	ArrayList<MeetingTelematico> lista = new ArrayList<MeetingTelematico>();
+    	
+    	while(rs.next()) {
+    		MeetingTelematico mt = new MeetingTelematico();
+    		
+    		mt.setCodice(rs.getInt("CodMT"));
+    		mt.setData(rs.getDate("Data"));
+    		mt.setOraInizio(rs.getTime("OraI"));
+    		mt.setOraFine(rs.getTime("OraF"));
+    		mt.setPiattaforma(rs.getString("Piattaforma"));
+    		mt.setNumeroLimite(rs.getInt("NumLimite"));
+            mt.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
+            mt.setPartecipanti(getPartecipantiMeetingTelematico(mt.getCodice()));
     		
     		lista.add(mt);
     		
@@ -373,6 +492,29 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	getPartecipantiMeetingFisicoPS.setInt(1, codmf);
     	
     	ResultSet rs = getPartecipantiMeetingFisicoPS.executeQuery();
+    	
+    	ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
+    	
+    	while(rs.next()) {
+    		Dipendente d = new Dipendente();
+    		
+    		d.setCodF(rs.getString("CodF"));
+    		d.setNome(rs.getString("Nome"));
+    		d.setCognome(rs.getString("Cognome"));
+    		d.setSalario(rs.getFloat("Salario"));
+    		d.setValutazione(rs.getInt("Valutazione"));
+    		
+    		lista.add(d);
+    	}
+    	
+    	return lista;
+    }
+    
+    public ArrayList<Dipendente> getPartecipantiMeetingTelematico(int codmt) throws SQLException {
+    	
+    	getPartecipantiMeetingTelematicoPS.setInt(1, codmt);
+    	
+    	ResultSet rs = getPartecipantiMeetingTelematicoPS.executeQuery();
     	
     	ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
     	
