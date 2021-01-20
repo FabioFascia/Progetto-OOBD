@@ -239,6 +239,10 @@ public class CercaSalaFrame extends JFrame {
 			}
 		});
 		contentPane.add(buttonRicerca);
+		
+		JButton buttonInserisciSala = new JButton("Inserisci Sala");
+		buttonInserisciSala.setBounds(10, 211, 170, 23);
+		contentPane.add(buttonInserisciSala);
 	}
 	
 	public void PopolaTabella(ArrayList<Sala> lista) {
