@@ -122,14 +122,14 @@ public class InserisciDipendenteFrame extends JFrame {
 		buttonInserimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Dipendente d = new Dipendente();
-				
-				d.setCodF(textFieldCodiceFiscale.getText());
-				d.setNome(textFieldNome.getText());
-				d.setCognome(textFieldCognome.getText());
-				d.setSalario(Float.parseFloat(textFieldSalario.getText()));
-				
 				try {
+					Dipendente d = new Dipendente();
+					
+					d.setCodF(textFieldCodiceFiscale.getText());
+					d.setNome(textFieldNome.getText());
+					d.setCognome(textFieldCognome.getText());
+					d.setSalario(Float.parseFloat(textFieldSalario.getText()));
+					
 					controller.InserimentoDipendente(d);
 					JOptionPane.showMessageDialog(null, "Inserimento riuscito!");
 					

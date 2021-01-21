@@ -1,10 +1,12 @@
 package dao_impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 
 import dao.DipendenteDAO;
@@ -17,8 +19,11 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 	private PreparedStatement insertDipendentePS;
 	private PreparedStatement updateDipendentePS;
 	private PreparedStatement deleteDipendentePS;
+	
 	private PreparedStatement getDipendenteByAttributiPS;
 	private PreparedStatement getDipendenteByProgettiPS;
+	private PreparedStatement getDipendenteByMeetingFisiciPS;
+	private PreparedStatement getDipendenteByMeetingTelematiciPS;
 	
 	public DipendenteDAOPostgresImpl(Connection c) throws SQLException {
 		
@@ -32,16 +37,15 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		
 		getDipendenteByAttributiPS = connection.prepareStatement("SELECT * "
 																+ "FROM DIPENDENTE "
-																+ "WHERE CodF ILIKE ? AND "
+																+ "WHERE CodF <> 'AAAAAA00A00A000A' AND "
+																+ "CodF ILIKE ? AND "
 																	+ "Nome ILIKE ? AND "
 																	+ "Cognome ILIKE ? AND "
 																	+ "Salario BETWEEN ? AND ? "
 																+ "ORDER BY Valutazione DESC;");
 		
-		getDipendenteByProgettiPS = connection.prepareStatement("SELECT DISTINCT D.CodF, D.Nome, D.Cognome, D.Salario, D.Valutazione "
-																+ "FROM DIPENDENTE AS D LEFT OUTER JOIN "
-																	+ "PARTECIPANTE AS PA ON "
-																	+ "D.CodF = PA.CodF "
+		getDipendenteByProgettiPS = connection.prepareStatement("SELECT DISTINCT * "
+																+ "FROM DIPENDENTE AS D "
 																+ "WHERE D.CodF <> 'AAAAAA00A00A000A' AND "
 																	+ "D.CodF IN (SELECT DIP.CodF "
 																				+ "FROM (PROGETTO AS P NATURAL JOIN "
@@ -56,6 +60,29 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 																				+ "GROUP BY DIP.CodF "
 																				+ "HAVING COUNT(P.CodP) BETWEEN ? AND ?) "
 																+ "ORDER BY D.Valutazione DESC;");
+		
+		getDipendenteByMeetingFisiciPS = connection.prepareStatement("SELECT * "
+																	+ "FROM DIPENDENTE AS D "
+																	+ "WHERE D.CodF IN (SELECT DIP.CodF "
+																					+ "FROM (PARTECIPAMF AS PMF NATURAL JOIN "
+																							+ "MEETINGF AS MF) RIGHT OUTER JOIN "
+																							+ "DIPENDENTE AS DIP ON "
+																							+ "DIP.CodF = PMF.CodF "
+																					+ "WHERE (? = -1 OR MF.CodMF = ?) AND "
+																							+ "(? = '2000-01-01'::date OR MF.Data::date = ?) AND "
+																							+ "((MF.OraI BETWEEN ? AND ?) OR (MF.OraF BETWEEN ? AND ?))) "
+																	+ "ORDER BY D.Valutazione DESC;");
+		getDipendenteByMeetingTelematiciPS = connection.prepareStatement("SELECT * "
+																	+ "FROM DIPENDENTE AS D "
+																	+ "WHERE D.CodF IN (SELECT DIP.CodF "
+																					+ "FROM (PARTECIPAMT AS PMT NATURAL JOIN "
+																							+ "MEETINGT AS MT) RIGHT OUTER JOIN "
+																							+ "DIPENDENTE AS DIP ON "
+																							+ "DIP.CodF = PMT.CodF "
+																					+ "WHERE (? = -1 OR MT.CodMT = ?) AND "
+																							+ "(? = '2000-01-01'::date OR MT.Data::date = ?) AND "
+																							+ "((MT.OraI BETWEEN ? AND ?) OR (MT.OraF BETWEEN ? AND ?))) "
+																	+ "ORDER BY D.Valutazione DESC;");
 		}
 	
 	public void insertDipendente(Dipendente d) throws SQLException {
@@ -173,6 +200,92 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		
 		ResultSet rs = getDipendenteByProgettiPS.executeQuery();
 		
+		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
+		
+		while(rs.next()) {
+			Dipendente d = new Dipendente();
+			
+			d.setCodF(rs.getString("CodF"));
+			d.setNome(rs.getString("Nome"));
+			d.setCognome(rs.getString("Cognome"));
+			d.setSalario(rs.getFloat("Salario"));
+			d.setValutazione(rs.getInt("Valutazione"));
+			
+			lista.add(d);
+		}
+		
+		return lista;
+	}
+	
+	public ArrayList<Dipendente> getDipendenteByMeetingFisici(String codmf, String data, String oraI, String oraF) throws SQLException {
+		
+		int codice;
+		Date Data;
+    	Time oraInizio, oraFine;
+
+    	if(codmf.isBlank())
+    		codice = -1;
+    	else
+    		codice = Integer.parseInt(codmf);
+    	
+	    Data = Date.valueOf(data);
+    	oraInizio = Time.valueOf(oraI);
+    	oraFine = Time.valueOf(oraF);
+    	
+    	getDipendenteByMeetingFisiciPS.setInt(1, codice);
+    	getDipendenteByMeetingFisiciPS.setInt(2, codice);
+    	getDipendenteByMeetingFisiciPS.setDate(3, Data);
+    	getDipendenteByMeetingFisiciPS.setDate(4, Data);
+    	getDipendenteByMeetingFisiciPS.setTime(5, oraInizio);
+    	getDipendenteByMeetingFisiciPS.setTime(6, oraFine);
+    	getDipendenteByMeetingFisiciPS.setTime(7, oraInizio);
+    	getDipendenteByMeetingFisiciPS.setTime(8, oraFine);
+    	
+    	ResultSet rs = getDipendenteByMeetingFisiciPS.executeQuery();
+    	
+		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
+		
+		while(rs.next()) {
+			Dipendente d = new Dipendente();
+			
+			d.setCodF(rs.getString("CodF"));
+			d.setNome(rs.getString("Nome"));
+			d.setCognome(rs.getString("Cognome"));
+			d.setSalario(rs.getFloat("Salario"));
+			d.setValutazione(rs.getInt("Valutazione"));
+			
+			lista.add(d);
+		}
+		
+		return lista;
+	}
+	
+	public ArrayList<Dipendente> getDipendenteByMeetingTelematici(String codmt, String data, String oraI, String oraF) throws SQLException {
+		
+		int codice;
+		Date Data;
+    	Time oraInizio, oraFine;
+
+    	if(codmt.isBlank())
+    		codice = -1;
+    	else
+    		codice = Integer.parseInt(codmt);
+    	
+	    Data = Date.valueOf(data);
+    	oraInizio = Time.valueOf(oraI);
+    	oraFine = Time.valueOf(oraF);
+    	
+    	getDipendenteByMeetingFisiciPS.setInt(1, codice);
+    	getDipendenteByMeetingFisiciPS.setInt(2, codice);
+    	getDipendenteByMeetingFisiciPS.setDate(3, Data);
+    	getDipendenteByMeetingFisiciPS.setDate(4, Data);
+    	getDipendenteByMeetingFisiciPS.setTime(5, oraInizio);
+    	getDipendenteByMeetingFisiciPS.setTime(6, oraFine);
+    	getDipendenteByMeetingFisiciPS.setTime(7, oraInizio);
+    	getDipendenteByMeetingFisiciPS.setTime(8, oraFine);
+    	
+    	ResultSet rs = getDipendenteByMeetingFisiciPS.executeQuery();
+    	
 		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
 		
 		while(rs.next()) {

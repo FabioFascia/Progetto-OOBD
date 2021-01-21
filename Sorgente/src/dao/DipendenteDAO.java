@@ -15,4 +15,6 @@ public interface DipendenteDAO {
 	
 	public ArrayList<Dipendente> getDipendenteByAttributi(String codf, String nome, String cognome, String minSalario, String maxSalario) throws SQLException;
 	public ArrayList<Dipendente> getDipendenteByProgetti(String codp, String tipologia, String ambito, String ruolo, String minProgetti, String maxProgetti) throws SQLException;
+	public ArrayList<Dipendente> getDipendenteByMeetingFisici(String codmf, String data, String oraI, String oraF) throws SQLException;
+	public ArrayList<Dipendente> getDipendenteByMeetingTelematici(String codmt, String data, String oraI, String oraF) throws SQLException;
 }

@@ -50,6 +50,7 @@ public class Controller {
 	private CercaSalaMeetingFrame cercaSalaMeeting;
 	
 	private CercaSalaFrame cercaSala;
+	private InserisciSalaFrame inserisciSala;
 	
 	private DipendenteDAO dipendenteDao;
 	private ProgettoDAO progettoDao;
@@ -345,7 +346,18 @@ public class Controller {
 		cercaSala.dispose();
 		mainMenu.setVisible(true);
 	}
-	
+	public void ApriFrameInserisciSalaInCercaSala() {
+		
+		inserisciSala = new InserisciSalaFrame(this);
+		cercaSala.setEnabled(false);
+		inserisciSala.setVisible(true);
+	}
+	public void ChiudiFrameInserisciSalaInCercaSala() {
+		
+		inserisciSala.dispose();
+		cercaSala.toFront();
+		cercaSala.setEnabled(true);
+	}
 	
 	
 	
@@ -370,6 +382,16 @@ public class Controller {
 	public ArrayList<Dipendente> RicercaDipendentePerProgetti(String codp, String tipologia, String ambito, String ruolo, String minProgetti, String maxProgetti) throws SQLException {
 		
 		DipendentiSelezionati = dipendenteDao.getDipendenteByProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti);
+		return DipendentiSelezionati;
+	}
+	public ArrayList<Dipendente> RicercaDipendentePerMeetingFisici(String codmf, String data, String oraI, String oraF) throws SQLException {
+		
+		DipendentiSelezionati = dipendenteDao.getDipendenteByMeetingFisici(codmf, data, oraI, oraF);
+		return DipendentiSelezionati;
+	}
+	public ArrayList<Dipendente> RicercaDipendentePerMeetingTelematici(String codmt, String data, String oraI, String oraF) throws SQLException {
+		
+		DipendentiSelezionati = dipendenteDao.getDipendenteByMeetingTelematici(codmt, data, oraI, oraF);
 		return DipendentiSelezionati;
 	}
 	
@@ -535,6 +557,10 @@ public class Controller {
     
     
     
+    public void InserimentoSala(Sala s) throws SQLException {
+    	
+    	salaDao.insertSala(s);
+    }
     public ArrayList<Sala> RicercaSalaPerAttributi(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
     	
     	SaleRiunioniSelezionate = salaDao.getSalaByAttributi(città, provincia, indirizzo, numCivico, minPosti, maxPosti);

@@ -13,11 +13,15 @@ public class SalaDAOPostgresImpl implements SalaDAO {
 	
 	private Connection connection;
 
+	private PreparedStatement insertSalaPS;
+	
 	private PreparedStatement getSalaByAttributiPS;
 	
 	public SalaDAOPostgresImpl(Connection c) throws SQLException {
 		
 		connection = c;
+		
+		insertSalaPS = connection.prepareStatement("CALL Insert_Sala(?, ?, ?, ?, ?);");
 		
 		getSalaByAttributiPS = connection.prepareStatement("SELECT * "
 															+ "FROM SALA "
@@ -27,6 +31,17 @@ public class SalaDAOPostgresImpl implements SalaDAO {
 																	+ "(? = -1 OR NumeroCivico = ?) AND "
 																	+ "NumPosti BETWEEN ? AND ? "
 															+ "ORDER BY CodSala;");
+	}
+	
+	public void insertSala(Sala s) throws SQLException {
+		
+		insertSalaPS.setString(1, s.getCittà());
+		insertSalaPS.setString(2, s.getProvincia());
+		insertSalaPS.setString(3, s.getIndirizzo());
+		insertSalaPS.setInt(4, s.getNumeroCivico());
+		insertSalaPS.setInt(5, s.getNumeroPosti());
+		
+		insertSalaPS.execute();
 	}
 	
 	public ArrayList<Sala> getSalaByAttributi(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
