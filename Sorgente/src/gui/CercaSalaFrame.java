@@ -15,6 +15,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -93,6 +95,11 @@ public class CercaSalaFrame extends JFrame {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		});
 		scrollPane.setViewportView(tableSale);
 		
@@ -110,10 +117,6 @@ public class CercaSalaFrame extends JFrame {
 		layeredPane.add(panelAttributi, "name_14079923771700");
 		panelAttributi.setLayout(null);
 		
-		JPanel panelMeeting = new JPanel();
-		layeredPane.add(panelMeeting, "name_14079937632200");
-		panelMeeting.setLayout(null);
-		
 		JComboBox comboBoxCercaSala = new JComboBox(new Object[]{"Attributi", "Meeting Fisici tenutivisi"});
 		comboBoxCercaSala.setBounds(285, 25, 168, 23);
 		comboBoxCercaSala.addItemListener(new ItemListener() {
@@ -123,12 +126,6 @@ public class CercaSalaFrame extends JFrame {
 					case "Attributi":
 						layeredPane.removeAll();
 						layeredPane.add(panelAttributi);
-						layeredPane.repaint();
-						layeredPane.revalidate();
-						break;
-					case "Meeting Fisici tenutivisi":
-						layeredPane.removeAll();
-						layeredPane.add(panelMeeting);
 						layeredPane.repaint();
 						layeredPane.revalidate();
 						break;
@@ -164,6 +161,20 @@ public class CercaSalaFrame extends JFrame {
 		
 		textFieldProvincia = new JTextField();
 		textFieldProvincia.setBounds(182, 26, 42, 20);
+		textFieldProvincia.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (textFieldProvincia.getText().length() >= 2)
+		            e.consume();
+				
+				char keyChar = e.getKeyChar();
+				
+				if(!Character.isAlphabetic(keyChar))
+					e.consume();
+				
+				e.setKeyChar(Character.toUpperCase(keyChar));
+			}
+		});
 		panelAttributi.add(textFieldProvincia);
 		textFieldProvincia.setColumns(10);
 		
@@ -174,6 +185,15 @@ public class CercaSalaFrame extends JFrame {
 		
 		textFieldNumeroCivico = new JTextField();
 		textFieldNumeroCivico.setBounds(182, 61, 42, 20);
+		textFieldNumeroCivico.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char keyChar = e.getKeyChar();
+				
+				if(!Character.isDigit(keyChar))
+					e.consume();
+			}
+		});
 		panelAttributi.add(textFieldNumeroCivico);
 		textFieldNumeroCivico.setColumns(10);
 		
@@ -184,6 +204,15 @@ public class CercaSalaFrame extends JFrame {
 		
 		textFieldMinNumeroPosti = new JTextField();
 		textFieldMinNumeroPosti.setColumns(10);
+		textFieldMinNumeroPosti.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char keyChar = e.getKeyChar();
+				
+				if(!Character.isDigit(keyChar))
+					e.consume();
+			}
+		});
 		textFieldMinNumeroPosti.setBounds(39, 99, 68, 20);
 		panelAttributi.add(textFieldMinNumeroPosti);
 		
@@ -195,6 +224,15 @@ public class CercaSalaFrame extends JFrame {
 		
 		textFieldMaxNumeroPosti = new JTextField();
 		textFieldMaxNumeroPosti.setColumns(10);
+		textFieldMinNumeroPosti.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char keyChar = e.getKeyChar();
+				
+				if(!Character.isDigit(keyChar))
+					e.consume();
+			}
+		});
 		textFieldMaxNumeroPosti.setBounds(129, 99, 68, 20);
 		panelAttributi.add(textFieldMaxNumeroPosti);
 		
@@ -239,6 +277,15 @@ public class CercaSalaFrame extends JFrame {
 			}
 		});
 		contentPane.add(buttonRicerca);
+		
+		JButton buttonInserisciSala = new JButton("Inserisci Sala");
+		buttonInserisciSala.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.ApriFrameInserisciSalaInCercaSala();
+			}
+		});
+		buttonInserisciSala.setBounds(10, 211, 170, 23);
+		contentPane.add(buttonInserisciSala);
 	}
 	
 	public void PopolaTabella(ArrayList<Sala> lista) {

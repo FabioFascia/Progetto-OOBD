@@ -95,8 +95,8 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		getMeetingTelematicoByAttributiPS = connection.prepareStatement("SELECT * "  
 		                                                                         + "FROM MEETINGT "
 		                                                                           + "WHERE (? = -1 OR CodMT = ?) AND "
-		                                                                            + "(? = '2000-01-01'::date OR Data::date = ?) "
-		                                                                              + "  AND((OraI BETWEEN ? AND ?) OR (OraF BETWEEN ? AND ?)) AND "
+		                                                                            + "(? = '2000-01-01'::date OR Data::date = ?) AND "
+		                                                                              + "((OraI BETWEEN ? AND ?) OR (OraF BETWEEN ? AND ?)) AND "
 		                                                                                + "((Piattaforma ILIKE ?) AND (NumLimite = ? OR ? = -2)); ");
 		
 		getMeetingTelematicoByProgettiPS = connection.prepareStatement("SELECT MT.CodMT, MT.Data, MT.OraI, MT.OraF, MT.CodP, MT.Piattaforma, MT.NumLimite "
@@ -222,14 +222,14 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     
     public ArrayList<MeetingFisico> getMeetingFisicoByAttributi (String CodMF, String Data, String OraInizio, String OraFine) throws SQLException {
     	
-	    Date data; Time oraInizio, oraFine; int codice;
-	    
+    	int codice;
+    	Time oraInizio, oraFine;
+	    Date data;
     	
 	    if(CodMF.isBlank())
 	    	codice = -1;
 	    else
 	    	codice = Integer.parseInt(CodMF);
-	   
         
 	    data = Date.valueOf(Data);
     	oraInizio = Time.valueOf(OraInizio);

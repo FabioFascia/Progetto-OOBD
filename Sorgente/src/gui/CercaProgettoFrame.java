@@ -70,7 +70,7 @@ public class CercaProgettoFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 255, 412, 156);
+		scrollPane.setBounds(0, 255, 424, 156);
 		contentPane.add(scrollPane);
 		
 		tableProgetti = new JTable();
@@ -133,10 +133,7 @@ public class CercaProgettoFrame extends JFrame {
 		layeredPane.add(panelPartecipanti, "name_5022918159200");
 		panelPartecipanti.setLayout(null);
 		
-		JPanel panelMeeting = new JPanel();
-		layeredPane.add(panelMeeting, "name_5647884201000");
-		
-		JComboBox comboBoxCercaProgetto = new JComboBox(new String[]{"Attributi", "Partecipanti", "Meeting associati"});
+		JComboBox comboBoxCercaProgetto = new JComboBox(new String[]{"Attributi", "Partecipanti"});
 		comboBoxCercaProgetto.setBounds(266, 44, 146, 23);
 		comboBoxCercaProgetto.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -151,12 +148,6 @@ public class CercaProgettoFrame extends JFrame {
 					case "Partecipanti":
 						layeredPane.removeAll();
 						layeredPane.add(panelPartecipanti);
-						layeredPane.repaint();
-						layeredPane.revalidate();
-						break;
-					case "Meeting associati":
-						layeredPane.removeAll();
-						layeredPane.add(panelMeeting);
 						layeredPane.repaint();
 						layeredPane.revalidate();
 					}
