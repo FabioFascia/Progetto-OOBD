@@ -29,6 +29,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.JComboBox;
@@ -42,6 +44,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JLayeredPane;
 import java.awt.CardLayout;
 import javax.swing.ListSelectionModel;
+import javax.swing.JSpinner;
 
 
 public class CercaPartecipanteMeetingFrame extends JFrame {
@@ -60,6 +63,9 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 	private JTextField textFieldRuolo;
 	private JTextField textFieldMinNumeroProgetti;
 	private JTextField textFieldMaxNumeroProgetti;
+	private JTextField textFieldMinValutazione;
+	private JTextField textFieldMaxValutazione;
+	private JTextField textFieldCodiceMeeting;
 	
 	/**
 	 * Create the frame.
@@ -86,7 +92,7 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(10, 32, 257, 199);
+		layeredPane.setBounds(10, 32, 257, 207);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
@@ -106,17 +112,17 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 			}
 		});
 		textFieldCodiceFiscale.setColumns(10);
-		textFieldCodiceFiscale.setBounds(49, 25, 158, 20);
+		textFieldCodiceFiscale.setBounds(10, 25, 158, 20);
 		panelAttributi.add(textFieldCodiceFiscale);
 		
 		textFieldNome = new JTextField();
 		textFieldNome.setColumns(10);
-		textFieldNome.setBounds(49, 62, 158, 20);
+		textFieldNome.setBounds(10, 62, 158, 20);
 		panelAttributi.add(textFieldNome);
 		
 		textFieldCognome = new JTextField();
 		textFieldCognome.setColumns(10);
-		textFieldCognome.setBounds(49, 100, 158, 20);
+		textFieldCognome.setBounds(10, 100, 158, 20);
 		panelAttributi.add(textFieldCognome);
 		
 		textFieldMinSalario = new JTextField();
@@ -151,66 +157,109 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 		
 		JLabel labelSalario = new JLabel("Salario");
 		labelSalario.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelSalario.setBounds(49, 123, 68, 14);
+		labelSalario.setBounds(10, 123, 68, 14);
 		panelAttributi.add(labelSalario);
 		
 		JLabel labelCognome = new JLabel("Cognome");
 		labelCognome.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelCognome.setBounds(49, 86, 68, 14);
+		labelCognome.setBounds(10, 86, 68, 14);
 		panelAttributi.add(labelCognome);
 		
 		JLabel labelNome = new JLabel("Nome");
 		labelNome.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelNome.setBounds(49, 48, 46, 14);
+		labelNome.setBounds(10, 48, 46, 14);
 		panelAttributi.add(labelNome);
 		
 		JLabel labelCodiceFiscale = new JLabel("Codice Fiscale");
 		labelCodiceFiscale.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelCodiceFiscale.setBounds(49, 11, 107, 14);
+		labelCodiceFiscale.setBounds(10, 11, 107, 14);
 		panelAttributi.add(labelCodiceFiscale);
+		
+		JLabel labelValutazione = new JLabel("Valutazione");
+		labelValutazione.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelValutazione.setBounds(10, 165, 68, 14);
+		panelAttributi.add(labelValutazione);
+		
+		JLabel labelMin_1 = new JLabel("Min");
+		labelMin_1.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMin_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelMin_1.setBounds(10, 182, 32, 14);
+		panelAttributi.add(labelMin_1);
+		
+		textFieldMinValutazione = new JTextField();
+		textFieldMinValutazione.setColumns(10);
+		textFieldMinValutazione.setBounds(49, 179, 68, 20);
+		textFieldMinValutazione.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!(Character.isDigit(c)))
+					e.consume();
+			}
+		});
+		panelAttributi.add(textFieldMinValutazione);
+		
+		textFieldMaxValutazione = new JTextField();
+		textFieldMaxValutazione.setColumns(10);
+		textFieldMaxValutazione.setBounds(139, 179, 68, 20);
+		textFieldMaxValutazione.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!(Character.isDigit(c)))
+					e.consume();
+			}
+		});
+		panelAttributi.add(textFieldMaxValutazione);
+		
+		JLabel labelMax_1 = new JLabel("Max");
+		labelMax_1.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMax_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelMax_1.setBounds(215, 182, 32, 14);
+		panelAttributi.add(labelMax_1);
 		
 		JPanel panelProgetti = new JPanel();
 		layeredPane.add(panelProgetti, "name_146017521321800");
 		panelProgetti.setLayout(null);
 		
 		textFieldCodiceProgetto = new JTextField();
-		textFieldCodiceProgetto.setBounds(49, 25, 158, 20);
+		textFieldCodiceProgetto.setBounds(10, 25, 158, 20);
 		panelProgetti.add(textFieldCodiceProgetto);
 		textFieldCodiceProgetto.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Codice Progetto");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(49, 11, 97, 14);
+		lblNewLabel.setBounds(10, 11, 97, 14);
 		panelProgetti.add(lblNewLabel);
 		
 		textFieldTipologia = new JTextField();
-		textFieldTipologia.setBounds(49, 62, 158, 20);
+		textFieldTipologia.setBounds(10, 62, 158, 20);
 		panelProgetti.add(textFieldTipologia);
 		textFieldTipologia.setColumns(10);
 		
 		JLabel labelTipologia = new JLabel("Tipologia");
 		labelTipologia.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelTipologia.setBounds(49, 48, 97, 14);
+		labelTipologia.setBounds(10, 48, 97, 14);
 		panelProgetti.add(labelTipologia);
 		
 		textFieldAmbito = new JTextField();
-		textFieldAmbito.setBounds(49, 100, 158, 20);
+		textFieldAmbito.setBounds(10, 100, 158, 20);
 		panelProgetti.add(textFieldAmbito);
 		textFieldAmbito.setColumns(10);
 		
 		JLabel labelAmbito = new JLabel("Ambito");
 		labelAmbito.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelAmbito.setBounds(49, 86, 68, 14);
+		labelAmbito.setBounds(10, 86, 68, 14);
 		panelProgetti.add(labelAmbito);
 		
 		textFieldRuolo = new JTextField();
-		textFieldRuolo.setBounds(49, 137, 158, 20);
+		textFieldRuolo.setBounds(10, 137, 158, 20);
 		panelProgetti.add(textFieldRuolo);
 		textFieldRuolo.setColumns(10);
 		
 		JLabel labelRuolo = new JLabel("Ruolo nel progetto");
 		labelRuolo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelRuolo.setBounds(49, 123, 105, 14);
+		labelRuolo.setBounds(10, 123, 105, 14);
 		panelProgetti.add(labelRuolo);
 		
 		textFieldMinNumeroProgetti = new JTextField();
@@ -225,7 +274,7 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 		
 		JLabel labelNumeroProgetti = new JLabel("Numero di progetti a cui partecipa");
 		labelNumeroProgetti.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelNumeroProgetti.setBounds(49, 160, 198, 14);
+		labelNumeroProgetti.setBounds(10, 160, 198, 14);
 		panelProgetti.add(labelNumeroProgetti);
 		
 		JLabel labelMinProgetti = new JLabel("Min");
@@ -241,12 +290,54 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 		panelProgetti.add(labelMaxProgetti);
 		
 		JPanel panelMeeting = new JPanel();
-		layeredPane.add(panelMeeting, "name_88616854995700");
 		panelMeeting.setLayout(null);
+		layeredPane.add(panelMeeting, "name_263882664186600");
 		
-		JComboBox comboBox = new JComboBox(new String[] {"Fisico", "Telematico", "Qualsiasi"});
-		comboBox.setBounds(124, 12, 121, 18);
-		panelMeeting.add(comboBox);
+		JComboBox comboBoxTipoMeeting = new JComboBox(new Object[]{});
+		comboBoxTipoMeeting.setBounds(10, 25, 150, 22);
+		panelMeeting.add(comboBoxTipoMeeting);
+		
+		JLabel lblNewLabel_2 = new JLabel("Codice Meeting");
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_2.setBounds(10, 51, 104, 14);
+		panelMeeting.add(lblNewLabel_2);
+		
+		textFieldCodiceMeeting = new JTextField();
+		textFieldCodiceMeeting.setColumns(10);
+		textFieldCodiceMeeting.setBounds(10, 65, 150, 20);
+		panelMeeting.add(textFieldCodiceMeeting);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Data");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_1_1.setBounds(10, 88, 46, 14);
+		panelMeeting.add(lblNewLabel_1_1);
+		
+		JSpinner spinnerData = new JSpinner();
+		spinnerData.setBounds(10, 102, 150, 20);
+		panelMeeting.add(spinnerData);
+		
+		JLabel lblNewLabel_3 = new JLabel("Ora Inizio");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_3.setBounds(10, 124, 63, 14);
+		panelMeeting.add(lblNewLabel_3);
+		
+		JSpinner spinnerOraInizio = new JSpinner();
+		spinnerOraInizio.setBounds(10, 138, 63, 20);
+		panelMeeting.add(spinnerOraInizio);
+		
+		JLabel lblOraFine = new JLabel("Ora Fine");
+		lblOraFine.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblOraFine.setBounds(97, 124, 63, 14);
+		panelMeeting.add(lblOraFine);
+		
+		JSpinner spinnerOraFine = new JSpinner();
+		spinnerOraFine.setBounds(97, 138, 63, 20);
+		panelMeeting.add(spinnerOraFine);
+		
+		JLabel lblNewLabel_4 = new JLabel("Tipo Meeting");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
+		lblNewLabel_4.setBounds(10, 11, 104, 14);
+		panelMeeting.add(lblNewLabel_4);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 273, 464, 156);
@@ -277,20 +368,14 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Codice Fiscale", "Nome", "Cognome", "Salario"
+				"Codice Fiscale", "Nome", "Cognome", "Salario", "Valutazione"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Float.class
+				String.class, String.class, String.class, Float.class, Integer.class
 			};
-			
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
-			}
-			
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
 			}
 		});
 		tableDipendenti.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -314,7 +399,7 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 		contentPane.add(buttonIndietro);
 		
 		
-		JComboBox comboBoxCercaDipendente = new JComboBox(new String[] {"Attributi", "Progetti a cui partecipa", "Meeting a cui partecipa"});
+		JComboBox comboBoxCercaDipendente = new JComboBox(new String[] {"Attributi", "Progetti a cui partecipa"});
 		comboBoxCercaDipendente.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 
@@ -359,8 +444,10 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 						String cognome = textFieldCognome.getText();
 						String minSalario = textFieldMinSalario.getText();
 						String maxSalario = textFieldMaxSalario.getText();
+						String minValutazione = textFieldMinValutazione.getText();
+						String maxValutazione = textFieldMaxValutazione.getText();
 						
-						PopolaTabella(controller.RicercaDipendentePerAttributi(codf, nome, cognome, minSalario, maxSalario));
+						PopolaTabella(controller.RicercaDipendentePerAttributi(codf, nome, cognome, minSalario, maxSalario, minValutazione, maxValutazione));
 						break;
 					case "Progetti a cui partecipa":
 						String codp = textFieldCodiceProgetto.getText();
@@ -372,6 +459,22 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 						
 						PopolaTabella(controller.RicercaDipendentePerProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti));
 						break;
+					case "Meeting a cui partecipa":
+						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+						DateFormat of = new SimpleDateFormat("HH:mm:ss");
+						
+						String codiceMeeting = textFieldCodiceMeeting.getText();
+						String data = df.format((java.util.Date)spinnerData.getValue());
+						String oraInizio = of.format((java.util.Date)spinnerOraInizio.getValue());
+						String oraFine = of.format((java.util.Date)spinnerOraFine.getValue());
+						
+						switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
+						case "Fisico":
+							PopolaTabella(controller.RicercaDipendentePerMeetingFisici(codiceMeeting, data, oraInizio, oraFine));
+							break;
+						case "Telematico":
+							PopolaTabella(controller.RicercaDipendentePerMeetingTelematici(codiceMeeting, data, oraInizio, oraFine));
+						}
 					}
 				}
 				catch (SQLException ex) {
@@ -392,6 +495,6 @@ public class CercaPartecipanteMeetingFrame extends JFrame {
 		model.setRowCount(0);
 		
 		for (Dipendente d : lista)
-			model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
+			model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario(), d.getValutazione()});
 	}
 }

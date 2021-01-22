@@ -14,6 +14,8 @@ public class SalaDAOPostgresImpl implements SalaDAO {
 	private Connection connection;
 
 	private PreparedStatement insertSalaPS;
+	private PreparedStatement deleteSalaPS;
+	private PreparedStatement updateSalaPS;
 	
 	private PreparedStatement getSalaByAttributiPS;
 	
@@ -22,6 +24,8 @@ public class SalaDAOPostgresImpl implements SalaDAO {
 		connection = c;
 		
 		insertSalaPS = connection.prepareStatement("CALL Insert_Sala(?, ?, ?, ?, ?);");
+		deleteSalaPS = connection.prepareStatement("DELETE FROM SALA WHERE CodSala = ?;");
+		updateSalaPS = connection.prepareStatement("UPDATE SALA SET Città = ?, Provincia = ?, Indirizzo = ?, NumeroCivico = ?, NumPosti = ? WHERE CodSala = ?;");
 		
 		getSalaByAttributiPS = connection.prepareStatement("SELECT * "
 															+ "FROM SALA "
@@ -42,6 +46,23 @@ public class SalaDAOPostgresImpl implements SalaDAO {
 		insertSalaPS.setInt(5, s.getNumeroPosti());
 		
 		insertSalaPS.execute();
+	}
+	public void deleteSala(Sala s) throws SQLException {
+		
+		deleteSalaPS.setInt(1, s.getCodice());
+		
+		deleteSalaPS.execute();
+	}
+	public void updateSala(Sala s) throws SQLException {
+		
+		updateSalaPS.setString(1, s.getCittà());
+		updateSalaPS.setString(2, s.getProvincia());
+		updateSalaPS.setString(3, s.getIndirizzo());
+		updateSalaPS.setInt(4, s.getNumeroCivico());
+		updateSalaPS.setInt(5, s.getNumeroPosti());
+		updateSalaPS.setInt(6, s.getCodice());
+		
+		updateSalaPS.execute();
 	}
 	
 	public ArrayList<Sala> getSalaByAttributi(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
