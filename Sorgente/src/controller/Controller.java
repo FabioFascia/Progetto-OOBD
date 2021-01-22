@@ -51,6 +51,7 @@ public class Controller {
 	
 	private CercaSalaFrame cercaSala;
 	private InserisciSalaFrame inserisciSala;
+	private ModificaSalaFrame modificaSala;
 	
 	private DipendenteDAO dipendenteDao;
 	private ProgettoDAO progettoDao;
@@ -358,6 +359,18 @@ public class Controller {
 		cercaSala.toFront();
 		cercaSala.setEnabled(true);
 	}
+	public void ApriFrameModificaSalaInCercaSala(Sala s) {
+		
+		modificaSala = new ModificaSalaFrame(this, s);
+		cercaSala.setEnabled(false);
+		modificaSala.setVisible(true);
+	}
+	public void ChiudiFrameModificaSalaInCercaSala() {
+		
+		modificaSala.dispose();
+		cercaSala.toFront();
+		cercaSala.setEnabled(true);
+	}
 	
 	
 	
@@ -374,9 +387,9 @@ public class Controller {
 		dipendenteDao.deleteDipendente(d);
 	}
 	
-	public ArrayList<Dipendente> RicercaDipendentePerAttributi(String codf, String nome, String cognome, String minSalario, String maxSalario) throws SQLException {
+	public ArrayList<Dipendente> RicercaDipendentePerAttributi(String codf, String nome, String cognome, String minSalario, String maxSalario, String minValutazione, String maxValutazione) throws SQLException {
 		
-		DipendentiSelezionati = dipendenteDao.getDipendenteByAttributi(codf, nome, cognome, minSalario ,maxSalario);
+		DipendentiSelezionati = dipendenteDao.getDipendenteByAttributi(codf, nome, cognome, minSalario ,maxSalario, minValutazione, maxValutazione);
 		return DipendentiSelezionati;
 	}
 	public ArrayList<Dipendente> RicercaDipendentePerProgetti(String codp, String tipologia, String ambito, String ruolo, String minProgetti, String maxProgetti) throws SQLException {
@@ -560,6 +573,12 @@ public class Controller {
     public void InserimentoSala(Sala s) throws SQLException {
     	
     	salaDao.insertSala(s);
+    }
+    public void CancellazioneSala(Sala s) throws SQLException {
+    	salaDao.deleteSala(s);
+    }
+    public void ModificaSala(Sala s) throws SQLException {
+    	salaDao.updateSala(s);
     }
     public ArrayList<Sala> RicercaSalaPerAttributi(String città, String provincia, String indirizzo, String numCivico, String minPosti, String maxPosti) throws SQLException {
     	

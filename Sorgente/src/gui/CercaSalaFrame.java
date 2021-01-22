@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
@@ -17,6 +18,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
@@ -27,6 +30,7 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JScrollPane;
 import javax.swing.JLayeredPane;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -38,6 +42,7 @@ public class CercaSalaFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller controller;
+	private JPopupMenu popupMenuTable;
 	private JTextField textFieldCittà;
 	private JTextField textFieldIndirizzo;
 	private JTextField textFieldProvincia;
@@ -99,6 +104,21 @@ public class CercaSalaFrame extends JFrame {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
+			}
+		});
+		tableSale.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
+			}
+			
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				if(e.isPopupTrigger()) {
+					ShowPopupMenu(e);
+				}
 			}
 		});
 		scrollPane.setViewportView(tableSale);
@@ -296,5 +316,54 @@ public class CercaSalaFrame extends JFrame {
 		
 		for (Sala s : lista)
 			model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
+	}
+	
+	public void ShowPopupMenu(MouseEvent e) {
+		
+		popupMenuTable = new JPopupMenu();
+		
+		JMenuItem itemModifica = new JMenuItem("Modifica riga");
+		itemModifica.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				int i = tableSale.getSelectedRow();
+				
+				controller.ApriFrameModificaSalaInCercaSala(controller.getSalaSelezionata(i));
+			}
+		});
+		
+		JMenuItem itemElimina = new JMenuItem("Elimina righe");
+		itemElimina.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
+				case JOptionPane.YES_OPTION:
+					try {
+						ArrayList<Sala> selectedRows = new ArrayList<Sala>();
+						
+						for (int i : tableSale.getSelectedRows()) {
+							selectedRows.add(controller.getSalaSelezionata(i));
+						}
+						
+						for (Sala row : selectedRows)
+							controller.CancellazioneSala(row);
+					}
+					catch(SQLException ex) {
+						JOptionPane.showMessageDialog(null, ex.getMessage());
+					}
+					break;
+				case JOptionPane.NO_OPTION:
+					
+				}
+			}
+		});
+		
+		if(tableSale.getSelectedRowCount() == 1)
+			popupMenuTable.add(itemModifica);
+		if(tableSale.getSelectedRowCount() > 0)
+			popupMenuTable.add(itemElimina);
+		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
 	}
 }

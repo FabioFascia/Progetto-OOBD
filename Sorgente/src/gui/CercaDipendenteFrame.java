@@ -63,6 +63,8 @@ public class CercaDipendenteFrame extends JFrame {
 	private JTextField textFieldMinNumeroProgetti;
 	private JTextField textFieldMaxNumeroProgetti;
 	private JTextField textFieldCodiceMeeting;
+	private JTextField textFieldMinValutazione;
+	private JTextField textFieldMaxValutazione;
 	
 	/**
 	 * Create the frame.
@@ -89,7 +91,7 @@ public class CercaDipendenteFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(10, 32, 257, 199);
+		layeredPane.setBounds(10, 32, 257, 205);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
@@ -184,75 +186,118 @@ public class CercaDipendenteFrame extends JFrame {
 		labelCodiceFiscale.setBounds(10, 11, 107, 14);
 		panelAttributi.add(labelCodiceFiscale);
 		
+		JLabel labelValutazione = new JLabel("Valutazione");
+		labelValutazione.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelValutazione.setBounds(10, 160, 68, 14);
+		panelAttributi.add(labelValutazione);
+		
+		JLabel labelMin_1 = new JLabel("Min");
+		labelMin_1.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMin_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelMin_1.setBounds(10, 177, 32, 14);
+		panelAttributi.add(labelMin_1);
+		
+		textFieldMinValutazione = new JTextField();
+		textFieldMinValutazione.setColumns(10);
+		textFieldMinValutazione.setBounds(49, 174, 68, 20);
+		textFieldMinValutazione.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!(Character.isDigit(c)))
+					e.consume();
+			}
+		});
+		panelAttributi.add(textFieldMinValutazione);
+		
+		textFieldMaxValutazione = new JTextField();
+		textFieldMaxValutazione.setColumns(10);
+		textFieldMaxValutazione.setBounds(139, 174, 68, 20);
+		textFieldMaxValutazione.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(!(Character.isDigit(c)))
+					e.consume();
+			}
+		});
+		panelAttributi.add(textFieldMaxValutazione);
+		
+		JLabel labelMax_1 = new JLabel("Max");
+		labelMax_1.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMax_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelMax_1.setBounds(215, 177, 32, 14);
+		panelAttributi.add(labelMax_1);
+		
 		JPanel panelProgetti = new JPanel();
 		layeredPane.add(panelProgetti, "name_146017521321800");
 		panelProgetti.setLayout(null);
 		
 		textFieldCodiceProgetto = new JTextField();
-		textFieldCodiceProgetto.setBounds(49, 25, 158, 20);
+		textFieldCodiceProgetto.setBounds(10, 25, 158, 20);
 		panelProgetti.add(textFieldCodiceProgetto);
 		textFieldCodiceProgetto.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Codice Progetto");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(49, 11, 97, 14);
+		lblNewLabel.setBounds(10, 11, 97, 14);
 		panelProgetti.add(lblNewLabel);
 		
 		textFieldTipologia = new JTextField();
-		textFieldTipologia.setBounds(51, 67, 158, 20);
+		textFieldTipologia.setBounds(12, 67, 158, 20);
 		panelProgetti.add(textFieldTipologia);
 		textFieldTipologia.setColumns(10);
 		
 		JLabel labelTipologia = new JLabel("Tipologia");
 		labelTipologia.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelTipologia.setBounds(51, 53, 97, 14);
+		labelTipologia.setBounds(12, 53, 97, 14);
 		panelProgetti.add(labelTipologia);
 		
 		textFieldAmbito = new JTextField();
-		textFieldAmbito.setBounds(51, 105, 158, 20);
+		textFieldAmbito.setBounds(12, 105, 158, 20);
 		panelProgetti.add(textFieldAmbito);
 		textFieldAmbito.setColumns(10);
 		
 		JLabel labelAmbito = new JLabel("Ambito");
 		labelAmbito.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelAmbito.setBounds(51, 91, 68, 14);
+		labelAmbito.setBounds(12, 91, 68, 14);
 		panelProgetti.add(labelAmbito);
 		
 		textFieldRuolo = new JTextField();
-		textFieldRuolo.setBounds(51, 142, 158, 20);
+		textFieldRuolo.setBounds(12, 142, 158, 20);
 		panelProgetti.add(textFieldRuolo);
 		textFieldRuolo.setColumns(10);
 		
 		JLabel labelRuolo = new JLabel("Ruolo nel progetto");
 		labelRuolo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelRuolo.setBounds(51, 128, 105, 14);
+		labelRuolo.setBounds(12, 128, 105, 14);
 		panelProgetti.add(labelRuolo);
 		
 		textFieldMinNumeroProgetti = new JTextField();
-		textFieldMinNumeroProgetti.setBounds(51, 179, 68, 20);
+		textFieldMinNumeroProgetti.setBounds(49, 179, 68, 20);
 		panelProgetti.add(textFieldMinNumeroProgetti);
 		textFieldMinNumeroProgetti.setColumns(10);
 		
 		textFieldMaxNumeroProgetti = new JTextField();
 		textFieldMaxNumeroProgetti.setColumns(10);
-		textFieldMaxNumeroProgetti.setBounds(141, 179, 68, 20);
+		textFieldMaxNumeroProgetti.setBounds(139, 179, 68, 20);
 		panelProgetti.add(textFieldMaxNumeroProgetti);
 		
 		JLabel labelNumeroProgetti = new JLabel("Numero di progetti a cui partecipa");
 		labelNumeroProgetti.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelNumeroProgetti.setBounds(51, 165, 198, 14);
+		labelNumeroProgetti.setBounds(10, 165, 198, 14);
 		panelProgetti.add(labelNumeroProgetti);
 		
 		JLabel labelMinProgetti = new JLabel("Min");
 		labelMinProgetti.setFont(new Font("Tahoma", Font.BOLD, 11));
 		labelMinProgetti.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMinProgetti.setBounds(12, 182, 32, 14);
+		labelMinProgetti.setBounds(10, 182, 32, 14);
 		panelProgetti.add(labelMinProgetti);
 		
 		JLabel labelMaxProgetti = new JLabel("Max");
 		labelMaxProgetti.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMaxProgetti.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMaxProgetti.setBounds(217, 182, 32, 14);
+		labelMaxProgetti.setBounds(215, 182, 32, 14);
 		panelProgetti.add(labelMaxProgetti);
 		
 		JPanel panelMeeting = new JPanel();
@@ -422,8 +467,10 @@ public class CercaDipendenteFrame extends JFrame {
 						String cognome = textFieldCognome.getText();
 						String minSalario = textFieldMinSalario.getText();
 						String maxSalario = textFieldMaxSalario.getText();
+						String minValutazione = textFieldMinValutazione.getText();
+						String maxValutazione = textFieldMaxValutazione.getText();
 						
-						PopolaTabella(controller.RicercaDipendentePerAttributi(codf, nome, cognome, minSalario, maxSalario));
+						PopolaTabella(controller.RicercaDipendentePerAttributi(codf, nome, cognome, minSalario, maxSalario, minValutazione, maxValutazione));
 						break;
 					case "Progetti a cui partecipa":
 						String codp = textFieldCodiceProgetto.getText();
@@ -460,7 +507,6 @@ public class CercaDipendenteFrame extends JFrame {
 		});
 		buttonRicerca.setBounds(335, 243, 104, 23);
 		contentPane.add(buttonRicerca);
-		
 	}
 	
 	public void PopolaTabella(ArrayList<Dipendente> lista) {

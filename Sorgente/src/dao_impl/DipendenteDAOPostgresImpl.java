@@ -41,7 +41,8 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 																+ "CodF ILIKE ? AND "
 																	+ "Nome ILIKE ? AND "
 																	+ "Cognome ILIKE ? AND "
-																	+ "Salario BETWEEN ? AND ? "
+																	+ "(Salario BETWEEN ? AND ?) AND "
+																	+ "(Valutazione BETWEEN ? AND ?) "
 																+ "ORDER BY Valutazione DESC;");
 		
 		getDipendenteByProgettiPS = connection.prepareStatement("SELECT DISTINCT * "
@@ -114,25 +115,38 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		deleteDipendentePS.execute();
 	}
 	
-	public ArrayList<Dipendente> getDipendenteByAttributi(String codf, String nome, String cognome, String minSalario ,String maxSalario) throws SQLException{
+	public ArrayList<Dipendente> getDipendenteByAttributi(String codf, String nome, String cognome, String minSalario ,String maxSalario, String minValutazione, String maxValutazione) throws SQLException{
 		
-		float minimo, massimo;
+		float minSal, maxSal;
+		int minVal, maxVal;
 		
 		if(minSalario.isBlank())
-			minimo = 0;
+			minSal = 0;
 		else
-			minimo = Float.parseFloat(minSalario);
+			minSal = Float.parseFloat(minSalario);
 		
 		if(maxSalario.isBlank())
-			massimo = Float.POSITIVE_INFINITY;
+			maxSal = Float.POSITIVE_INFINITY;
 		else
-			massimo = Float.parseFloat(maxSalario);
+			maxSal = Float.parseFloat(maxSalario);
+		
+		if(minValutazione.isBlank())
+			minVal = Integer.MIN_VALUE;
+		else
+			minVal = Integer.parseInt(minValutazione);
+		
+		if(maxValutazione.isBlank())
+			maxVal = Integer.MAX_VALUE;
+		else
+			maxVal = Integer.parseInt(maxValutazione);
 		
 		getDipendenteByAttributiPS.setString(1, "%" + codf + "%");
 		getDipendenteByAttributiPS.setString(2, "%" + nome + "%");
 		getDipendenteByAttributiPS.setString(3, "%" + cognome + "%");
-		getDipendenteByAttributiPS.setFloat(4, minimo);
-		getDipendenteByAttributiPS.setFloat(5, massimo);
+		getDipendenteByAttributiPS.setFloat(4, minSal);
+		getDipendenteByAttributiPS.setFloat(5, maxSal);
+		getDipendenteByAttributiPS.setInt(6, minVal);
+		getDipendenteByAttributiPS.setInt(7, maxVal);
 
 		ResultSet rs = getDipendenteByAttributiPS.executeQuery();
 		
