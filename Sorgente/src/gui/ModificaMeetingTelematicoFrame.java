@@ -245,7 +245,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 				oldMeeting.setPiattaforma(textFieldPiattaforma.getText());
 				oldMeeting.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
 				try {
-					controller.ModificaMeetingTelematico(oldMeeting);
+					controller.ModificaMeeting(oldMeeting);
 					controller.ChiudiFrameModificaMeetingTelematicoInCercaMeeting();
 				}
 				catch (SQLException ex) {
@@ -282,7 +282,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 	
 	public void addPartecipante(Dipendente d) throws SQLException {
 		
-		controller.InserimentoPartecipanteMeetingTelematico(oldMeeting, d);
+		controller.InserimentoPartecipanteMeeting(oldMeeting, d);
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		
@@ -290,7 +290,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 	}
 	public void deletePartecipante(int indice) throws SQLException {
 		
-		controller.CancellazionePartecipanteMeetingTelematico(oldMeeting, oldMeeting.getPartecipanti().get(indice));
+		controller.CancellazionePartecipanteMeeting(oldMeeting, oldMeeting.getPartecipanti().get(indice));
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 		

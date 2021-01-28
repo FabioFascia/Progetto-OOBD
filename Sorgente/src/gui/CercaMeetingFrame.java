@@ -397,7 +397,7 @@ public class CercaMeetingFrame extends JFrame {
 						String minPosti = textFieldMinPosti.getText();
 						String maxPosti = textFieldMaxPosti.getText();
 						
-						PopolaTabellaFisico(controller.RicercaMeetingFisicoPerSala(città, provincia, indirizzo, numCivico, minPosti, maxPosti));
+						PopolaTabellaFisico(controller.RicercaMeetingFisicoPerSale(città, provincia, indirizzo, numCivico, minPosti, maxPosti));
 					}
 				}
 				catch (SQLException ex) {
@@ -702,7 +702,7 @@ public class CercaMeetingFrame extends JFrame {
     						}
     						
     						for (MeetingFisico row : selectedRows)
-    							controller.CancellazioneMeetingFisico(row);
+    							controller.CancellazioneMeeting(row);
     					}
     					catch(SQLException ex) {
     						JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -745,7 +745,7 @@ public class CercaMeetingFrame extends JFrame {
   							}
    							
    							for (MeetingTelematico row : selectedRows)
-   								controller.CancellazioneMeetingTelematico(row);
+   								controller.CancellazioneMeeting(row);
    						}
    						catch(SQLException ex) {
    							JOptionPane.showMessageDialog(null, ex.getMessage());

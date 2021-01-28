@@ -244,7 +244,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 				oldMeeting.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
 				oldMeeting.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
 				try {
-					controller.ModificaMeetingFisico(oldMeeting);
+					controller.ModificaMeeting(oldMeeting);
 					controller.ChiudiFrameModificaMeetingFisicoInCercaMeeting();
 				}
 				catch (SQLException ex) {
@@ -297,7 +297,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 	
 	public void addPartecipante(Dipendente d) throws SQLException {
 		
-		controller.InserimentoPartecipanteMeetingFisico(oldMeeting, d);
+		controller.InserimentoPartecipanteMeeting(oldMeeting, d);
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		
@@ -305,7 +305,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 	}
 	public void deletePartecipante(int indice) throws SQLException {
 		
-		controller.CancellazionePartecipanteMeetingFisico(oldMeeting, oldMeeting.getPartecipanti().get(indice));
+		controller.CancellazionePartecipanteMeeting(oldMeeting, oldMeeting.getPartecipanti().get(indice));
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 		

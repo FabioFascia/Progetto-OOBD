@@ -19,7 +19,7 @@ public interface ProgettoDAO {
 	public void deletePartecipante(Progetto p, Dipendente d) throws SQLException;
 	
 	public ArrayList<Progetto> getProgettoByAttributi(String codp, String tipologia, String ambito) throws SQLException;
-	public ArrayList<Progetto> getProgettoByPartecipanti(String codf, String nome, String cognome, String minSalario, String maxSalario) throws SQLException;
+	public ArrayList<Progetto> getProgettoByPartecipanti(String codf, String nome, String cognome, String minSal, String maxSal, String minVal, String maxVal) throws SQLException;
 	
 	public int getCurrentSequenceValue() throws SQLException;
 }

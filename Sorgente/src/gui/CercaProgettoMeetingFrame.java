@@ -64,6 +64,8 @@ public class CercaProgettoMeetingFrame extends JFrame {
 	private JButton buttonConferma;
 	private JButton buttonRicerca;
 	private JButton buttonIndietro;
+	private JTextField textFieldMinValutazione;
+	private JTextField textFieldMaxValutazione;
 	
 
 	/**
@@ -76,14 +78,14 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		
 		setTitle("Cerca Progetti");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 440, 490);
+		setBounds(100, 100, 440, 520);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 255, 412, 156);
+		scrollPane.setBounds(0, 290, 424, 156);
 		contentPane.add(scrollPane);
 		
 		buttonConferma = new JButton("Conferma");
@@ -102,7 +104,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		});
 		buttonConferma.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonConferma.setEnabled(false);
-		buttonConferma.setBounds(87, 417, 242, 23);
+		buttonConferma.setBounds(87, 457, 242, 23);
 		contentPane.add(buttonConferma);
 		
 		tableProgetti = new JTable();
@@ -147,7 +149,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		contentPane.add(buttonIndietro);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(9, 44, 245, 164);
+		layeredPane.setBounds(9, 44, 245, 215);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
@@ -191,12 +193,12 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		contentPane.add(comboBoxCercaProgetto);
 		
 		JLabel lblCodiceProgetto = new JLabel("Codice Progetto");
-		lblCodiceProgetto.setBounds(42, 12, 118, 14);
+		lblCodiceProgetto.setBounds(10, 11, 118, 14);
 		panelAttributi.add(lblCodiceProgetto);
 		lblCodiceProgetto.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		textFieldCodiceProgetto = new JTextField();
-		textFieldCodiceProgetto.setBounds(42, 26, 158, 20);
+		textFieldCodiceProgetto.setBounds(10, 25, 158, 20);
 		textFieldCodiceProgetto.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -209,33 +211,33 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		textFieldCodiceProgetto.setColumns(10);
 		
 		JLabel lblTipologia = new JLabel("Tipologia");
-		lblTipologia.setBounds(42, 50, 68, 14);
+		lblTipologia.setBounds(10, 49, 68, 14);
 		panelAttributi.add(lblTipologia);
 		lblTipologia.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		textFieldTipologia = new JTextField();
-		textFieldTipologia.setBounds(42, 64, 158, 20);
+		textFieldTipologia.setBounds(10, 63, 158, 20);
 		panelAttributi.add(textFieldTipologia);
 		textFieldTipologia.setColumns(10);
 		
 		JLabel lblAmbito = new JLabel("Ambito");
 		lblAmbito.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblAmbito.setBounds(42, 87, 68, 14);
+		lblAmbito.setBounds(10, 86, 68, 14);
 		panelAttributi.add(lblAmbito);
 		
 		textFieldAmbito = new JTextField();
 		textFieldAmbito.setColumns(10);
-		textFieldAmbito.setBounds(42, 101, 158, 20);
+		textFieldAmbito.setBounds(10, 100, 158, 20);
 		panelAttributi.add(textFieldAmbito);
 		
 		JLabel labelCodiceFiscale = new JLabel("Codice Fiscale");
 		labelCodiceFiscale.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelCodiceFiscale.setBounds(39, 0, 107, 14);
+		labelCodiceFiscale.setBounds(10, 6, 107, 14);
 		panelPartecipanti.add(labelCodiceFiscale);
 		
 		textFieldCodiceFiscale = new JTextField();
 		textFieldCodiceFiscale.setColumns(10);
-		textFieldCodiceFiscale.setBounds(39, 14, 158, 20);
+		textFieldCodiceFiscale.setBounds(10, 20, 158, 20);
 		textFieldCodiceFiscale.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -254,32 +256,32 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		
 		JLabel labelNome = new JLabel("Nome");
 		labelNome.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelNome.setBounds(39, 37, 46, 14);
+		labelNome.setBounds(10, 43, 46, 14);
 		panelPartecipanti.add(labelNome);
 		
 		textFieldNome = new JTextField();
 		textFieldNome.setColumns(10);
-		textFieldNome.setBounds(39, 51, 158, 20);
+		textFieldNome.setBounds(10, 57, 158, 20);
 		panelPartecipanti.add(textFieldNome);
 		
 		JLabel labelCognome = new JLabel("Cognome");
 		labelCognome.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelCognome.setBounds(39, 75, 68, 14);
+		labelCognome.setBounds(10, 81, 68, 14);
 		panelPartecipanti.add(labelCognome);
 		
 		textFieldCognome = new JTextField();
 		textFieldCognome.setColumns(10);
-		textFieldCognome.setBounds(39, 89, 158, 20);
+		textFieldCognome.setBounds(10, 95, 158, 20);
 		panelPartecipanti.add(textFieldCognome);
 		
 		JLabel labelSalario = new JLabel("Salario");
 		labelSalario.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelSalario.setBounds(39, 112, 68, 14);
+		labelSalario.setBounds(10, 125, 68, 14);
 		panelPartecipanti.add(labelSalario);
 		
 		textFieldMinSalario = new JTextField();
 		textFieldMinSalario.setColumns(10);
-		textFieldMinSalario.setBounds(39, 126, 68, 20);
+		textFieldMinSalario.setBounds(39, 139, 68, 20);
 		textFieldMinSalario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -293,12 +295,12 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		JLabel labelMin = new JLabel("Min");
 		labelMin.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMin.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMin.setBounds(0, 129, 32, 14);
+		labelMin.setBounds(0, 142, 32, 14);
 		panelPartecipanti.add(labelMin);
 		
 		textFieldMaxSalario = new JTextField();
 		textFieldMaxSalario.setColumns(10);
-		textFieldMaxSalario.setBounds(129, 126, 68, 20);
+		textFieldMaxSalario.setBounds(129, 139, 68, 20);
 		textFieldMaxSalario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -312,8 +314,35 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		JLabel labelMax = new JLabel("Max");
 		labelMax.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMax.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMax.setBounds(205, 129, 32, 14);
+		labelMax.setBounds(205, 142, 32, 14);
 		panelPartecipanti.add(labelMax);
+		
+		JLabel labelValutazione = new JLabel("Valutazione");
+		labelValutazione.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelValutazione.setBounds(10, 170, 68, 14);
+		panelPartecipanti.add(labelValutazione);
+		
+		JLabel labelMin_1 = new JLabel("Min");
+		labelMin_1.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMin_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelMin_1.setBounds(0, 187, 32, 14);
+		panelPartecipanti.add(labelMin_1);
+		
+		textFieldMinValutazione = new JTextField();
+		textFieldMinValutazione.setColumns(10);
+		textFieldMinValutazione.setBounds(39, 184, 68, 20);
+		panelPartecipanti.add(textFieldMinValutazione);
+		
+		textFieldMaxValutazione = new JTextField();
+		textFieldMaxValutazione.setColumns(10);
+		textFieldMaxValutazione.setBounds(129, 184, 68, 20);
+		panelPartecipanti.add(textFieldMaxValutazione);
+		
+		JLabel labelMax_1 = new JLabel("Max");
+		labelMax_1.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMax_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		labelMax_1.setBounds(205, 187, 32, 14);
+		panelPartecipanti.add(labelMax_1);
 		
 		JLabel lblNewLabel = new JLabel("Cerca per:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -339,8 +368,10 @@ public class CercaProgettoMeetingFrame extends JFrame {
 						String cognome = textFieldCognome.getText();
 						String minSalario = textFieldMinSalario.getText();
 						String maxSalario = textFieldMaxSalario.getText();
+						String minValutazione = textFieldMinValutazione.getText();
+						String maxValutazione = textFieldMaxValutazione.getText();
 						
-						PopolaTabella(controller.RicercaProgettoPerPartecipanti(codf, nome, cognome, minSalario, maxSalario));
+						PopolaTabella(controller.RicercaProgettoPerPartecipanti(codf, nome, cognome, minSalario, maxSalario, minValutazione, maxValutazione));
 					}
 				}
 				catch (SQLException ex) {
@@ -348,7 +379,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 				}
 			}
 		});
-		buttonRicerca.setBounds(291, 220, 104, 23);
+		buttonRicerca.setBounds(293, 256, 104, 23);
 		contentPane.add(buttonRicerca);
 	}
 	

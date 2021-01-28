@@ -344,7 +344,7 @@ public class InserisciMeetingFrame extends JFrame {
 						mf.addPartecipante(d);
 					}
 					try {
-						controller.InserimentoMeetingFisico(mf);
+						controller.InserimentoMeeting(mf);
 						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
 					}
 					catch (SQLException ex) {
@@ -371,7 +371,7 @@ public class InserisciMeetingFrame extends JFrame {
 						mt.addPartecipante(d);
 					}
 					try {
-						controller.InserimentoMeetingTelematico(mt);
+						controller.InserimentoMeeting(mt);
 						controller.ChiudiFrameInserisciMeetingInCercaMeeting();
 					}
 					catch (SQLException ex) {
