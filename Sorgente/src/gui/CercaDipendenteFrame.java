@@ -417,7 +417,7 @@ public class CercaDipendenteFrame extends JFrame {
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				controller.CambiaFrameCercaDipendenteInMainMenu();
+				controller.ChiudiFrameCercaDipendenteInMainMenu();
 			}
 		});
 		buttonIndietro.setBounds(10, 5, 116, 23);

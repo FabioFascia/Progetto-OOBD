@@ -85,7 +85,7 @@ public class MainMenuFrame extends JFrame {
 		buttonDipendenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				controller.CambiaFrameMainMenuInCercaDipendente();
+				controller.ApriFrameCercaDipendenteInMainMenu();
 			}
 		});
 		buttonDipendenti.setBounds(129, 225, 181, 36);
@@ -96,7 +96,7 @@ public class MainMenuFrame extends JFrame {
 		buttonProgetti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				controller.CambiaFrameMainMenuInCercaProgetto();
+				controller.ApriFrameCercaProgettoInMainMenu();
 			}
 		});
 		buttonProgetti.setBounds(129, 272, 181, 36);
@@ -106,7 +106,7 @@ public class MainMenuFrame extends JFrame {
 		buttonMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonMeeting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.CambiaFrameMainMenuInCercaMeeting();
+				controller.ApriFrameCercaMeetingInMainMenu();
 			}
 		});
 		buttonMeeting.setBounds(129, 319, 181, 36);
@@ -116,7 +116,7 @@ public class MainMenuFrame extends JFrame {
 		buttonSale = new JButton("Sale Riunioni");
 		buttonSale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.CambiaFrameMainMenuInCercaSala();
+				controller.ApriFrameCercaSalaInMainMenu();
 			}
 		});
 		buttonSale.setFont(new Font("Tahoma", Font.BOLD, 11));
