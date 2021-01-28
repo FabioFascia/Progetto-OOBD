@@ -61,6 +61,7 @@ public class ModificaProgettoFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ModificaProgettoFrame(Controller c, Progetto p) {
+		setResizable(false);
 		
 		setTitle("Modifica Progetto");
 		controller = c;

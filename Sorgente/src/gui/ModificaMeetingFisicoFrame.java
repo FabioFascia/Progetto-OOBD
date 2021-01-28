@@ -59,6 +59,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ModificaMeetingFisicoFrame(Controller c, MeetingFisico mf) {
+		setResizable(false);
 		
 		controller = c;
 		oldMeeting = mf;

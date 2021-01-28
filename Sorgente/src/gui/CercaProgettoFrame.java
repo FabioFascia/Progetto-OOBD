@@ -58,6 +58,7 @@ public class CercaProgettoFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public CercaProgettoFrame(Controller c) {
+		setResizable(false);
 		
 		controller=c;
 		

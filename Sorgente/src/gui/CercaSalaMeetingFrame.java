@@ -51,6 +51,7 @@ public class CercaSalaMeetingFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public CercaSalaMeetingFrame(Controller c) {
+		setResizable(false);
 		setTitle("Cerca Sale Riunioni");
 		
 		controller = c;
@@ -63,7 +64,7 @@ public class CercaSalaMeetingFrame extends JFrame {
 				controller.ChiudiFrameCercaSalaMeeting();
 			}
 		});
-		setBounds(100, 100, 500, 480);
+		setBounds(100, 100, 490, 440);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,11 +80,11 @@ public class CercaSalaMeetingFrame extends JFrame {
 		contentPane.add(buttonIndietro);
 		
 		JButton btnInserisciSalaRiunioni = new JButton("Inserisci Sala Riunioni");
-		btnInserisciSalaRiunioni.setBounds(10, 211, 158, 23);
+		btnInserisciSalaRiunioni.setBounds(10, 172, 158, 23);
 		contentPane.add(btnInserisciSalaRiunioni);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 245, 474, 156);
+		scrollPane.setBounds(0, 206, 474, 156);
 		contentPane.add(scrollPane);
 		
 		JButton buttonConferma = new JButton("Conferma");
@@ -101,7 +102,7 @@ public class CercaSalaMeetingFrame extends JFrame {
 		});
 		buttonConferma.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonConferma.setEnabled(false);
-		buttonConferma.setBounds(109, 407, 242, 23);
+		buttonConferma.setBounds(108, 373, 242, 23);
 		contentPane.add(buttonConferma);
 		
 		tableSale = new JTable();
@@ -131,116 +132,8 @@ public class CercaSalaMeetingFrame extends JFrame {
 
 		scrollPane.setViewportView(tableSale);
 		
-		JLabel labelRicerca = new JLabel("Cerca per:");
-		labelRicerca.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelRicerca.setBounds(285, 11, 89, 14);
-		contentPane.add(labelRicerca);
-		
-		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(10, 45, 271, 155);
-		contentPane.add(layeredPane);
-		layeredPane.setLayout(new CardLayout(0, 0));
-		
-		JPanel panelAttributi = new JPanel();
-		layeredPane.add(panelAttributi, "name_14079923771700");
-		panelAttributi.setLayout(null);
-		
-		JPanel panelMeeting = new JPanel();
-		layeredPane.add(panelMeeting, "name_14079937632200");
-		panelMeeting.setLayout(null);
-		
-		JComboBox comboBoxCercaSala = new JComboBox(new Object[]{"Attributi", "Meeting Fisici tenutisi"});
-		comboBoxCercaSala.setBounds(285, 25, 168, 23);
-		comboBoxCercaSala.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-
-					switch (e.getItem().toString()) {
-					case "Attributi":
-						layeredPane.removeAll();
-						layeredPane.add(panelAttributi);
-						layeredPane.repaint();
-						layeredPane.revalidate();
-						break;
-					case "Meeting Fisici tenutisi":
-						layeredPane.removeAll();
-						layeredPane.add(panelMeeting);
-						layeredPane.repaint();
-						layeredPane.revalidate();
-						break;
-					}
-			}
-		});
-		contentPane.add(comboBoxCercaSala);
-		
-		JLabel labelCittà = new JLabel("Citt\u00E0");
-		labelCittà.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelCittà.setBounds(12, 12, 107, 14);
-		panelAttributi.add(labelCittà);
-		
-		textFieldCittà = new JTextField();
-		textFieldCittà.setColumns(10);
-		textFieldCittà.setBounds(12, 26, 158, 20);
-		panelAttributi.add(textFieldCittà);
-		
-		JLabel labelIndirizzo = new JLabel("Indirizzo");
-		labelIndirizzo.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelIndirizzo.setBounds(12, 47, 107, 14);
-		panelAttributi.add(labelIndirizzo);
-		
-		textFieldIndirizzo = new JTextField();
-		textFieldIndirizzo.setColumns(10);
-		textFieldIndirizzo.setBounds(12, 61, 158, 20);
-		panelAttributi.add(textFieldIndirizzo);
-		
-		JLabel labelNumeroPosti = new JLabel("Numero Posti");
-		labelNumeroPosti.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelNumeroPosti.setBounds(12, 82, 107, 14);
-		panelAttributi.add(labelNumeroPosti);
-		
-		textFieldProvincia = new JTextField();
-		textFieldProvincia.setBounds(182, 26, 42, 20);
-		panelAttributi.add(textFieldProvincia);
-		textFieldProvincia.setColumns(10);
-		
-		JLabel lblNewLabel = new JLabel("Provincia");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(182, 12, 70, 14);
-		panelAttributi.add(lblNewLabel);
-		
-		textFieldNumeroCivico = new JTextField();
-		textFieldNumeroCivico.setBounds(182, 61, 42, 20);
-		panelAttributi.add(textFieldNumeroCivico);
-		textFieldNumeroCivico.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Numero Civico");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setBounds(182, 47, 82, 14);
-		panelAttributi.add(lblNewLabel_1);
-		
-		textFieldMinNumeroPosti = new JTextField();
-		textFieldMinNumeroPosti.setColumns(10);
-		textFieldMinNumeroPosti.setBounds(39, 97, 68, 20);
-		panelAttributi.add(textFieldMinNumeroPosti);
-		
-		JLabel labelMin = new JLabel("Min");
-		labelMin.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMin.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMin.setBounds(0, 100, 32, 14);
-		panelAttributi.add(labelMin);
-		
-		textFieldMaxNumeroPosti = new JTextField();
-		textFieldMaxNumeroPosti.setColumns(10);
-		textFieldMaxNumeroPosti.setBounds(129, 97, 68, 20);
-		panelAttributi.add(textFieldMaxNumeroPosti);
-		
-		JLabel labelMax = new JLabel("Max");
-		labelMax.setHorizontalAlignment(SwingConstants.CENTER);
-		labelMax.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMax.setBounds(206, 100, 32, 14);
-		panelAttributi.add(labelMax);
-		
 		JButton buttonRicerca = new JButton("Cerca");
-		buttonRicerca.setBounds(350, 211, 104, 23);
+		buttonRicerca.setBounds(353, 172, 104, 23);
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -260,6 +153,73 @@ public class CercaSalaMeetingFrame extends JFrame {
 			}
 		});
 		contentPane.add(buttonRicerca);
+		
+		JLabel labelCittà = new JLabel("Citt\u00E0");
+		labelCittà.setBounds(22, 45, 107, 14);
+		contentPane.add(labelCittà);
+		labelCittà.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		textFieldCittà = new JTextField();
+		textFieldCittà.setBounds(22, 59, 158, 20);
+		contentPane.add(textFieldCittà);
+		textFieldCittà.setColumns(10);
+		
+		JLabel lblNewLabel = new JLabel("Provincia");
+		lblNewLabel.setBounds(192, 45, 70, 14);
+		contentPane.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		textFieldProvincia = new JTextField();
+		textFieldProvincia.setBounds(192, 59, 42, 20);
+		contentPane.add(textFieldProvincia);
+		textFieldProvincia.setColumns(10);
+		
+		JLabel lblNewLabel_1 = new JLabel("Numero Civico");
+		lblNewLabel_1.setBounds(192, 80, 82, 14);
+		contentPane.add(lblNewLabel_1);
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		textFieldNumeroCivico = new JTextField();
+		textFieldNumeroCivico.setBounds(192, 94, 42, 20);
+		contentPane.add(textFieldNumeroCivico);
+		textFieldNumeroCivico.setColumns(10);
+		
+		textFieldIndirizzo = new JTextField();
+		textFieldIndirizzo.setBounds(22, 94, 158, 20);
+		contentPane.add(textFieldIndirizzo);
+		textFieldIndirizzo.setColumns(10);
+		
+		JLabel labelIndirizzo = new JLabel("Indirizzo");
+		labelIndirizzo.setBounds(22, 80, 107, 14);
+		contentPane.add(labelIndirizzo);
+		labelIndirizzo.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		JLabel labelNumeroPosti = new JLabel("Numero Posti");
+		labelNumeroPosti.setBounds(22, 115, 107, 14);
+		contentPane.add(labelNumeroPosti);
+		labelNumeroPosti.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		JLabel labelMin = new JLabel("Min");
+		labelMin.setBounds(10, 133, 32, 14);
+		contentPane.add(labelMin);
+		labelMin.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMin.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		textFieldMinNumeroPosti = new JTextField();
+		textFieldMinNumeroPosti.setBounds(49, 130, 68, 20);
+		contentPane.add(textFieldMinNumeroPosti);
+		textFieldMinNumeroPosti.setColumns(10);
+		
+		textFieldMaxNumeroPosti = new JTextField();
+		textFieldMaxNumeroPosti.setBounds(139, 130, 68, 20);
+		contentPane.add(textFieldMaxNumeroPosti);
+		textFieldMaxNumeroPosti.setColumns(10);
+		
+		JLabel labelMax = new JLabel("Max");
+		labelMax.setBounds(216, 133, 32, 14);
+		contentPane.add(labelMax);
+		labelMax.setHorizontalAlignment(SwingConstants.CENTER);
+		labelMax.setFont(new Font("Tahoma", Font.BOLD, 11));
 	}
 	
 	public void PopolaTabella(ArrayList<Sala> lista) {

@@ -62,6 +62,7 @@ public class InserisciMeetingFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public InserisciMeetingFrame(Controller c) {
+		setResizable(false);
 		controller = c;
 		setTitle("Inserisci Meeting");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

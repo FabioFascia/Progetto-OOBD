@@ -55,6 +55,7 @@ public class CercaSalaFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public CercaSalaFrame(Controller c) {
+		setResizable(false);
 		setTitle("Cerca Sale Riunioni");
 		
 		controller = c;
@@ -123,11 +124,6 @@ public class CercaSalaFrame extends JFrame {
 		});
 		scrollPane.setViewportView(tableSale);
 		
-		JLabel labelRicerca = new JLabel("Cerca per:");
-		labelRicerca.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelRicerca.setBounds(285, 11, 89, 14);
-		contentPane.add(labelRicerca);
-		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(10, 45, 271, 155);
 		contentPane.add(layeredPane);
@@ -136,23 +132,6 @@ public class CercaSalaFrame extends JFrame {
 		JPanel panelAttributi = new JPanel();
 		layeredPane.add(panelAttributi, "name_14079923771700");
 		panelAttributi.setLayout(null);
-		
-		JComboBox comboBoxCercaSala = new JComboBox(new Object[]{"Attributi", "Meeting Fisici tenutivisi"});
-		comboBoxCercaSala.setBounds(285, 25, 168, 23);
-		comboBoxCercaSala.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-
-					switch (e.getItem().toString()) {
-					case "Attributi":
-						layeredPane.removeAll();
-						layeredPane.add(panelAttributi);
-						layeredPane.repaint();
-						layeredPane.revalidate();
-						break;
-					}
-			}
-		});
-		contentPane.add(comboBoxCercaSala);
 		
 		JLabel labelCittà = new JLabel("Citt\u00E0");
 		labelCittà.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -268,17 +247,14 @@ public class CercaSalaFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					switch(comboBoxCercaSala.getSelectedItem().toString()) {
-					case "Attributi":
-						String città = textFieldCittà.getText();
-						String provincia = textFieldProvincia.getText();
-						String indirizzo = textFieldIndirizzo.getText();
-						String numeroCivico = textFieldNumeroCivico.getText();
-						String minPosti = textFieldMinNumeroPosti.getText();
-						String maxPosti = textFieldMaxNumeroPosti.getText();
-						
-						PopolaTabella(controller.RicercaSalaPerAttributi(città, provincia, indirizzo, numeroCivico, minPosti, maxPosti));
-					}
+					String città = textFieldCittà.getText();
+					String provincia = textFieldProvincia.getText();
+					String indirizzo = textFieldIndirizzo.getText();
+					String numeroCivico = textFieldNumeroCivico.getText();
+					String minPosti = textFieldMinNumeroPosti.getText();
+					String maxPosti = textFieldMaxNumeroPosti.getText();
+					
+					PopolaTabella(controller.RicercaSalaPerAttributi(città, provincia, indirizzo, numeroCivico, minPosti, maxPosti));
 				}
 				catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
