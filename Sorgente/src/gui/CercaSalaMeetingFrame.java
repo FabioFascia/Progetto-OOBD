@@ -37,15 +37,21 @@ import javax.swing.ListSelectionModel;
 
 public class CercaSalaMeetingFrame extends JFrame {
 
-	private JPanel contentPane;
 	private Controller controller;
+	
+	private JPanel contentPane;
+	private JTable tableSale;
+	
 	private JTextField textFieldCittà;
 	private JTextField textFieldIndirizzo;
 	private JTextField textFieldProvincia;
 	private JTextField textFieldNumeroCivico;
 	private JTextField textFieldMinNumeroPosti;
 	private JTextField textFieldMaxNumeroPosti;
-	private JTable tableSale;
+	
+	private JButton buttonConferma;
+	private JButton buttonRicerca;
+	private JButton buttonIndietro;
 
 	/**
 	 * Create the frame.
@@ -70,7 +76,7 @@ public class CercaSalaMeetingFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton buttonIndietro = new JButton("Indietro");
+		buttonIndietro = new JButton("Indietro");
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ChiudiFrameCercaSalaMeeting();
@@ -79,15 +85,11 @@ public class CercaSalaMeetingFrame extends JFrame {
 		buttonIndietro.setBounds(10, 11, 116, 23);
 		contentPane.add(buttonIndietro);
 		
-		JButton btnInserisciSalaRiunioni = new JButton("Inserisci Sala Riunioni");
-		btnInserisciSalaRiunioni.setBounds(10, 172, 158, 23);
-		contentPane.add(btnInserisciSalaRiunioni);
-		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 206, 474, 156);
 		contentPane.add(scrollPane);
 		
-		JButton buttonConferma = new JButton("Conferma");
+		buttonConferma = new JButton("Conferma");
 		buttonConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -132,7 +134,7 @@ public class CercaSalaMeetingFrame extends JFrame {
 
 		scrollPane.setViewportView(tableSale);
 		
-		JButton buttonRicerca = new JButton("Cerca");
+		buttonRicerca = new JButton("Cerca");
 		buttonRicerca.setBounds(353, 172, 104, 23);
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

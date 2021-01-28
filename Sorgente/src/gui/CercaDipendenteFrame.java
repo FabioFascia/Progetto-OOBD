@@ -7,8 +7,6 @@ import javax.swing.border.EmptyBorder;
 
 import controller.Controller;
 import entità.Dipendente;
-import entità.Partecipante;
-import entità.Progetto;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -48,23 +46,37 @@ import javax.swing.JSpinner;
 public class CercaDipendenteFrame extends JFrame {
 
 	private Controller controller;
+	
 	private JPanel contentPane;
+	
 	private JTable tableDipendenti;
 	private JPopupMenu popupMenuTable;
+	private JComboBox comboBoxCercaDipendente;
+	
 	private JTextField textFieldCodiceFiscale;
 	private JTextField textFieldNome;
 	private JTextField textFieldCognome;
 	private JTextField textFieldMinSalario;
 	private JTextField textFieldMaxSalario;
+	private JTextField textFieldMinValutazione;
+	private JTextField textFieldMaxValutazione;
+	
 	private JTextField textFieldCodiceProgetto;
 	private JTextField textFieldTipologia;
 	private JTextField textFieldAmbito;
 	private JTextField textFieldRuolo;
 	private JTextField textFieldMinNumeroProgetti;
 	private JTextField textFieldMaxNumeroProgetti;
+	
 	private JTextField textFieldCodiceMeeting;
-	private JTextField textFieldMinValutazione;
-	private JTextField textFieldMaxValutazione;
+	private JComboBox comboBoxTipoMeeting;
+	private JSpinner spinnerData;
+	private JSpinner spinnerOraInizio;
+	private JSpinner spinnerOraFine;
+	
+	private JButton buttonIndietro;
+	private JButton buttonInserimento;
+	private JButton buttonRicerca;
 	
 	/**
 	 * Create the frame.
@@ -304,7 +316,7 @@ public class CercaDipendenteFrame extends JFrame {
 		layeredPane.add(panelMeeting, "name_88616854995700");
 		panelMeeting.setLayout(null);
 		
-		JComboBox comboBoxTipoMeeting = new JComboBox(new Object[]{"Fisico", "Telematico"});
+		comboBoxTipoMeeting = new JComboBox(new Object[]{"Fisico", "Telematico"});
 		comboBoxTipoMeeting.setBounds(10, 25, 150, 22);
 		panelMeeting.add(comboBoxTipoMeeting);
 		
@@ -323,7 +335,7 @@ public class CercaDipendenteFrame extends JFrame {
 		lblNewLabel_1.setBounds(10, 88, 46, 14);
 		panelMeeting.add(lblNewLabel_1);
 		
-		JSpinner spinnerData = new JSpinner();
+		spinnerData = new JSpinner();
 		spinnerData.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
 		spinnerData.setEditor(new JSpinner.DateEditor(spinnerData, "dd/MM/yyyy"));
 		((JSpinner.DefaultEditor) spinnerData.getEditor()).getTextField().setEditable(false);
@@ -335,7 +347,7 @@ public class CercaDipendenteFrame extends JFrame {
 		lblNewLabel_3.setBounds(10, 124, 63, 14);
 		panelMeeting.add(lblNewLabel_3);
 		
-		JSpinner spinnerOraInizio = new JSpinner();
+		spinnerOraInizio = new JSpinner();
 		spinnerOraInizio.setModel(new SpinnerDateModel(new Date(1610492400000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraInizio.setEditor(new JSpinner.DateEditor(spinnerOraInizio, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraInizio.getEditor()).getTextField().setEditable(false);
@@ -347,7 +359,7 @@ public class CercaDipendenteFrame extends JFrame {
 		lblOraFine.setBounds(97, 124, 63, 14);
 		panelMeeting.add(lblOraFine);
 		
-		JSpinner spinnerOraFine = new JSpinner();
+		spinnerOraFine = new JSpinner();
 		spinnerOraFine.setModel(new SpinnerDateModel(new Date(1610578740000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraFine.setEditor(new JSpinner.DateEditor(spinnerOraFine, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraFine.getEditor()).getTextField().setEditable(false);
@@ -401,7 +413,7 @@ public class CercaDipendenteFrame extends JFrame {
 		});
 		scrollPane.setViewportView(tableDipendenti);
 		
-		JButton buttonIndietro = new JButton("Indietro");
+		buttonIndietro = new JButton("Indietro");
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -411,7 +423,7 @@ public class CercaDipendenteFrame extends JFrame {
 		buttonIndietro.setBounds(10, 5, 116, 23);
 		contentPane.add(buttonIndietro);
 		
-		JButton buttonInserimento = new JButton("Inserisci Dipendente");
+		buttonInserimento = new JButton("Inserisci Dipendente");
 		buttonInserimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -422,7 +434,7 @@ public class CercaDipendenteFrame extends JFrame {
 		contentPane.add(buttonInserimento);
 		
 		
-		JComboBox comboBoxCercaDipendente = new JComboBox(new String[] {"Attributi", "Progetti a cui partecipa", "Meeting a cui partecipa"});
+		comboBoxCercaDipendente = new JComboBox(new String[] {"Attributi", "Progetti a cui partecipa", "Meeting a cui partecipa"});
 		comboBoxCercaDipendente.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 
@@ -455,7 +467,7 @@ public class CercaDipendenteFrame extends JFrame {
 		labelRicerca.setBounds(281, 43, 89, 14);
 		contentPane.add(labelRicerca);
 		
-		JButton buttonRicerca = new JButton("Cerca");
+		buttonRicerca = new JButton("Cerca");
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

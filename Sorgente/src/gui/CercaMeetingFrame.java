@@ -56,29 +56,49 @@ import java.awt.event.MouseEvent;
 
 public class CercaMeetingFrame extends JFrame {
 
-
-	private JPanel contentPane;
     private Controller controller;
+    
+    private JPanel contentPane;
+    
     private JTable tableMeetingFisico;
     private JTable tableMeetingTelematico;
-    private JTextField textFieldCodiceMeetingFisico;
     private JPopupMenu popupMenuTable;
     private JComboBox comboBoxTipoMeeting;
+    
+    private JComboBox comboBoxCercaMeetingFisico;
+    private JTextField textFieldCodiceMeetingFisico;
+    private JSpinner spinnerDataFisico;
+    private JSpinner spinnerOraInizioFisico;
+    private JSpinner spinnerOraFineFisico;
+    
     private JTextField textFieldCittà;
     private JTextField textFieldIndirizzo;
     private JTextField textFieldProvincia;
     private JTextField textFieldNumeroCivico;
-    private JTextField textFieldCodiceProgettoFisico;
-    private JTextField textFieldTipologiaFisico;
-    private JTextField tfCodiceMeetingTelematico;
-    private JTextField textPiattaforma;
-    private JTextField textNumeroMassimo;
-    private JTextField textFieldCodiceProgettoTelematico;
-    private JTextField textFieldTipologiaTelematico;
-    private JTextField textFieldAmbitoFisico;
-    private JTextField textFieldAmbitoTelematico;
     private JTextField textFieldMinPosti;
     private JTextField textFieldMaxPosti;
+    
+    private JTextField textFieldCodiceProgettoFisico;
+    private JTextField textFieldTipologiaFisico;
+    private JTextField textFieldAmbitoFisico;
+    
+    private JComboBox comboBoxCercaMeetingTelematico;
+    private JTextField tfCodiceMeetingTelematico;
+    private JSpinner spinnerDataTelematico;
+    private JSpinner spinnerOraInizioTelematico;
+    private JSpinner spinnerOraFineTelematico;
+    private JTextField textPiattaforma;
+    private JTextField textNumeroMassimo;
+    
+    private JTextField textFieldCodiceProgettoTelematico;
+    private JTextField textFieldTipologiaTelematico;
+    private JTextField textFieldAmbitoTelematico;
+    
+    private JButton btnIndietro;
+    private JButton btnCercaFisico;
+    private JButton btnCercaTelematico;
+    private JButton btnInserisciMeetingFisico;
+    private JButton btnInserisciMeetingTelematico;
     
    
 	/**
@@ -114,21 +134,21 @@ public class CercaMeetingFrame extends JFrame {
 		layeredPaneFisici.add(panelAttributi, "name_61921273834600");
 		panelAttributi.setLayout(null);
 		
-		JSpinner spinnerOraInizioFisico = new JSpinner();
+		spinnerOraInizioFisico = new JSpinner();
 		spinnerOraInizioFisico.setModel(new SpinnerDateModel(new Date(1610492400000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraInizioFisico.setEditor(new JSpinner.DateEditor(spinnerOraInizioFisico, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraInizioFisico.getEditor()).getTextField().setEditable(false);
 		spinnerOraInizioFisico.setBounds(24, 98, 63, 20);
 		panelAttributi.add(spinnerOraInizioFisico);
 		
-		JSpinner spinnerOraFineFisico = new JSpinner();
+		spinnerOraFineFisico = new JSpinner();
 		spinnerOraFineFisico.setModel(new SpinnerDateModel(new Date(1610578740000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraFineFisico.setEditor(new JSpinner.DateEditor(spinnerOraFineFisico, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraFineFisico.getEditor()).getTextField().setEditable(false);
 		spinnerOraFineFisico.setBounds(111, 98, 63, 20);
 		panelAttributi.add(spinnerOraFineFisico);
 		
-		JSpinner spinnerDataFisico = new JSpinner();
+		spinnerDataFisico = new JSpinner();
 		spinnerDataFisico.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
 		spinnerDataFisico.setEditor(new JSpinner.DateEditor(spinnerDataFisico, "dd/MM/yyyy"));
 		((JSpinner.DefaultEditor) spinnerDataFisico.getEditor()).getTextField().setEditable(false);
@@ -303,22 +323,22 @@ public class CercaMeetingFrame extends JFrame {
 		});
 		scrollPane.setViewportView(tableMeetingFisico);
 		
-		JButton btnInserisciMeeting = new JButton("Inserisci Meeting");
-		btnInserisciMeeting.addActionListener(new ActionListener() {
+		btnInserisciMeetingFisico = new JButton("Inserisci Meeting");
+		btnInserisciMeetingFisico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameInserisciMeetingInCercaMeeting();
 			}
 		});
-		btnInserisciMeeting.setBounds(10, 176, 170, 23);
-		panelFisico.add(btnInserisciMeeting);
+		btnInserisciMeetingFisico.setBounds(10, 176, 170, 23);
+		panelFisico.add(btnInserisciMeetingFisico);
 		
 		JLabel labelRicerca = new JLabel("Cerca per:");
 		labelRicerca.setFont(new Font("Tahoma", Font.BOLD, 11));
 		labelRicerca.setBounds(325, 11, 89, 14);
 		panelFisico.add(labelRicerca);
 		
-		JComboBox comboBoxMeetingFisico = new JComboBox(new String[] {"Attributi", "Progetto associato", "Sala riunioni"});
-		comboBoxMeetingFisico.addItemListener(new ItemListener() {
+		comboBoxCercaMeetingFisico = new JComboBox(new String[] {"Attributi", "Progetto associato", "Sala riunioni"});
+		comboBoxCercaMeetingFisico.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				switch(e.getItem().toString()) {
 				
@@ -343,15 +363,15 @@ public class CercaMeetingFrame extends JFrame {
 				}
 			}
 		});
-		comboBoxMeetingFisico.setBounds(325, 28, 150, 22);
-		panelFisico.add(comboBoxMeetingFisico);
+		comboBoxCercaMeetingFisico.setBounds(325, 28, 150, 22);
+		panelFisico.add(comboBoxCercaMeetingFisico);
 		
-		JButton btnCercaFisico = new JButton("Cerca");
+		btnCercaFisico = new JButton("Cerca");
 		btnCercaFisico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					switch(comboBoxMeetingFisico.getSelectedItem().toString()) {
+					switch(comboBoxCercaMeetingFisico.getSelectedItem().toString()) {
 					case "Attributi":
 						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 						DateFormat of = new SimpleDateFormat("HH:mm:ss");
@@ -413,36 +433,36 @@ public class CercaMeetingFrame extends JFrame {
 		lblNewLabel_8.setBounds(10, 7, 101, 14);
 		panelAttributoTelematico.add(lblNewLabel_8);
 		
-		JSpinner spinnerData = new JSpinner();
-		spinnerData.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
-		spinnerData.setEditor(new JSpinner.DateEditor(spinnerData, "dd/MM/yyyy"));
-		((JSpinner.DefaultEditor) spinnerData.getEditor()).getTextField().setEditable(false);
-		spinnerData.setBounds(10, 55, 150, 20);
-		panelAttributoTelematico.add(spinnerData);
+		spinnerDataTelematico = new JSpinner();
+		spinnerDataTelematico.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
+		spinnerDataTelematico.setEditor(new JSpinner.DateEditor(spinnerDataTelematico, "dd/MM/yyyy"));
+		((JSpinner.DefaultEditor) spinnerDataTelematico.getEditor()).getTextField().setEditable(false);
+		spinnerDataTelematico.setBounds(10, 55, 150, 20);
+		panelAttributoTelematico.add(spinnerDataTelematico);
 		
 		JLabel lblNewLabel_7 = new JLabel("Data");
 		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_7.setBounds(10, 42, 85, 14);
 		panelAttributoTelematico.add(lblNewLabel_7);
 		
-		JSpinner spinnerOraInizio = new JSpinner();
-		spinnerOraInizio.setModel(new SpinnerDateModel(new Date(1610924400000L), null, null, Calendar.HOUR_OF_DAY));
-		spinnerOraInizio.setEditor(new JSpinner.DateEditor(spinnerOraInizio, "HH:mm"));
-		((JSpinner.DefaultEditor) spinnerOraInizio.getEditor()).getTextField().setEditable(false);
-		spinnerOraInizio.setBounds(10, 89, 65, 20);
-		panelAttributoTelematico.add(spinnerOraInizio);
+		spinnerOraInizioTelematico = new JSpinner();
+		spinnerOraInizioTelematico.setModel(new SpinnerDateModel(new Date(1610924400000L), null, null, Calendar.HOUR_OF_DAY));
+		spinnerOraInizioTelematico.setEditor(new JSpinner.DateEditor(spinnerOraInizioTelematico, "HH:mm"));
+		((JSpinner.DefaultEditor) spinnerOraInizioTelematico.getEditor()).getTextField().setEditable(false);
+		spinnerOraInizioTelematico.setBounds(10, 89, 65, 20);
+		panelAttributoTelematico.add(spinnerOraInizioTelematico);
 		
 		JLabel lblNewLabel_5 = new JLabel("Ora Inizio");
 		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel_5.setBounds(10, 76, 65, 14);
 		panelAttributoTelematico.add(lblNewLabel_5);
 		
-		JSpinner spinnerOraFine = new JSpinner();
-		spinnerOraFine.setModel(new SpinnerDateModel(new Date(1611010740000L), null, null, Calendar.HOUR_OF_DAY));
-		spinnerOraFine.setEditor(new JSpinner.DateEditor(spinnerOraFine, "HH:mm"));
-		((JSpinner.DefaultEditor) spinnerOraFine.getEditor()).getTextField().setEditable(false);
-		spinnerOraFine.setBounds(98, 89, 62, 20);
-		panelAttributoTelematico.add(spinnerOraFine);
+		spinnerOraFineTelematico = new JSpinner();
+		spinnerOraFineTelematico.setModel(new SpinnerDateModel(new Date(1611010740000L), null, null, Calendar.HOUR_OF_DAY));
+		spinnerOraFineTelematico.setEditor(new JSpinner.DateEditor(spinnerOraFineTelematico, "HH:mm"));
+		((JSpinner.DefaultEditor) spinnerOraFineTelematico.getEditor()).getTextField().setEditable(false);
+		spinnerOraFineTelematico.setBounds(98, 89, 62, 20);
+		panelAttributoTelematico.add(spinnerOraFineTelematico);
 		
 		JLabel lblNewLabel_6 = new JLabel("Ora Fine");
 		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -539,7 +559,7 @@ public class CercaMeetingFrame extends JFrame {
 		});
 		scrollPane_1.setViewportView(tableMeetingTelematico);
 		
-		JButton btnInserisciMeetingTelematico = new JButton("Inserisci Meeting");
+		btnInserisciMeetingTelematico = new JButton("Inserisci Meeting");
 		btnInserisciMeetingTelematico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameInserisciMeetingInCercaMeeting();
@@ -548,8 +568,8 @@ public class CercaMeetingFrame extends JFrame {
 		btnInserisciMeetingTelematico.setBounds(9, 170, 170, 23);
 		panelTelematico.add(btnInserisciMeetingTelematico);
 		
-		JComboBox comboBoxMeetingTelematico = new JComboBox(new String[] {"Attributi", "Progetto associato"});
-		comboBoxMeetingTelematico.addItemListener(new ItemListener() {
+		comboBoxCercaMeetingTelematico = new JComboBox(new String[] {"Attributi", "Progetto associato"});
+		comboBoxCercaMeetingTelematico.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 				switch(e.getItem().toString()) {
 				case "Attributi":
@@ -567,8 +587,8 @@ public class CercaMeetingFrame extends JFrame {
 				}
 			}
 		});
-		comboBoxMeetingTelematico.setBounds(325, 28, 150, 22);
-		panelTelematico.add(comboBoxMeetingTelematico);
+		comboBoxCercaMeetingTelematico.setBounds(325, 28, 150, 22);
+		panelTelematico.add(comboBoxCercaMeetingTelematico);
 		
 		JLabel labelRicerca_1 = new JLabel("Cerca per:");
 		labelRicerca_1.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -576,12 +596,12 @@ public class CercaMeetingFrame extends JFrame {
 		panelTelematico.add(labelRicerca_1);
 		
 		
-		JButton btnCercaTelematico = new JButton("Cerca");
+		btnCercaTelematico = new JButton("Cerca");
 		btnCercaTelematico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					switch(comboBoxMeetingTelematico.getSelectedItem().toString()) {
+					switch(comboBoxCercaMeetingTelematico.getSelectedItem().toString()) {
 					case "Attributi":
 						String codmt = tfCodiceMeetingTelematico.getText();
 						String piattaforma = textPiattaforma.getText();
@@ -589,9 +609,9 @@ public class CercaMeetingFrame extends JFrame {
 						
 						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 						DateFormat of = new SimpleDateFormat("HH:mm:ss");
-						String data = df.format((java.util.Date)spinnerData.getValue());
-						String oraInizio = of.format((java.util.Date)spinnerOraInizio.getValue());
-						String oraFine = of.format((java.util.Date)spinnerOraFine.getValue());
+						String data = df.format((java.util.Date)spinnerDataTelematico.getValue());
+						String oraInizio = of.format((java.util.Date)spinnerOraInizioTelematico.getValue());
+						String oraFine = of.format((java.util.Date)spinnerOraFineTelematico.getValue());
 						
 						PopolaTabellaTelematico(controller.RicercaMeetingTelematicoPerAttributi(codmt, data, oraInizio, oraFine, piattaforma, numMassimo));
 					break;
@@ -613,7 +633,7 @@ public class CercaMeetingFrame extends JFrame {
 		btnCercaTelematico.setBounds(347, 170, 115, 23);
 		panelTelematico.add(btnCercaTelematico);
 		
-		JButton btnIndietro = new JButton("Indietro");
+		btnIndietro = new JButton("Indietro");
 		btnIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.CambiaFrameCercaMeetingInMainMenu();

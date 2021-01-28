@@ -43,18 +43,27 @@ import javax.swing.ListSelectionModel;
 
 public class CercaProgettoMeetingFrame extends JFrame {
 
-	private JPanel contentPane;
 	private Controller controller;
+	
+	private JPanel contentPane;
+	
 	private JTable tableProgetti;
 	private JPopupMenu popupMenuTable;
+	private JComboBox comboBoxCercaProgetto;
+	
 	private JTextField textFieldCodiceProgetto;
 	private JTextField textFieldTipologia;
 	private JTextField textFieldAmbito;
+	
 	private JTextField textFieldCodiceFiscale;
 	private JTextField textFieldNome;
 	private JTextField textFieldCognome;
 	private JTextField textFieldMinSalario;
 	private JTextField textFieldMaxSalario;
+	
+	private JButton buttonConferma;
+	private JButton buttonRicerca;
+	private JButton buttonIndietro;
 	
 
 	/**
@@ -77,7 +86,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		scrollPane.setBounds(0, 255, 412, 156);
 		contentPane.add(scrollPane);
 		
-		JButton buttonConferma = new JButton("Conferma");
+		buttonConferma = new JButton("Conferma");
 		buttonConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -127,7 +136,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		});
 		scrollPane.setViewportView(tableProgetti);
 		
-		JButton buttonIndietro = new JButton("Indietro");
+		buttonIndietro = new JButton("Indietro");
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -153,7 +162,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		JPanel panelMeeting = new JPanel();
 		layeredPane.add(panelMeeting, "name_5647884201000");
 		
-		JComboBox comboBoxCercaProgetto = new JComboBox(new String[]{"Attributi", "Partecipanti", "Meeting associati"});
+		comboBoxCercaProgetto = new JComboBox(new String[]{"Attributi", "Partecipanti", "Meeting associati"});
 		comboBoxCercaProgetto.setBounds(266, 44, 146, 23);
 		comboBoxCercaProgetto.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -311,16 +320,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		lblNewLabel.setBounds(266, 30, 82, 14);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnInserisciProgetto = new JButton("Inserisci Progetto");
-		btnInserisciProgetto.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.ApriFrameInserisciProgettoInCercaProgetto();
-			}
-		});
-		btnInserisciProgetto.setBounds(12, 220, 146, 23);
-		contentPane.add(btnInserisciProgetto);
-		
-		JButton buttonRicerca = new JButton("Cerca");
+		buttonRicerca = new JButton("Cerca");
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

@@ -40,16 +40,22 @@ import javax.swing.table.DefaultTableModel;
 
 public class CercaSalaFrame extends JFrame {
 
-	private JPanel contentPane;
 	private Controller controller;
+	
+	private JPanel contentPane;
 	private JPopupMenu popupMenuTable;
+	
+	private JTable tableSale;
+	
 	private JTextField textFieldCittà;
 	private JTextField textFieldIndirizzo;
 	private JTextField textFieldProvincia;
 	private JTextField textFieldNumeroCivico;
 	private JTextField textFieldMinNumeroPosti;
 	private JTextField textFieldMaxNumeroPosti;
-	private JTable tableSale;
+	
+	private JButton buttonRicerca;
+	private JButton buttonInserisciSala;
 
 	/**
 	 * Create the frame.
@@ -241,7 +247,7 @@ public class CercaSalaFrame extends JFrame {
 		labelMax.setBounds(206, 102, 32, 14);
 		panelAttributi.add(labelMax);
 		
-		JButton buttonRicerca = new JButton("Cerca");
+		buttonRicerca = new JButton("Cerca");
 		buttonRicerca.setBounds(349, 211, 104, 23);
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -263,7 +269,7 @@ public class CercaSalaFrame extends JFrame {
 		});
 		contentPane.add(buttonRicerca);
 		
-		JButton buttonInserisciSala = new JButton("Inserisci Sala");
+		buttonInserisciSala = new JButton("Inserisci Sala");
 		buttonInserisciSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameInserisciSalaInCercaSala();
