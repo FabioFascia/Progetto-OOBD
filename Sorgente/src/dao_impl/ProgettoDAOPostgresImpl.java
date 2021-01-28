@@ -59,7 +59,8 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 																				+ "WHERE D.CodF ILIKE ? AND "
 																						+ "D.Nome ILIKE ? AND "
 																						+ "D.Cognome ILIKE ? AND "
-																						+ "D.Salario BETWEEN ? AND ?) "
+																						+ "(D.Salario BETWEEN ? AND ?) AND "
+																						+ "(D.Valutazione BETWEEN ? AND ?)) "
 																+ "ORDER BY P.CodP;");
 		
 		getAmbitiProgettoPS = connection.prepareStatement("SELECT * FROM AMBITO WHERE CodP = ?");
@@ -196,25 +197,38 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 		
 		return lista;
 	}
-	public ArrayList<Progetto> getProgettoByPartecipanti(String codf, String nome, String cognome, String minSalario, String maxSalario) throws SQLException {
+	public ArrayList<Progetto> getProgettoByPartecipanti(String codf, String nome, String cognome, String minSal, String maxSal, String minVal, String maxVal) throws SQLException {
 		
-		float minimo, massimo;
+		float minS, maxS;
+		int minV, maxV;
 		
-		if(minSalario.isBlank())
-			minimo = 0;
+		if(minSal.isBlank())
+			minS = 0;
 		else
-			minimo = Float.parseFloat(minSalario);
+			minS = Float.parseFloat(minSal);
 		
-		if(maxSalario.isBlank())
-			massimo = Float.POSITIVE_INFINITY;
+		if(maxSal.isBlank())
+			maxS = Float.POSITIVE_INFINITY;
 		else
-			massimo = Float.parseFloat(maxSalario);
+			maxS = Float.parseFloat(maxSal);
+		
+		if(minVal.isBlank())
+			minV = Integer.MIN_VALUE;
+		else
+			minV = Integer.parseInt(minVal);
+		
+		if(maxVal.isBlank())
+			maxV = Integer.MAX_VALUE;
+		else
+			maxV = Integer.parseInt(maxVal);
 		
 		getProgettoByPartecipantiPS.setString(1, "%" + codf + "%");
 		getProgettoByPartecipantiPS.setString(2, "%" + nome + "%");
 		getProgettoByPartecipantiPS.setString(3, "%" + cognome + "%");
-		getProgettoByPartecipantiPS.setFloat(4, minimo);
-		getProgettoByPartecipantiPS.setFloat(5, massimo);
+		getProgettoByPartecipantiPS.setFloat(4, minS);
+		getProgettoByPartecipantiPS.setFloat(5, maxS);
+		getProgettoByPartecipantiPS.setInt(6, minV);
+		getProgettoByPartecipantiPS.setInt(7, maxV);
 		
 		ResultSet rs = getProgettoByPartecipantiPS.executeQuery();
 		

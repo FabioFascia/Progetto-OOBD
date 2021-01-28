@@ -93,7 +93,7 @@ public class CercaSalaMeetingFrame extends JFrame {
 		buttonConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					controller.SelezioneSalaRiunioni(controller.getSalaSelezionata(tableSale.getSelectedRow()));
+					controller.SelezioneSalaMeeting(controller.getSalaSelezionata(tableSale.getSelectedRow()));
 					
 					controller.ChiudiFrameCercaSalaMeeting();
 				}
