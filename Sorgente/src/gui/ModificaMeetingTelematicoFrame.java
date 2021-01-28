@@ -116,14 +116,14 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -275,7 +275,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		
-		ToggleUpdateButton();
+		AttivaButtonModifica();
 	}
 	public void deletePartecipante(int indice) throws SQLException {
 		
@@ -283,7 +283,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 		
-		ToggleUpdateButton();
+		AttivaButtonModifica();
 	}
 	public void setProgetto(Progetto p) throws SQLException {
 		
@@ -293,9 +293,9 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		model.addRow(new Object[] {p.getCodice(), p.getTipologia()});
 		oldMeeting.setProgettoMeeting(p);
 		
-		ToggleUpdateButton();
+		AttivaButtonModifica();
 	}
-	public void ToggleUpdateButton() {
+	public void AttivaButtonModifica() {
 		
 		boolean ret = true;
 		
@@ -308,7 +308,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		
 		buttonModificaMeeting.setEnabled(ret);
 	}
-	public void ShowPopupMenu(MouseEvent e) {
+	public void ApriPopupMenu(MouseEvent e) {
 		
 		popupMenuTable = new JPopupMenu();
 				

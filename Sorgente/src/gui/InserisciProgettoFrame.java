@@ -160,14 +160,14 @@ public class InserisciProgettoFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -283,17 +283,17 @@ public class InserisciProgettoFrame extends JFrame {
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				ToggleInsertButton();
+				AttivaButtonInserimento();
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				ToggleInsertButton();
+				AttivaButtonInserimento();
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				ToggleInsertButton();
+				AttivaButtonInserimento();
 			}
 			
 		});
@@ -327,14 +327,14 @@ public class InserisciProgettoFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -346,7 +346,7 @@ public class InserisciProgettoFrame extends JFrame {
 		contentPane.add(lblNewLabel_1);
 	}
 	
-	public void ShowPopupMenu(MouseEvent e) {
+	public void ApriPopupMenu(MouseEvent e) {
 		
 		popupMenuTable = new JPopupMenu();
 				
@@ -393,7 +393,7 @@ public class InserisciProgettoFrame extends JFrame {
 		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
 	}
 	
-	public void ToggleInsertButton() {
+	public void AttivaButtonInserimento() {
 		boolean ret = true;
 		
 		if(textFieldTipologia.getText().isBlank())

@@ -14,18 +14,18 @@ import entità.Sala;
 public interface MeetingDAO {
 	
 
-    public void insertMeetingFisico (MeetingFisico mf) throws SQLException;
-    public void deleteMeetingFisico (MeetingFisico mf) throws SQLException;
-    public void updateMeetingFisico (MeetingFisico mf) throws SQLException;
+    public void insertMeeting (MeetingFisico mf) throws SQLException;
+    public void deleteMeeting (MeetingFisico mf) throws SQLException;
+    public void updateMeeting (MeetingFisico mf) throws SQLException;
     
-    public void insertMeetingTelematico (MeetingTelematico mt) throws SQLException;
-    public void deleteMeetingTelematico (MeetingTelematico mt) throws SQLException;
-    public void updateMeetingTelematico (MeetingTelematico mt) throws SQLException;
+    public void insertMeeting (MeetingTelematico mt) throws SQLException;
+    public void deleteMeeting (MeetingTelematico mt) throws SQLException;
+    public void updateMeeting (MeetingTelematico mt) throws SQLException;
     
-    public void insertPartecipanteMeetingFisico (MeetingFisico mf, Dipendente d) throws SQLException;
-    public void deletePartecipanteMeetingFisico(MeetingFisico mf, Dipendente d) throws SQLException;
-    public void insertPartecipanteMeetingTelematico (MeetingTelematico mt, Dipendente d) throws SQLException;
-    public void deletePartecipanteMeetingTelematico(MeetingTelematico mt, Dipendente d) throws SQLException;
+    public void insertPartecipanteMeeting (MeetingFisico mf, Dipendente d) throws SQLException;
+    public void deletePartecipanteMeeting(MeetingFisico mf, Dipendente d) throws SQLException;
+    public void insertPartecipanteMeeting (MeetingTelematico mt, Dipendente d) throws SQLException;
+    public void deletePartecipanteMeeting(MeetingTelematico mt, Dipendente d) throws SQLException;
     
 	public ArrayList<MeetingFisico> getMeetingFisicoByAttributi(String CodMF, String Data, String OraInizio, String OraFine) throws SQLException;
 	public ArrayList<MeetingFisico> getMeetingFisicoByProgetti(String codp, String tipologia, String ambito) throws SQLException;

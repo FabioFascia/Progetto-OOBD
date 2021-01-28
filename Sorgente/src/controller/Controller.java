@@ -180,12 +180,12 @@ public class Controller {
 		cercaProjectManager.dispose();
 		if(inserisciProgetto != null && inserisciProgetto.isDisplayable()) {
 			inserisciProgetto.toFront();
-			inserisciProgetto.ToggleInsertButton();
+			inserisciProgetto.AttivaButtonInserimento();
 			inserisciProgetto.setEnabled(true);
 		}
 		else {
 			modificaProgetto.toFront();
-			modificaProgetto.ToggleUpdateButton();
+			modificaProgetto.AttivaButtonModifica();
 			modificaProgetto.setEnabled(true);
 		}
 	}
@@ -477,22 +477,22 @@ public class Controller {
 	
 	
 	public void InserimentoMeetingFisico(MeetingFisico mf) throws SQLException {
-		meetingDao.insertMeetingFisico(mf);
+		meetingDao.insertMeeting(mf);
 	}
 	public void CancellazioneMeetingFisico(MeetingFisico mf) throws SQLException {
-		meetingDao.deleteMeetingFisico(mf);
+		meetingDao.deleteMeeting(mf);
 	}
 	public void ModificaMeetingFisico(MeetingFisico mf) throws SQLException {
-		meetingDao.updateMeetingFisico(mf);
+		meetingDao.updateMeeting(mf);
 	}
 	public void InserimentoMeetingTelematico(MeetingTelematico mt) throws SQLException {
-		meetingDao.insertMeetingTelematico(mt);
+		meetingDao.insertMeeting(mt);
 	}
 	public void CancellazioneMeetingTelematico(MeetingTelematico mt) throws SQLException {
-		meetingDao.deleteMeetingTelematico(mt);
+		meetingDao.deleteMeeting(mt);
 	}
 	public void ModificaMeetingTelematico(MeetingTelematico mt) throws SQLException {
-		meetingDao.updateMeetingTelematico(mt);
+		meetingDao.updateMeeting(mt);
 	}
 	
 	public void SelezionePartecipanteMeeting(Dipendente d) throws SQLException {
@@ -505,19 +505,19 @@ public class Controller {
 			modificaMeetingTelematico.addPartecipante(d);
 	}
 	public void InserimentoPartecipanteMeetingFisico(MeetingFisico mf, Dipendente d) throws SQLException {
-		meetingDao.insertPartecipanteMeetingFisico(mf, d);
+		meetingDao.insertPartecipanteMeeting(mf, d);
 		mf.addPartecipante(d);
 	}
     public void CancellazionePartecipanteMeetingFisico(MeetingFisico mf, Dipendente d) throws SQLException {
-		meetingDao.deletePartecipanteMeetingFisico(mf, d);
+		meetingDao.deletePartecipanteMeeting(mf, d);
 		mf.getPartecipanti().remove(d);
 	}
     public void InserimentoPartecipanteMeetingTelematico(MeetingTelematico mt, Dipendente d) throws SQLException {
-    	meetingDao.insertPartecipanteMeetingTelematico(mt, d);
+    	meetingDao.insertPartecipanteMeeting(mt, d);
     	mt.addPartecipante(d);
     }
     public void CancellazionePartecipanteMeetingTelematico(MeetingTelematico mt, Dipendente d) throws SQLException {
-    	meetingDao.deletePartecipanteMeetingTelematico(mt, d);
+    	meetingDao.deletePartecipanteMeeting(mt, d);
     	mt.getPartecipanti().remove(d);
     }
 	public void SelezioneProgettoMeeting(Progetto p) throws SQLException {

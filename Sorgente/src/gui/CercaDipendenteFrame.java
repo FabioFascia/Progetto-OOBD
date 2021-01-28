@@ -368,14 +368,14 @@ public class CercaDipendenteFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -519,7 +519,7 @@ public class CercaDipendenteFrame extends JFrame {
 			model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario(), d.getValutazione()});
 	}
 	
-	public void ShowPopupMenu(MouseEvent e) {
+	public void ApriPopupMenu(MouseEvent e) {
 		
 		popupMenuTable = new JPopupMenu();
 		

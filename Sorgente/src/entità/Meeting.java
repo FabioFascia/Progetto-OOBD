@@ -4,16 +4,55 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 
-public interface Meeting {
+public class Meeting {
 	
-	public int getCodice();
-	public void setCodice(int CodMeeting);
-	public Date getData();
-	public void setData(Date date);
-	public Time getOraInizio();
-	public void setOraInizio(Time time);
-	public Time getOraFine();
-	public void setOraFine(Time oraF);
-	public ArrayList<Dipendente> getPartecipanti();
-	public void addPartecipante(Dipendente d);
+	//		Attributi
+	private int Codice;
+    private Date Data;
+    private Time OraInizio;
+    private Time OraFine;
+    
+	//		Relazioni
+	private Progetto ProgettoMeeting;
+	private ArrayList<Dipendente> Partecipanti;
+	
+	public int getCodice() {
+		return Codice;
+	}
+	public void setCodice(int CodMeeting) {
+		Codice = CodMeeting;
+	}
+	public Date getData() {
+		return Data;
+	}
+	public void setData(Date date) {
+		Data = date;
+	}
+	public Time getOraInizio() {
+		return OraInizio;
+	}
+	public void setOraInizio(Time oraI) {
+		OraInizio = oraI;
+	}
+	public Time getOraFine() {
+		return OraFine;
+	}
+	public void setOraFine(Time oraF) {
+		OraFine = oraF;
+	}
+	public Progetto getProgettoMeeting() {
+		return ProgettoMeeting;
+	}
+	public void setProgettoMeeting(Progetto progetto) {
+		ProgettoMeeting = progetto;
+	}
+	public ArrayList<Dipendente> getPartecipanti(){
+		return Partecipanti;
+	}
+	public void setPartecipanti(ArrayList<Dipendente> lista) {
+		Partecipanti = lista;
+	}
+	public void addPartecipante(Dipendente d) {
+		Partecipanti.add(d);
+	}
 }

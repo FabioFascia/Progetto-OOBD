@@ -245,28 +245,14 @@ public class CercaSalaMeetingFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					switch(comboBoxCercaSala.getSelectedItem().toString()) {
-					case "Attributi":
-						String città = textFieldCittà.getText();
-						String provincia = textFieldProvincia.getText();
-						String indirizzo = textFieldIndirizzo.getText();
-						String numeroCivico = textFieldNumeroCivico.getText();
-						String minPosti = textFieldMinNumeroPosti.getText();
-						String maxPosti = textFieldMaxNumeroPosti.getText();
-						
-						PopolaTabella(controller.RicercaSalaPerAttributi(città, provincia, indirizzo, numeroCivico, minPosti, maxPosti));
-//						break;
-//					case "Progetti a cui partecipa":
-//						String codp = textFieldCodiceProgetto.getText();
-//						String tipologia = textFieldTipologia.getText();
-//						String ambito = textFieldAmbito.getText();
-//						String ruolo = textFieldRuolo.getText();
-//						String minProgetti = textFieldMinNumeroProgetti.getText();
-//						String maxProgetti = textFieldMaxNumeroProgetti.getText();
-//						
-//						PopolaTabella(controller.RicercaDipendentePerProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti));
-//						break;
-					}
+					String città = textFieldCittà.getText();
+					String provincia = textFieldProvincia.getText();
+					String indirizzo = textFieldIndirizzo.getText();
+					String numeroCivico = textFieldNumeroCivico.getText();
+					String minPosti = textFieldMinNumeroPosti.getText();
+					String maxPosti = textFieldMaxNumeroPosti.getText();
+					
+					PopolaTabella(controller.RicercaSalaPerAttributi(città, provincia, indirizzo, numeroCivico, minPosti, maxPosti));
 				}
 				catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());

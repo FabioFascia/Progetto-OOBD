@@ -126,7 +126,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		                            
 		                              
 	
-    public void insertMeetingFisico (MeetingFisico mf) throws SQLException {
+    public void insertMeeting (MeetingFisico mf) throws SQLException {
     	
     	insertMeetingFisicoPS.setInt(1, mf.getProgettoMeeting().getCodice());
     	insertMeetingFisicoPS.setDate(2, mf.getData());
@@ -137,7 +137,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	insertMeetingFisicoPS.execute();
     }
     
-    public void insertMeetingTelematico (MeetingTelematico mt) throws SQLException {
+    public void insertMeeting (MeetingTelematico mt) throws SQLException {
     	
     	insertMeetingTelematicoPS.setInt(1, mt.getProgettoMeeting().getCodice());
     	insertMeetingTelematicoPS.setDate(2, mt.getData());
@@ -152,19 +152,19 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	insertMeetingTelematicoPS.execute();
     }
     
-    public void deleteMeetingFisico (MeetingFisico mf) throws SQLException {
+    public void deleteMeeting (MeetingFisico mf) throws SQLException {
     	
     	deleteMeetingFisicoPS.setInt(1, mf.getCodice());
     	deleteMeetingFisicoPS.execute();
     }
     
-    public void deleteMeetingTelematico (MeetingTelematico mt) throws SQLException {
+    public void deleteMeeting (MeetingTelematico mt) throws SQLException {
     	
     	deleteMeetingTelematicoPS.setInt(1, mt.getCodice());
     	deleteMeetingTelematicoPS.execute();
     }
 
-    public void updateMeetingFisico (MeetingFisico mf) throws SQLException {
+    public void updateMeeting (MeetingFisico mf) throws SQLException {
     	
     	updateMeetingFisicoPS.setInt(1, mf.getProgettoMeeting().getCodice());
     	updateMeetingFisicoPS.setDate(2, mf.getData());
@@ -176,7 +176,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	updateMeetingFisicoPS.execute();
     }
     
-    public void updateMeetingTelematico (MeetingTelematico mt) throws SQLException {
+    public void updateMeeting (MeetingTelematico mt) throws SQLException {
     	
     	updateMeetingTelematicoPS.setDate(1, mt.getData());
     	updateMeetingTelematicoPS.setTime(2, mt.getOraInizio());
@@ -189,28 +189,28 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     }
     
-    public void insertPartecipanteMeetingFisico (MeetingFisico mf, Dipendente d) throws SQLException {
+    public void insertPartecipanteMeeting (MeetingFisico mf, Dipendente d) throws SQLException {
     	
     	insertPartecipanteMeetingFisicoPS.setInt(1, mf.getCodice());
     	insertPartecipanteMeetingFisicoPS.setString(2, d.getCodF());
     	
     	insertPartecipanteMeetingFisicoPS.execute();
     }
-    public void deletePartecipanteMeetingFisico (MeetingFisico mf, Dipendente d) throws SQLException {
+    public void deletePartecipanteMeeting (MeetingFisico mf, Dipendente d) throws SQLException {
     	
     	deletePartecipanteMeetingFisicoPS.setInt(1, mf.getCodice());
     	deletePartecipanteMeetingFisicoPS.setString(2, d.getCodF());
     	
     	deletePartecipanteMeetingFisicoPS.execute();
     }
-    public void insertPartecipanteMeetingTelematico (MeetingTelematico mt, Dipendente d) throws SQLException {
+    public void insertPartecipanteMeeting (MeetingTelematico mt, Dipendente d) throws SQLException {
     	
     	insertPartecipanteMeetingTelematicoPS.setInt(1, mt.getCodice());
     	insertPartecipanteMeetingTelematicoPS.setString(2, d.getCodF());
     	
     	insertPartecipanteMeetingTelematicoPS.execute();
     }
-    public void deletePartecipanteMeetingTelematico (MeetingTelematico mt, Dipendente d) throws SQLException {
+    public void deletePartecipanteMeeting (MeetingTelematico mt, Dipendente d) throws SQLException {
     	
     	deletePartecipanteMeetingTelematicoPS.setInt(1, mt.getCodice());
     	deletePartecipanteMeetingTelematicoPS.setString(2, d.getCodF());
