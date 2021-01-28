@@ -28,13 +28,18 @@ import java.sql.SQLException;
 public class ModificaSalaFrame extends JFrame {
 
 	private Controller controller;
+	private Sala oldSala;
+	
 	private JPanel contentPane;
+	
 	private JTextField textFieldCittà;
 	private JTextField textFieldProvincia;
 	private JTextField textFieldIndirizzo;
 	private JTextField textFieldNumeroCivico;
 	private JTextField textFieldNumeroPosti;
-	private Sala oldSala;
+	
+	private JButton buttonModifica;
+	private JButton buttonAnnulla;
 
 	/**
 	 * Create the frame.
@@ -61,7 +66,7 @@ public class ModificaSalaFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton buttonAnnulla = new JButton("Annulla");
+		buttonAnnulla = new JButton("Annulla");
 		buttonAnnulla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -71,7 +76,7 @@ public class ModificaSalaFrame extends JFrame {
 		buttonAnnulla.setBounds(10, 11, 89, 23);
 		contentPane.add(buttonAnnulla);
 		
-		JButton buttonModifica = new JButton("Modifica Sala");
+		buttonModifica = new JButton("Modifica Sala");
 		buttonModifica.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

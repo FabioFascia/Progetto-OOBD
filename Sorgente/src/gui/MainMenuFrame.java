@@ -21,8 +21,14 @@ import javax.swing.ImageIcon;
 
 public class MainMenuFrame extends JFrame {
 
-	private JPanel contentPane;
 	private Controller controller;
+	
+	private JPanel contentPane;
+	
+	private JButton buttonDipendenti;
+	private JButton buttonProgetti;
+	private JButton buttonMeeting;
+	private JButton buttonSale;
 
 	/**
 	 * Create the frame.
@@ -74,7 +80,7 @@ public class MainMenuFrame extends JFrame {
 //		lblNewLabel_4.setBounds(166, 58, 110, 110);
 //		contentPane.add(lblNewLabel_4);
 		
-		JButton buttonDipendenti = new JButton("Dipendenti");
+		buttonDipendenti = new JButton("Dipendenti");
 		buttonDipendenti.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonDipendenti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -85,7 +91,7 @@ public class MainMenuFrame extends JFrame {
 		buttonDipendenti.setBounds(129, 225, 181, 36);
 		contentPane.add(buttonDipendenti);
 		
-		JButton buttonProgetti = new JButton("Progetti");
+		buttonProgetti = new JButton("Progetti");
 		buttonProgetti.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonProgetti.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -96,7 +102,7 @@ public class MainMenuFrame extends JFrame {
 		buttonProgetti.setBounds(129, 272, 181, 36);
 		contentPane.add(buttonProgetti);
 		
-		JButton buttonMeeting = new JButton("Meeting");
+		buttonMeeting = new JButton("Meeting");
 		buttonMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonMeeting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -107,7 +113,7 @@ public class MainMenuFrame extends JFrame {
 		contentPane.add(buttonMeeting);
 		
 		
-		JButton buttonSale = new JButton("Sale Riunioni");
+		buttonSale = new JButton("Sale Riunioni");
 		buttonSale.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.CambiaFrameMainMenuInCercaSala();

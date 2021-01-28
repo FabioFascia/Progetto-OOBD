@@ -28,12 +28,17 @@ import java.sql.SQLException;
 public class InserisciSalaFrame extends JFrame {
 
 	private Controller controller;
+	
 	private JPanel contentPane;
+	
 	private JTextField textFieldCittà;
 	private JTextField textFieldProvincia;
 	private JTextField textFieldIndirizzo;
 	private JTextField textFieldNumeroCivico;
 	private JTextField textFieldNumeroPosti;
+	
+	private JButton buttonInserimento;
+	private JButton buttonAnnulla;
 
 	/**
 	 * Create the frame.
@@ -59,7 +64,7 @@ public class InserisciSalaFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton buttonAnnulla = new JButton("Annulla");
+		buttonAnnulla = new JButton("Annulla");
 		buttonAnnulla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -69,7 +74,7 @@ public class InserisciSalaFrame extends JFrame {
 		buttonAnnulla.setBounds(10, 11, 89, 23);
 		contentPane.add(buttonAnnulla);
 		
-		JButton buttonInserimento = new JButton("Inserisci Sala");
+		buttonInserimento = new JButton("Inserisci Sala");
 		buttonInserimento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonInserimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

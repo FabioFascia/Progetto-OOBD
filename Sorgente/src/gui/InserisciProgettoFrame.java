@@ -47,14 +47,22 @@ import javax.swing.JTextArea;
 public class InserisciProgettoFrame extends JFrame {
 
 	private Controller controller;
+	
 	private JPanel contentPane;
+	private JPopupMenu popupMenuTable;
+	
 	private JTextField textFieldTipologia;
 	private JTextField textFieldAmbito;
 	private JTable tableAmbiti;
 	private JTable tableProjectManager;
 	private JTable tablePartecipanti;
+	private JTextArea textAreaDescrizione;
+	
+	private JButton buttonInserisciAmbito;
+	private JButton buttonSelezionaProjectManager;
+	private JButton buttonSelezionaPartecipante;
 	private JButton buttonInserisciProgetto;
-	private JPopupMenu popupMenuTable;
+	private JButton buttonAnnulla;
 
 	/**
 	 * Create the frame.
@@ -79,14 +87,14 @@ public class InserisciProgettoFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Annulla");
-		btnNewButton.addActionListener(new ActionListener() {
+		buttonAnnulla = new JButton("Annulla");
+		buttonAnnulla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ChiudiFrameInserisciProgettoInCercaProgetto();
 			}
 		});
-		btnNewButton.setBounds(10, 11, 89, 23);
-		contentPane.add(btnNewButton);
+		buttonAnnulla.setBounds(10, 11, 89, 23);
+		contentPane.add(buttonAnnulla);
 		
 		JLabel labelTipologia = new JLabel("Tipologia");
 		labelTipologia.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -98,7 +106,7 @@ public class InserisciProgettoFrame extends JFrame {
 		lblAmbito.setBounds(10, 93, 97, 14);
 		contentPane.add(lblAmbito);
 		
-		JButton buttonInserisciAmbito = new JButton("Ok");
+		buttonInserisciAmbito = new JButton("Ok");
 		buttonInserisciAmbito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				DefaultTableModel model = (DefaultTableModel) tableAmbiti.getModel();
@@ -179,14 +187,14 @@ public class InserisciProgettoFrame extends JFrame {
 		lblNewLabel.setBounds(203, 48, 119, 14);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnNewButton_2 = new JButton("Cerca Dipendente...");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		buttonSelezionaProjectManager = new JButton("Seleziona Project Manager...");
+		buttonSelezionaProjectManager.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameCercaProjectManager();
 			}
 		});
-		btnNewButton_2.setBounds(203, 61, 158, 23);
-		contentPane.add(btnNewButton_2);
+		buttonSelezionaProjectManager.setBounds(203, 61, 158, 23);
+		contentPane.add(buttonSelezionaProjectManager);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -223,16 +231,16 @@ public class InserisciProgettoFrame extends JFrame {
 		lblPartecipanti.setBounds(203, 138, 119, 14);
 		contentPane.add(lblPartecipanti);
 		
-		JButton btnNewButton_2_1 = new JButton("Cerca Dipendente...");
-		btnNewButton_2_1.addActionListener(new ActionListener() {
+		buttonSelezionaPartecipante = new JButton("Seleziona Partecipante...");
+		buttonSelezionaPartecipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameCercaPartecipante();
 			}
 		});
-		btnNewButton_2_1.setBounds(203, 151, 158, 23);
-		contentPane.add(btnNewButton_2_1);
+		buttonSelezionaPartecipante.setBounds(203, 151, 158, 23);
+		contentPane.add(buttonSelezionaPartecipante);
 		
-		JTextArea textAreaDescrizione = new JTextArea();
+		textAreaDescrizione = new JTextArea();
 		textAreaDescrizione.setWrapStyleWord(true);
 		textAreaDescrizione.setLineWrap(true);
 		textAreaDescrizione.setBorder(BorderFactory.createLineBorder(Color.GRAY));

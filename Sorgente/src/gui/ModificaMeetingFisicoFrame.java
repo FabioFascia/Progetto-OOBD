@@ -47,14 +47,25 @@ import java.awt.event.MouseEvent;
 
 public class ModificaMeetingFisicoFrame extends JFrame {
 
-	private JPanel contentPane;
 	private Controller controller;
-	private JTable tableSala;
-	private JTable tablePartecipanti;
-	private JButton buttonModificaMeeting;
-	private JTable tableProgetto;
-	private JPopupMenu popupMenuTable;
 	private MeetingFisico oldMeeting;
+	
+	private JPanel contentPane;
+	private JPopupMenu popupMenuTable;
+	
+	private JSpinner spinnerData;
+	private JSpinner spinnerOraInizio;
+	private JSpinner spinnerOraFine;
+	private JTable tableSala;
+	private JTable tableProgetto;
+	private JTable tablePartecipanti;
+	
+	private JButton buttonModificaMeeting;
+	private JButton buttonSelezionaSala;
+	private JButton buttonSelezionaProgetto;
+	private JButton buttonSelezionaPartecipante;
+	private JButton buttonAnnulla;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -79,14 +90,14 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Annulla");
-		btnNewButton.addActionListener(new ActionListener() {
+		buttonAnnulla = new JButton("Annulla");
+		buttonAnnulla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ChiudiFrameModificaMeetingFisicoInCercaMeeting();
 			}
 		});
-		btnNewButton.setBounds(10, 11, 89, 23);
-		contentPane.add(btnNewButton);
+		buttonAnnulla.setBounds(10, 11, 89, 23);
+		contentPane.add(buttonAnnulla);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(0, 276, 414, 150);
@@ -133,18 +144,18 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		}
 		scrollPane_1.setViewportView(tablePartecipanti);
 		
-		JButton btnNewButton_2 = new JButton("Seleziona partecipanti...");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		buttonSelezionaPartecipante = new JButton("Seleziona partecipanti...");
+		buttonSelezionaPartecipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				controller.ApriFrameCercaPartecipanteMeeting();
 			}
 		});
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnNewButton_2.setBounds(10, 247, 183, 23);
-		contentPane.add(btnNewButton_2);
+		buttonSelezionaPartecipante.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		buttonSelezionaPartecipante.setBounds(10, 247, 183, 23);
+		contentPane.add(buttonSelezionaPartecipante);
 		
-		JSpinner spinnerData = new JSpinner();
+		spinnerData = new JSpinner();
 		spinnerData.setBounds(10, 59, 80, 20);
 		spinnerData.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
 		spinnerData.setEditor(new JSpinner.DateEditor(spinnerData, "dd/MM/yyyy"));
@@ -152,7 +163,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		spinnerData.getModel().setValue(oldMeeting.getData());
 		contentPane.add(spinnerData);
 		
-		JSpinner spinnerOraInizio = new JSpinner();
+		spinnerOraInizio = new JSpinner();
 		spinnerOraInizio.setBounds(10, 94, 63, 20);
 		spinnerOraInizio.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraInizio.setEditor(new JSpinner.DateEditor(spinnerOraInizio, "HH:mm"));
@@ -160,7 +171,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		spinnerOraInizio.getModel().setValue(oldMeeting.getOraInizio());
 		contentPane.add(spinnerOraInizio);
 		
-		JSpinner spinnerOraFine = new JSpinner();
+		spinnerOraFine = new JSpinner();
 		spinnerOraFine.setBounds(10, 131, 63, 20);
 		spinnerOraFine.setModel(new SpinnerDateModel(new Date(946767540000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraFine.setEditor(new JSpinner.DateEditor(spinnerOraFine, "HH:mm"));
@@ -210,11 +221,11 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		((DefaultTableModel) tableProgetto.getModel()).addRow(new Object[] {oldMeeting.getProgettoMeeting().getCodice(), oldMeeting.getProgettoMeeting().getTipologia()});
 		scrollPane_2.setViewportView(tableProgetto);
 		
-		JButton btnNewButton_3 = new JButton("Seleziona progetto...");
-		btnNewButton_3.setBounds(10, 162, 183, 21);
-		contentPane.add(btnNewButton_3);
-		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnNewButton_3.addActionListener(new ActionListener() {
+		buttonSelezionaProgetto = new JButton("Seleziona progetto...");
+		buttonSelezionaProgetto.setBounds(10, 162, 183, 21);
+		contentPane.add(buttonSelezionaProgetto);
+		buttonSelezionaProgetto.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		buttonSelezionaProgetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				controller.ApriFrameCercaProgettoMeeting();
@@ -245,15 +256,15 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		buttonModificaMeeting.setBounds(81, 437, 259, 23);
 		contentPane.add(buttonModificaMeeting);
 		
-		JButton btnNewButton_1 = new JButton("Seleziona sala...");
-		btnNewButton_1.setBounds(112, 58, 146, 23);
-		contentPane.add(btnNewButton_1);
-		btnNewButton_1.addActionListener(new ActionListener() {
+		buttonSelezionaSala = new JButton("Seleziona sala...");
+		buttonSelezionaSala.setBounds(112, 58, 146, 23);
+		contentPane.add(buttonSelezionaSala);
+		buttonSelezionaSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameCercaSalaMeeting();
 			}
 		});
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		buttonSelezionaSala.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(112, 90, 302, 41);
