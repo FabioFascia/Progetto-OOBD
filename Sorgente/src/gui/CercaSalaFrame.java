@@ -110,14 +110,14 @@ public class CercaSalaFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -278,17 +278,6 @@ public class CercaSalaFrame extends JFrame {
 						String maxPosti = textFieldMaxNumeroPosti.getText();
 						
 						PopolaTabella(controller.RicercaSalaPerAttributi(città, provincia, indirizzo, numeroCivico, minPosti, maxPosti));
-//						break;
-//					case "Progetti a cui partecipa":
-//						String codp = textFieldCodiceProgetto.getText();
-//						String tipologia = textFieldTipologia.getText();
-//						String ambito = textFieldAmbito.getText();
-//						String ruolo = textFieldRuolo.getText();
-//						String minProgetti = textFieldMinNumeroProgetti.getText();
-//						String maxProgetti = textFieldMaxNumeroProgetti.getText();
-//						
-//						PopolaTabella(controller.RicercaDipendentePerProgetti(codp, tipologia, ambito, ruolo, minProgetti, maxProgetti));
-//						break;
 					}
 				}
 				catch (SQLException ex) {
@@ -318,7 +307,7 @@ public class CercaSalaFrame extends JFrame {
 			model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
 	}
 	
-	public void ShowPopupMenu(MouseEvent e) {
+	public void ApriPopupMenu(MouseEvent e) {
 		
 		popupMenuTable = new JPopupMenu();
 		

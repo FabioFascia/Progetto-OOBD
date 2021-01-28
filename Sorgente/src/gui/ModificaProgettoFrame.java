@@ -169,14 +169,14 @@ public class ModificaProgettoFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -309,14 +309,14 @@ public class ModificaProgettoFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -332,17 +332,17 @@ public class ModificaProgettoFrame extends JFrame {
 
 			@Override
 			public void insertUpdate(DocumentEvent e) {
-				ToggleUpdateButton();
+				AttivaButtonModifica();
 			}
 
 			@Override
 			public void removeUpdate(DocumentEvent e) {
-				ToggleUpdateButton();
+				AttivaButtonModifica();
 			}
 
 			@Override
 			public void changedUpdate(DocumentEvent e) {
-				ToggleUpdateButton();
+				AttivaButtonModifica();
 			}
 			
 		});
@@ -355,7 +355,7 @@ public class ModificaProgettoFrame extends JFrame {
 		contentPane.add(lblNewLabel_1);
 	}
 	
-	public void ShowPopupMenu(MouseEvent e) {
+	public void ApriPopupMenu(MouseEvent e) {
 		
 		popupMenuTable = new JPopupMenu();
 				
@@ -408,7 +408,7 @@ public class ModificaProgettoFrame extends JFrame {
 		popupMenuTable.show(e.getComponent(), e.getX(), e.getY());
 	}
 	
-	public void ToggleUpdateButton() {
+	public void AttivaButtonModifica() {
 		boolean ret = true;
 		
 		if(textFieldTipologia.getText().isBlank())

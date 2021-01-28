@@ -115,14 +115,14 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 			
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -289,7 +289,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		
-		ToggleUpdateButton();
+		AttivaButtonInserimento();
 	}
 	public void deletePartecipante(int indice) throws SQLException {
 		
@@ -297,7 +297,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 		
-		ToggleUpdateButton();
+		AttivaButtonInserimento();
 	}
 	public void setProgetto(Progetto p) throws SQLException {
 		
@@ -307,7 +307,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		model.addRow(new Object[] {p.getCodice(), p.getTipologia()});
 		oldMeeting.setProgettoMeeting(p);
 		
-		ToggleUpdateButton();
+		AttivaButtonInserimento();
 	}
 	public void setSala(Sala s) {
 		
@@ -317,9 +317,9 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
 		oldMeeting.setSalaRiunioni(s);
 		
-		ToggleUpdateButton();
+		AttivaButtonInserimento();
 	}
-	public void ToggleUpdateButton() {
+	public void AttivaButtonInserimento() {
 		
 		boolean ret = true;
 		
@@ -332,7 +332,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		
 		buttonModificaMeeting.setEnabled(ret);
 	}
-	public void ShowPopupMenu(MouseEvent e) {
+	public void ApriPopupMenu(MouseEvent e) {
 		
 		popupMenuTable = new JPopupMenu();
 				

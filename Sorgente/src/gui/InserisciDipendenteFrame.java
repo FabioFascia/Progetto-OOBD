@@ -70,8 +70,21 @@ public class InserisciDipendenteFrame extends JFrame {
 		textFieldCodiceFiscale = new JTextField();
 		textFieldCodiceFiscale.setBounds(10, 70, 171, 20);
 		contentPane.add(textFieldCodiceFiscale);
+		textFieldCodiceFiscale.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (textFieldCodiceFiscale.getText().length() >= 16)
+		            e.consume();
+				
+				char keyChar = e.getKeyChar();
+				
+				if(!Character.isAlphabetic(keyChar) && !Character.isDigit(keyChar))
+					e.consume();
+				
+				e.setKeyChar(Character.toUpperCase(keyChar));
+			}
+		});
 		textFieldCodiceFiscale.setColumns(10);
-		textFieldCodiceFiscale.setDocument( new TextFieldCharLimit(16));
 		
 		textFieldNome = new JTextField();
 		textFieldNome.setBounds(10, 126, 171, 20);

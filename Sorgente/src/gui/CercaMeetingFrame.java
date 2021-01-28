@@ -290,14 +290,14 @@ public class CercaMeetingFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -526,14 +526,14 @@ public class CercaMeetingFrame extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			
 			}
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				if(e.isPopupTrigger()) {
-					ShowPopupMenu(e);
+					ApriPopupMenu(e);
 				}
 			}
 		});
@@ -651,7 +651,7 @@ public class CercaMeetingFrame extends JFrame {
 		
 	}
     
-    public void ShowPopupMenu(MouseEvent e) {
+    public void ApriPopupMenu(MouseEvent e) {
     	
     	popupMenuTable = new JPopupMenu();
 		JMenuItem itemModifica = new JMenuItem("Modifica meeting");

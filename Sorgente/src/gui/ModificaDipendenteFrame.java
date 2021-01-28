@@ -74,7 +74,20 @@ public class ModificaDipendenteFrame extends JFrame {
 		textFieldCodiceFiscale.setBounds(10, 70, 171, 20);
 		contentPane.add(textFieldCodiceFiscale);
 		textFieldCodiceFiscale.setColumns(10);
-		textFieldCodiceFiscale.setDocument( new TextFieldCharLimit(16));
+		textFieldCodiceFiscale.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyTyped(KeyEvent e) {
+				if (textFieldCodiceFiscale.getText().length() >= 16)
+		            e.consume();
+				
+				char keyChar = e.getKeyChar();
+				
+				if(!Character.isAlphabetic(keyChar) && !Character.isDigit(keyChar))
+					e.consume();
+				
+				e.setKeyChar(Character.toUpperCase(keyChar));
+			}
+		});
 		textFieldCodiceFiscale.setText(d.getCodF());
 		
 		textFieldNome = new JTextField(d.getNome());
