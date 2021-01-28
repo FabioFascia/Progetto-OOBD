@@ -40,21 +40,28 @@ import javax.swing.table.DefaultTableModel;
 
 public class CercaSalaFrame extends JFrame {
 
-	private JPanel contentPane;
 	private Controller controller;
+	
+	private JPanel contentPane;
 	private JPopupMenu popupMenuTable;
+	
+	private JTable tableSale;
+	
 	private JTextField textFieldCittà;
 	private JTextField textFieldIndirizzo;
 	private JTextField textFieldProvincia;
 	private JTextField textFieldNumeroCivico;
 	private JTextField textFieldMinNumeroPosti;
 	private JTextField textFieldMaxNumeroPosti;
-	private JTable tableSale;
+	
+	private JButton buttonRicerca;
+	private JButton buttonInserisciSala;
 
 	/**
 	 * Create the frame.
 	 */
 	public CercaSalaFrame(Controller c) {
+		setResizable(false);
 		setTitle("Cerca Sale Riunioni");
 		
 		controller = c;
@@ -123,11 +130,6 @@ public class CercaSalaFrame extends JFrame {
 		});
 		scrollPane.setViewportView(tableSale);
 		
-		JLabel labelRicerca = new JLabel("Cerca per:");
-		labelRicerca.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelRicerca.setBounds(285, 11, 89, 14);
-		contentPane.add(labelRicerca);
-		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(10, 45, 271, 155);
 		contentPane.add(layeredPane);
@@ -136,23 +138,6 @@ public class CercaSalaFrame extends JFrame {
 		JPanel panelAttributi = new JPanel();
 		layeredPane.add(panelAttributi, "name_14079923771700");
 		panelAttributi.setLayout(null);
-		
-		JComboBox comboBoxCercaSala = new JComboBox(new Object[]{"Attributi", "Meeting Fisici tenutivisi"});
-		comboBoxCercaSala.setBounds(285, 25, 168, 23);
-		comboBoxCercaSala.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-
-					switch (e.getItem().toString()) {
-					case "Attributi":
-						layeredPane.removeAll();
-						layeredPane.add(panelAttributi);
-						layeredPane.repaint();
-						layeredPane.revalidate();
-						break;
-					}
-			}
-		});
-		contentPane.add(comboBoxCercaSala);
 		
 		JLabel labelCittà = new JLabel("Citt\u00E0");
 		labelCittà.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -262,23 +247,20 @@ public class CercaSalaFrame extends JFrame {
 		labelMax.setBounds(206, 102, 32, 14);
 		panelAttributi.add(labelMax);
 		
-		JButton buttonRicerca = new JButton("Cerca");
+		buttonRicerca = new JButton("Cerca");
 		buttonRicerca.setBounds(349, 211, 104, 23);
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					switch(comboBoxCercaSala.getSelectedItem().toString()) {
-					case "Attributi":
-						String città = textFieldCittà.getText();
-						String provincia = textFieldProvincia.getText();
-						String indirizzo = textFieldIndirizzo.getText();
-						String numeroCivico = textFieldNumeroCivico.getText();
-						String minPosti = textFieldMinNumeroPosti.getText();
-						String maxPosti = textFieldMaxNumeroPosti.getText();
-						
-						PopolaTabella(controller.RicercaSalaPerAttributi(città, provincia, indirizzo, numeroCivico, minPosti, maxPosti));
-					}
+					String città = textFieldCittà.getText();
+					String provincia = textFieldProvincia.getText();
+					String indirizzo = textFieldIndirizzo.getText();
+					String numeroCivico = textFieldNumeroCivico.getText();
+					String minPosti = textFieldMinNumeroPosti.getText();
+					String maxPosti = textFieldMaxNumeroPosti.getText();
+					
+					PopolaTabella(controller.RicercaSalaPerAttributi(città, provincia, indirizzo, numeroCivico, minPosti, maxPosti));
 				}
 				catch (SQLException ex) {
 					JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -287,7 +269,7 @@ public class CercaSalaFrame extends JFrame {
 		});
 		contentPane.add(buttonRicerca);
 		
-		JButton buttonInserisciSala = new JButton("Inserisci Sala");
+		buttonInserisciSala = new JButton("Inserisci Sala");
 		buttonInserisciSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameInserisciSalaInCercaSala();

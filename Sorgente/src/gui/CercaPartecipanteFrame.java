@@ -54,23 +54,37 @@ import javax.swing.JSpinner;
 public class CercaPartecipanteFrame extends JFrame {
 
 	private Controller controller;
+	
 	private JPanel contentPane;
+	
 	private JTable tableDipendenti;
-	private JTextField textFieldMaxSalario;
+	private JComboBox comboBoxCercaDipendente;
+	
 	private JTextField textFieldCodiceFiscale;
 	private JTextField textFieldNome;
 	private JTextField textFieldCognome;
 	private JTextField textFieldMinSalario;
+	private JTextField textFieldMaxSalario;
+	private JTextField textFieldMinValutazione;
+	private JTextField textFieldMaxValutazione;
+	
 	private JTextField textFieldCodiceProgetto;
 	private JTextField textFieldTipologia;
 	private JTextField textFieldAmbito;
 	private JTextField textFieldRuolo;
 	private JTextField textFieldMinNumeroProgetti;
 	private JTextField textFieldMaxNumeroProgetti;
-	private JTextField textFieldNewRuolo;
-	private JTextField textFieldMinValutazione;
-	private JTextField textFieldMaxValutazione;
+	
+	private JComboBox comboBoxTipoMeeting;
 	private JTextField textFieldCodiceMeeting;
+	private JSpinner spinnerData;
+	private JSpinner spinnerOraInizio;
+	private JSpinner spinnerOraFine;
+	
+	private JTextField textFieldNewRuolo;
+	private JButton buttonConferma;
+	private JButton buttonRicerca;
+	private JButton buttonIndietro;
 	
 	/**
 	 * Create the frame.
@@ -306,7 +320,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		panelMeeting.setLayout(null);
 		layeredPane.add(panelMeeting, "name_263686263869900");
 		
-		JComboBox comboBoxTipoMeeting = new JComboBox(new Object[]{});
+		comboBoxTipoMeeting = new JComboBox(new Object[]{});
 		comboBoxTipoMeeting.setBounds(10, 25, 150, 22);
 		panelMeeting.add(comboBoxTipoMeeting);
 		
@@ -325,7 +339,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		lblNewLabel_1_1.setBounds(10, 88, 46, 14);
 		panelMeeting.add(lblNewLabel_1_1);
 		
-		JSpinner spinnerData = new JSpinner();
+		spinnerData = new JSpinner();
 		spinnerData.setBounds(10, 102, 150, 20);
 		panelMeeting.add(spinnerData);
 		
@@ -334,7 +348,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		lblNewLabel_3.setBounds(10, 124, 63, 14);
 		panelMeeting.add(lblNewLabel_3);
 		
-		JSpinner spinnerOraInizio = new JSpinner();
+		spinnerOraInizio = new JSpinner();
 		spinnerOraInizio.setBounds(10, 138, 63, 20);
 		panelMeeting.add(spinnerOraInizio);
 		
@@ -343,7 +357,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		lblOraFine.setBounds(97, 124, 63, 14);
 		panelMeeting.add(lblOraFine);
 		
-		JSpinner spinnerOraFine = new JSpinner();
+		spinnerOraFine = new JSpinner();
 		spinnerOraFine.setBounds(97, 138, 63, 20);
 		panelMeeting.add(spinnerOraFine);
 		
@@ -356,7 +370,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		scrollPane.setBounds(0, 273, 464, 156);
 		contentPane.add(scrollPane);
 		
-		JButton buttonConferma = new JButton("Conferma");
+		buttonConferma = new JButton("Conferma");
 		buttonConferma.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -401,7 +415,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		});
 		scrollPane.setViewportView(tableDipendenti);
 		
-		JButton buttonIndietro = new JButton("Indietro");
+		buttonIndietro = new JButton("Indietro");
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -412,7 +426,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		contentPane.add(buttonIndietro);
 		
 		
-		JComboBox comboBoxCercaDipendente = new JComboBox(new String[] {"Attributi", "Progetti a cui partecipa", "Meeting a cui partecipa"});
+		comboBoxCercaDipendente = new JComboBox(new String[] {"Attributi", "Progetti a cui partecipa", "Meeting a cui partecipa"});
 		comboBoxCercaDipendente.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
 
@@ -445,7 +459,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		labelRicerca.setBounds(281, 43, 89, 14);
 		contentPane.add(labelRicerca);
 		
-		JButton buttonRicerca = new JButton("Cerca");
+		buttonRicerca = new JButton("Cerca");
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

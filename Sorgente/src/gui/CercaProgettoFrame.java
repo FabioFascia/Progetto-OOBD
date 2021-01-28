@@ -40,24 +40,34 @@ import javax.swing.SwingConstants;
 
 public class CercaProgettoFrame extends JFrame {
 
-	private JPanel contentPane;
 	private Controller controller;
+	
+	private JPanel contentPane;
+	
 	private JTable tableProgetti;
 	private JPopupMenu popupMenuTable;
+	private JComboBox comboBoxCercaProgetto;
+	
 	private JTextField textFieldCodiceProgetto;
 	private JTextField textFieldTipologia;
 	private JTextField textFieldAmbito;
+	
 	private JTextField textFieldCodiceFiscale;
 	private JTextField textFieldNome;
 	private JTextField textFieldCognome;
 	private JTextField textFieldMinSalario;
 	private JTextField textFieldMaxSalario;
 	
+	private JButton buttonRicerca;
+	private JButton btnInserisciProgetto;
+	private JButton buttonIndietro;
+	
 
 	/**
 	 * Create the frame.
 	 */
 	public CercaProgettoFrame(Controller c) {
+		setResizable(false);
 		
 		controller=c;
 		
@@ -110,7 +120,7 @@ public class CercaProgettoFrame extends JFrame {
 		});
 		scrollPane.setViewportView(tableProgetti);
 		
-		JButton buttonIndietro = new JButton("Indietro");
+		buttonIndietro = new JButton("Indietro");
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -133,7 +143,7 @@ public class CercaProgettoFrame extends JFrame {
 		layeredPane.add(panelPartecipanti, "name_5022918159200");
 		panelPartecipanti.setLayout(null);
 		
-		JComboBox comboBoxCercaProgetto = new JComboBox(new String[]{"Attributi", "Partecipanti"});
+		comboBoxCercaProgetto = new JComboBox(new String[]{"Attributi", "Partecipanti"});
 		comboBoxCercaProgetto.setBounds(266, 44, 146, 23);
 		comboBoxCercaProgetto.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
@@ -285,7 +295,7 @@ public class CercaProgettoFrame extends JFrame {
 		lblNewLabel.setBounds(266, 30, 82, 14);
 		contentPane.add(lblNewLabel);
 		
-		JButton btnInserisciProgetto = new JButton("Inserisci Progetto");
+		btnInserisciProgetto = new JButton("Inserisci Progetto");
 		btnInserisciProgetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameInserisciProgettoInCercaProgetto();
@@ -294,7 +304,7 @@ public class CercaProgettoFrame extends JFrame {
 		btnInserisciProgetto.setBounds(12, 220, 146, 23);
 		contentPane.add(btnInserisciProgetto);
 		
-		JButton buttonRicerca = new JButton("Cerca");
+		buttonRicerca = new JButton("Cerca");
 		buttonRicerca.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				

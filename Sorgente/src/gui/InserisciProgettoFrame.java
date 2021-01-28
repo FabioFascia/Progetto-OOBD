@@ -60,6 +60,7 @@ public class InserisciProgettoFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public InserisciProgettoFrame(Controller c) {
+		setResizable(false);
 		
 		setTitle("Inserisci Progetto");
 		controller = c;

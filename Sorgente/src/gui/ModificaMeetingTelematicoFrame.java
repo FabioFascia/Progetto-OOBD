@@ -60,6 +60,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ModificaMeetingTelematicoFrame(Controller c, MeetingTelematico mt) {
+		setResizable(false);
 		
 		controller = c;
 		oldMeeting = mt;

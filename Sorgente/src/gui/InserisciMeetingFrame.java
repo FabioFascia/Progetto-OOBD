@@ -47,21 +47,34 @@ import java.awt.event.ActionEvent;
 
 public class InserisciMeetingFrame extends JFrame {
 
-	private JPanel contentPane;
 	private Controller controller;
+	
+	private JPanel contentPane;
+	private JPopupMenu popupMenuTable;
 	private JComboBox comboBoxTipoMeeting;
-	private JTable tableSala;
+	
+	private JSpinner spinnerData;
+	private JSpinner spinnerOraInizio;
+	private JSpinner spinnerOraFine;
+	private JTable tableProgetto;
 	private JTable tablePartecipanti;
+	
+	private JTable tableSala;
+	
 	private JTextField textFieldPiattaforma;
 	private JTextField textFieldLimitePartecipanti;
+	
+	private JButton buttonSelezionaSala;
+	private JButton buttonSelezionaProgetto;
+	private JButton buttonSelezionaPartecipante;
 	private JButton btnInserisciMeeting;
-	private JTable tableProgetto;
-	private JPopupMenu popupMenuTable;
+	private JButton buttonAnnulla;
 
 	/**
 	 * Create the frame.
 	 */
 	public InserisciMeetingFrame(Controller c) {
+		setResizable(false);
 		controller = c;
 		setTitle("Inserisci Meeting");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -78,14 +91,14 @@ public class InserisciMeetingFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Annulla");
-		btnNewButton.addActionListener(new ActionListener() {
+		buttonAnnulla = new JButton("Annulla");
+		buttonAnnulla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ChiudiFrameInserisciMeetingInCercaMeeting();
 			}
 		});
-		btnNewButton.setBounds(10, 11, 89, 23);
-		contentPane.add(btnNewButton);
+		buttonAnnulla.setBounds(10, 11, 89, 23);
+		contentPane.add(buttonAnnulla);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(103, 45, 319, 114);
@@ -117,15 +130,15 @@ public class InserisciMeetingFrame extends JFrame {
 		});
 		scrollPane.setViewportView(tableSala);
 		
-		JButton btnNewButton_1 = new JButton("Seleziona sala...");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		buttonSelezionaSala = new JButton("Seleziona sala...");
+		buttonSelezionaSala.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameCercaSalaMeeting();
 			}
 		});
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnNewButton_1.setBounds(0, 11, 146, 23);
-		panelFisico.add(btnNewButton_1);
+		buttonSelezionaSala.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		buttonSelezionaSala.setBounds(0, 11, 146, 23);
+		panelFisico.add(buttonSelezionaSala);
 		
 		JPanel panelTelematico = new JPanel();
 		layeredPane.add(panelTelematico, "name_106301275497300");
@@ -193,16 +206,16 @@ public class InserisciMeetingFrame extends JFrame {
 		tablePartecipanti.getColumnModel().getColumn(0).setPreferredWidth(103);
 		scrollPane_1.setViewportView(tablePartecipanti);
 		
-		JButton btnNewButton_2 = new JButton("Seleziona partecipanti...");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		buttonSelezionaPartecipante = new JButton("Seleziona partecipanti...");
+		buttonSelezionaPartecipante.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				controller.ApriFrameCercaPartecipanteMeeting();
 			}
 		});
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnNewButton_2.setBounds(10, 247, 183, 23);
-		contentPane.add(btnNewButton_2);
+		buttonSelezionaPartecipante.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		buttonSelezionaPartecipante.setBounds(10, 247, 183, 23);
+		contentPane.add(buttonSelezionaPartecipante);
 		
 		comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
 		comboBoxTipoMeeting.setBounds(259, 12, 155, 22);
@@ -233,21 +246,21 @@ public class InserisciMeetingFrame extends JFrame {
 		lblNewLabel_3.setBounds(169, 16, 85, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		JSpinner spinnerData = new JSpinner();
+		spinnerData = new JSpinner();
 		spinnerData.setBounds(10, 59, 80, 20);
 		spinnerData.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
 		spinnerData.setEditor(new JSpinner.DateEditor(spinnerData, "dd/MM/yyyy"));
 		((JSpinner.DefaultEditor) spinnerData.getEditor()).getTextField().setEditable(false);
 		contentPane.add(spinnerData);
 		
-		JSpinner spinnerOraInizio = new JSpinner();
+		spinnerOraInizio = new JSpinner();
 		spinnerOraInizio.setBounds(10, 94, 63, 20);
 		spinnerOraInizio.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraInizio.setEditor(new JSpinner.DateEditor(spinnerOraInizio, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraInizio.getEditor()).getTextField().setEditable(false);
 		contentPane.add(spinnerOraInizio);
 		
-		JSpinner spinnerOraFine = new JSpinner();
+		spinnerOraFine = new JSpinner();
 		spinnerOraFine.setBounds(10, 131, 63, 20);
 		spinnerOraFine.setModel(new SpinnerDateModel(new Date(946767540000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraFine.setEditor(new JSpinner.DateEditor(spinnerOraFine, "HH:mm"));
@@ -295,11 +308,11 @@ public class InserisciMeetingFrame extends JFrame {
 		});
 		scrollPane_2.setViewportView(tableProgetto);
 		
-		JButton btnNewButton_3 = new JButton("Seleziona progetto...");
-		btnNewButton_3.setBounds(10, 162, 183, 21);
-		contentPane.add(btnNewButton_3);
-		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		btnNewButton_3.addActionListener(new ActionListener() {
+		buttonSelezionaProgetto = new JButton("Seleziona progetto...");
+		buttonSelezionaProgetto.setBounds(10, 162, 183, 21);
+		contentPane.add(buttonSelezionaProgetto);
+		buttonSelezionaProgetto.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		buttonSelezionaProgetto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				controller.ApriFrameCercaProgettoMeeting();
@@ -428,6 +441,7 @@ public class InserisciMeetingFrame extends JFrame {
 		boolean ret = true;
 		
 		switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
+		
 		case "Fisico":
 			if(tableSala.getModel().getRowCount() == 0)
 				ret = false;
@@ -435,9 +449,9 @@ public class InserisciMeetingFrame extends JFrame {
 				ret = false;
 			else if(tableProgetto.getModel().getRowCount() == 0)
 				ret = false;
-			
 			btnInserisciMeeting.setEnabled(ret);
 			break;
+			
 		case "Telematico":
 			if(textFieldPiattaforma.getText().isBlank())
 				ret = false;
@@ -445,7 +459,6 @@ public class InserisciMeetingFrame extends JFrame {
 				ret = false;
 			else if(tableProgetto.getModel().getRowCount() == 0)
 				ret = false;
-			
 			btnInserisciMeeting.setEnabled(ret);
 		}
 	}

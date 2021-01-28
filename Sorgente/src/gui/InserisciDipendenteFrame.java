@@ -27,11 +27,16 @@ import java.sql.SQLException;
 public class InserisciDipendenteFrame extends JFrame {
 
 	private Controller controller;
+	
 	private JPanel contentPane;
+	
 	private JTextField textFieldCodiceFiscale;
 	private JTextField textFieldNome;
 	private JTextField textFieldCognome;
 	private JTextField textFieldSalario;
+	
+	private JButton buttonInserimento;
+	private JButton buttonAnnulla;
 
 	/**
 	 * Create the frame.
@@ -57,15 +62,15 @@ public class InserisciDipendenteFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Annulla");
-		btnNewButton.addActionListener(new ActionListener() {
+		buttonAnnulla = new JButton("Annulla");
+		buttonAnnulla.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				controller.ChiudiFrameInserisciDipendenteInCercaDipendente();
 			}
 		});
-		btnNewButton.setBounds(10, 11, 89, 23);
-		contentPane.add(btnNewButton);
+		buttonAnnulla.setBounds(10, 11, 89, 23);
+		contentPane.add(buttonAnnulla);
 		
 		textFieldCodiceFiscale = new JTextField();
 		textFieldCodiceFiscale.setBounds(10, 70, 171, 20);
@@ -130,7 +135,7 @@ public class InserisciDipendenteFrame extends JFrame {
 		lblNewLabel_3.setBounds(10, 212, 89, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		JButton buttonInserimento = new JButton("Inserisci Dipendente");
+		buttonInserimento = new JButton("Inserisci Dipendente");
 		buttonInserimento.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonInserimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
