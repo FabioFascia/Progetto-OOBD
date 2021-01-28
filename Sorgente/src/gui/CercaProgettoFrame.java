@@ -59,7 +59,7 @@ public class CercaProgettoFrame extends JFrame {
 	private JTextField textFieldMaxSalario;
 	
 	private JButton buttonRicerca;
-	private JButton btnInserisciProgetto;
+	private JButton buttonInserimento;
 	private JButton buttonIndietro;
 	
 
@@ -295,14 +295,14 @@ public class CercaProgettoFrame extends JFrame {
 		lblNewLabel.setBounds(266, 30, 82, 14);
 		contentPane.add(lblNewLabel);
 		
-		btnInserisciProgetto = new JButton("Inserisci Progetto");
-		btnInserisciProgetto.addActionListener(new ActionListener() {
+		buttonInserimento = new JButton("Inserisci Progetto");
+		buttonInserimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameInserisciProgettoInCercaProgetto();
 			}
 		});
-		btnInserisciProgetto.setBounds(12, 220, 146, 23);
-		contentPane.add(btnInserisciProgetto);
+		buttonInserimento.setBounds(12, 220, 146, 23);
+		contentPane.add(buttonInserimento);
 		
 		buttonRicerca = new JButton("Cerca");
 		buttonRicerca.addActionListener(new ActionListener() {
