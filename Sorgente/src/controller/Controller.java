@@ -90,13 +90,13 @@ public class Controller {
 	
 	
 	
-	public void CambiaFrameMainMenuInCercaDipendente() {
+	public void ApriFrameCercaDipendenteInMainMenu() {
 		
 		cercaDipendente = new CercaDipendenteFrame(this);
 		mainMenu.setVisible(false);
 		cercaDipendente.setVisible(true);
 	}
-	public void CambiaFrameCercaDipendenteInMainMenu() {
+	public void ChiudiFrameCercaDipendenteInMainMenu() {
 		
 		cercaDipendente.dispose();
 		mainMenu.setVisible(true);
@@ -129,13 +129,13 @@ public class Controller {
 	
 	
 	
-	public void CambiaFrameMainMenuInCercaProgetto() {
+	public void ApriFrameCercaProgettoInMainMenu() {
 		
 		cercaProgetto = new CercaProgettoFrame(this);
 		mainMenu.setVisible(false);
 		cercaProgetto.setVisible(true);	
 	}
-	public void CambiaFrameCercaProgettoInMainMenu() {
+	public void ChiudiFrameCercaProgettoInMainMenu() {
 		
 		cercaProgetto.dispose();
 		mainMenu.setVisible(true);
@@ -213,13 +213,13 @@ public class Controller {
 	
 	
 	
-	public void CambiaFrameMainMenuInCercaMeeting() {
+	public void ApriFrameCercaMeetingInMainMenu() {
 		
 		cercaMeeting = new CercaMeetingFrame(this);
 		mainMenu.setVisible(false);
 		cercaMeeting.setVisible(true);
 	}
-	public void CambiaFrameCercaMeetingInMainMenu() {
+	public void ChiudiFrameCercaMeetingInMainMenu() {
 		
 		cercaMeeting.dispose();
 		mainMenu.setVisible(true);
@@ -336,17 +336,18 @@ public class Controller {
 	
 	
 	
-	public void CambiaFrameMainMenuInCercaSala() {
+	public void ApriFrameCercaSalaInMainMenu() {
 		
 		cercaSala = new CercaSalaFrame(this);
 		mainMenu.setVisible(false);
 		cercaSala.setVisible(true);
 	}
-	public void CambiaFrameCercaSalaInMainMenu() {
+	public void ChiudiFrameCercaSalaInMainMenu() {
 		
 		cercaSala.dispose();
 		mainMenu.setVisible(true);
 	}
+	
 	public void ApriFrameInserisciSalaInCercaSala() {
 		
 		inserisciSala = new InserisciSalaFrame(this);

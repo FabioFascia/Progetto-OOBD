@@ -140,7 +140,7 @@ public class CercaProgettoMeetingFrame extends JFrame {
 		buttonIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				controller.CambiaFrameCercaProgettoInMainMenu();
+				controller.ChiudiFrameCercaProgettoInMainMenu();
 			}
 		});
 		buttonIndietro.setBounds(12, 12, 116, 23);
