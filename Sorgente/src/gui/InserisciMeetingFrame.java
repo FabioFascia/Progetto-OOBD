@@ -68,7 +68,7 @@ public class InserisciMeetingFrame extends JFrame {
 	private JButton buttonSelezionaSala;
 	private JButton buttonSelezionaProgetto;
 	private JButton buttonSelezionaPartecipante;
-	private JButton btnInserisciMeeting;
+	private JButton btnInserimento;
 	private JButton buttonAnnulla;
 
 	/**
@@ -320,8 +320,8 @@ public class InserisciMeetingFrame extends JFrame {
 			}
 		});
 		
-		btnInserisciMeeting = new JButton("Inserisci Meeting");
-		btnInserisciMeeting.addActionListener(new ActionListener() {
+		btnInserimento = new JButton("Inserisci Meeting");
+		btnInserimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				Progetto p;
@@ -383,10 +383,10 @@ public class InserisciMeetingFrame extends JFrame {
 				}
 			}
 		});
-		btnInserisciMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnInserisciMeeting.setEnabled(false);
-		btnInserisciMeeting.setBounds(81, 437, 259, 23);
-		contentPane.add(btnInserisciMeeting);
+		btnInserimento.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnInserimento.setEnabled(false);
+		btnInserimento.setBounds(81, 437, 259, 23);
+		contentPane.add(btnInserimento);
 	}
 	
 	public void ApriPopupMenu(MouseEvent e) {
@@ -451,7 +451,7 @@ public class InserisciMeetingFrame extends JFrame {
 				ret = false;
 			else if(tableProgetto.getModel().getRowCount() == 0)
 				ret = false;
-			btnInserisciMeeting.setEnabled(ret);
+			btnInserimento.setEnabled(ret);
 			break;
 			
 		case "Telematico":
@@ -461,7 +461,7 @@ public class InserisciMeetingFrame extends JFrame {
 				ret = false;
 			else if(tableProgetto.getModel().getRowCount() == 0)
 				ret = false;
-			btnInserisciMeeting.setEnabled(ret);
+			btnInserimento.setEnabled(ret);
 		}
 	}
 }

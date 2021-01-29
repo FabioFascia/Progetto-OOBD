@@ -8,12 +8,11 @@ public class DBConnection {
 
 	private static DBConnection instance = null;
 	private Connection connection;
-	private String DBMS = "postgresql";
 	private String USERNAME = "adminprogetto";
 	private String PASSWORD = "ProgettoConteFasciaTraccia2";
 	private String IP = "localhost";
 	private String PORT = "5432";
-	private String url = "jdbc:" + DBMS + "://" + IP + ":" + PORT + "/" + "DBProgettoOOBD";
+	private String url = "jdbc:postgresql://" + IP + ":" + PORT + "/" + "DBProgettoOOBD";
 	
 	private DBConnection() throws SQLException {
 		

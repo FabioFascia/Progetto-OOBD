@@ -57,12 +57,12 @@ public class CercaProgettoFrame extends JFrame {
 	private JTextField textFieldCognome;
 	private JTextField textFieldMinSalario;
 	private JTextField textFieldMaxSalario;
+	private JTextField textFieldMinValutazione;
+	private JTextField textFieldMaxValutazione;
 	
 	private JButton buttonRicerca;
 	private JButton buttonInserimento;
 	private JButton buttonIndietro;
-	private JTextField textFieldMinValutazione;
-	private JTextField textFieldMaxValutazione;
 	
 
 	/**

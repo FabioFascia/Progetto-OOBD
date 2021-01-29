@@ -55,7 +55,8 @@ public class CercaSalaFrame extends JFrame {
 	private JTextField textFieldMaxNumeroPosti;
 	
 	private JButton buttonRicerca;
-	private JButton buttonInserisciSala;
+	private JButton btnInserimento;
+	private JButton btnIndietro;
 
 	/**
 	 * Create the frame.
@@ -80,14 +81,14 @@ public class CercaSalaFrame extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton buttonIndietro = new JButton("Indietro");
-		buttonIndietro.addActionListener(new ActionListener() {
+		btnIndietro = new JButton("Indietro");
+		btnIndietro.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ChiudiFrameCercaSalaInMainMenu();
 			}
 		});
-		buttonIndietro.setBounds(10, 11, 116, 23);
-		contentPane.add(buttonIndietro);
+		btnIndietro.setBounds(10, 11, 116, 23);
+		contentPane.add(btnIndietro);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(0, 245, 484, 156);
@@ -269,14 +270,14 @@ public class CercaSalaFrame extends JFrame {
 		});
 		contentPane.add(buttonRicerca);
 		
-		buttonInserisciSala = new JButton("Inserisci Sala");
-		buttonInserisciSala.addActionListener(new ActionListener() {
+		btnInserimento = new JButton("Inserisci Sala");
+		btnInserimento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.ApriFrameInserisciSalaInCercaSala();
 			}
 		});
-		buttonInserisciSala.setBounds(10, 211, 170, 23);
-		contentPane.add(buttonInserisciSala);
+		btnInserimento.setBounds(10, 211, 170, 23);
+		contentPane.add(btnInserimento);
 	}
 	
 	public void PopolaTabella(ArrayList<Sala> lista) {

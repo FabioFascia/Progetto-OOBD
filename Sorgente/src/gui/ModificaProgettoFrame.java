@@ -59,7 +59,7 @@ public class ModificaProgettoFrame extends JFrame {
 	private JTable tablePartecipanti;
 	private JTextArea textAreaDescrizione;
 	
-	private JButton buttonModificaProgetto;
+	private JButton buttonModifica;
 	private JButton buttonInserisciAmbito;
 	private JButton buttonSelezionaProjectManager;
 	private JButton buttonSelezionaPartecipante;
@@ -268,8 +268,8 @@ public class ModificaProgettoFrame extends JFrame {
 		textAreaDescrizione.setText(p.getDescrizione());
 		contentPane.add(textAreaDescrizione);
 		
-		buttonModificaProgetto = new JButton("Modifica Progetto");
-		buttonModificaProgetto.addActionListener(new ActionListener() {
+		buttonModifica = new JButton("Modifica Progetto");
+		buttonModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
@@ -286,9 +286,9 @@ public class ModificaProgettoFrame extends JFrame {
 				}
 			}
 		});
-		buttonModificaProgetto.setFont(new Font("Tahoma", Font.BOLD, 11));
-		buttonModificaProgetto.setBounds(148, 391, 259, 23);
-		contentPane.add(buttonModificaProgetto);
+		buttonModifica.setFont(new Font("Tahoma", Font.BOLD, 11));
+		buttonModifica.setBounds(148, 391, 259, 23);
+		contentPane.add(buttonModifica);
 		
 		JScrollPane scrollPane_1_1 = new JScrollPane();
 		scrollPane_1_1.setBounds(203, 185, 338, 111);
@@ -431,7 +431,7 @@ public class ModificaProgettoFrame extends JFrame {
 			}
 		}
 		
-		buttonModificaProgetto.setEnabled(ret);
+		buttonModifica.setEnabled(ret);
 	}
 	
 	public void setProjectManager(Dipendente pm) throws SQLException {
