@@ -7,14 +7,14 @@ import java.util.ArrayList;
 public class Meeting {
 	
 	//		Attributi
-	private int Codice;
-    private Date Data;
-    private Time OraInizio;
-    private Time OraFine;
+	protected int Codice;
+    protected Date Data;
+    protected Time OraInizio;
+    protected Time OraFine;
     
 	//		Relazioni
-	private Progetto ProgettoMeeting;
-	private ArrayList<Dipendente> Partecipanti;
+	protected Progetto ProgettoMeeting;
+	protected ArrayList<Dipendente> Partecipanti;
 	
 	public int getCodice() {
 		return Codice;

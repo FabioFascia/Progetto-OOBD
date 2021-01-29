@@ -81,13 +81,13 @@ public class InserisciSalaFrame extends JFrame {
 				
 				
 				try {
-					Sala s = new Sala();
+					String città = textFieldCittà.getText();
+					String provincia = textFieldProvincia.getText();
+					String indirizzo = textFieldIndirizzo.getText();
+					int numCivico = Integer.parseInt(textFieldNumeroCivico.getText());
+					int numPosti = Integer.parseInt(textFieldNumeroPosti.getText());
 					
-					s.setCittà(textFieldCittà.getText());
-					s.setProvincia(textFieldProvincia.getText());
-					s.setIndirizzo(textFieldIndirizzo.getText());
-					s.setNumeroCivico(Integer.parseInt(textFieldNumeroCivico.getText()));
-					s.setNumeroPosti(Integer.parseInt(textFieldNumeroPosti.getText()));
+					Sala s = new Sala(città, provincia, indirizzo, numCivico, numPosti);
 					
 					controller.InserimentoSala(s);
 					JOptionPane.showMessageDialog(null, "Inserimento riuscito!");

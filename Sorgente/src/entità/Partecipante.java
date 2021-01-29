@@ -15,14 +15,6 @@ public class Partecipante {
 		Prog = p;
 		Ruolo = r;
 	}
-	public Partecipante(Progetto p, String ruolo) {
-		Prog = p;
-		Ruolo = ruolo;
-	}
-	public Partecipante(Dipendente d, String ruolo) {
-		Dip = d;
-		Ruolo = ruolo;
-	}
 	public Dipendente getDipendente() {
 		return Dip;
 	}
