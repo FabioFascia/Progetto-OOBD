@@ -153,13 +153,13 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
 		
 		while(rs.next()) {
-			Dipendente d = new Dipendente();
+			String codF = rs.getString("CodF");
+			String Nome = rs.getString("Nome");
+			String Cognome = rs.getString("Cognome");
+			float salario = rs.getFloat("Salario");
+			int valutazione = rs.getInt("Valutazione");
 			
-			d.setCodF(rs.getString("CodF"));
-			d.setNome(rs.getString("Nome"));
-			d.setCognome(rs.getString("Cognome"));
-			d.setSalario(rs.getFloat("Salario"));
-			d.setValutazione(rs.getInt("Valutazione"));
+			Dipendente d = new Dipendente(codF, Nome, Cognome, salario, valutazione);
 			
 			lista.add(d);
 		}
@@ -217,13 +217,13 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
 		
 		while(rs.next()) {
-			Dipendente d = new Dipendente();
+			String codf = rs.getString("CodF");
+			String nome = rs.getString("Nome");
+			String cognome = rs.getString("Cognome");
+			float salario = rs.getFloat("Salario");
+			int valutazione = rs.getInt("Valutazione");
 			
-			d.setCodF(rs.getString("CodF"));
-			d.setNome(rs.getString("Nome"));
-			d.setCognome(rs.getString("Cognome"));
-			d.setSalario(rs.getFloat("Salario"));
-			d.setValutazione(rs.getInt("Valutazione"));
+			Dipendente d = new Dipendente(codf, nome, cognome, salario, valutazione);
 			
 			lista.add(d);
 		}
@@ -260,13 +260,13 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
 		
 		while(rs.next()) {
-			Dipendente d = new Dipendente();
+			String codf = rs.getString("CodF");
+			String nome = rs.getString("Nome");
+			String cognome = rs.getString("Cognome");
+			float salario = rs.getFloat("Salario");
+			int valutazione = rs.getInt("Valutazione");
 			
-			d.setCodF(rs.getString("CodF"));
-			d.setNome(rs.getString("Nome"));
-			d.setCognome(rs.getString("Cognome"));
-			d.setSalario(rs.getFloat("Salario"));
-			d.setValutazione(rs.getInt("Valutazione"));
+			Dipendente d = new Dipendente(codf, nome, cognome, salario, valutazione);
 			
 			lista.add(d);
 		}
@@ -303,13 +303,14 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
 		
 		while(rs.next()) {
-			Dipendente d = new Dipendente();
 			
-			d.setCodF(rs.getString("CodF"));
-			d.setNome(rs.getString("Nome"));
-			d.setCognome(rs.getString("Cognome"));
-			d.setSalario(rs.getFloat("Salario"));
-			d.setValutazione(rs.getInt("Valutazione"));
+			String codf = rs.getString("CodF");
+			String nome = rs.getString("Nome");
+			String cognome = rs.getString("Cognome");
+			float salario = rs.getFloat("Salario");
+			int valutazione = rs.getInt("Valutazione");
+			
+			Dipendente d = new Dipendente(codf, nome, cognome, salario, valutazione);
 			
 			lista.add(d);
 		}

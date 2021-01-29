@@ -11,9 +11,23 @@ public class Sala {
 	private int NumeroPosti;
 	
 	//		Getter/Setter
-	public Sala() {}
 	public Sala(int codice) {
 		Codice = codice;
+	}
+	public Sala(String città, String prov, String ind, int numCivico, int numPosti) {
+		Città = città;
+		Provincia = prov;
+		Indirizzo = ind;
+		NumeroCivico = numCivico;
+		NumeroPosti = numPosti;
+	}
+	public Sala(int codice, String città, String prov, String ind, int numCivico, int numPosti) {
+		Codice = codice;
+		Città = città;
+		Provincia = prov;
+		Indirizzo = ind;
+		NumeroCivico = numCivico;
+		NumeroPosti = numPosti;
 	}
 	
 	

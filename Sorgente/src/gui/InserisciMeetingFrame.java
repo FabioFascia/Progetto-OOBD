@@ -26,13 +26,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Calendar;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenuItem;
@@ -322,22 +323,22 @@ public class InserisciMeetingFrame extends JFrame {
 		btnInserisciMeeting = new JButton("Inserisci Meeting");
 		btnInserisciMeeting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MeetingFisico mf;
-				MeetingTelematico mt;
+				
 				Progetto p;
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-				DateFormat of = new SimpleDateFormat("HH:mm:ss");
+				Date data;
+				Time oraI, oraF;
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd"), of = new SimpleDateFormat("HH:mm:ss");
+				
 				switch(comboBoxTipoMeeting.getSelectedItem().toString()) {
 				case "Fisico" :
 					
-					mf = new MeetingFisico();
+					data = (java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
+					oraI = (java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
+					oraF = (java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()), tableProgetto.getModel().getValueAt(0, 1).toString());
 					Sala s = new Sala(Integer.parseInt(tableSala.getModel().getValueAt(0, 5).toString()));
-					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
-					mf.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-					mf.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-					mf.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
-					mf.setSalaRiunioni(s);
-					mf.setProgettoMeeting(p);
+					
+					MeetingFisico mf = new MeetingFisico(data, oraI, oraF, p, s);
 					
 					for(int i : tablePartecipanti.getSelectedRows()) {
 						Dipendente d = new Dipendente(tablePartecipanti.getModel().getValueAt(i, 0).toString());
@@ -354,17 +355,18 @@ public class InserisciMeetingFrame extends JFrame {
 					break;
 				case "Telematico" :
 					
-					mt = new MeetingTelematico();
-					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()));
-					mt.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-					mt.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-					mt.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
-					mt.setPiattaforma(textFieldPiattaforma.getText());
+					data = java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue()));
+					oraI = java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue()));
+					oraF = java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue()));
+					p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()), tableProgetto.getModel().getValueAt(0, 1).toString());
+					String piattaforma = textFieldPiattaforma.getText();
+					int numLimite;
 					if(textFieldLimitePartecipanti.getText().isBlank())
-						mt.setNumeroLimite(-1);
+						numLimite = -1;
 					else
-						mt.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
-					mt.setProgettoMeeting(p);
+						numLimite = Integer.parseInt(textFieldLimitePartecipanti.getText());
+					
+					MeetingTelematico mt = new MeetingTelematico(data, oraI, oraF, p, piattaforma, numLimite);
 					
 					for(int i : tablePartecipanti.getSelectedRows()) {
 						Dipendente d = new Dipendente(tablePartecipanti.getModel().getValueAt(i, 0).toString());

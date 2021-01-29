@@ -15,18 +15,24 @@ public class Dipendente {
 	public ArrayList<Partecipante> Progetti;
 	
 	//		Costruttori
-	public Dipendente() {};
-	
 	public Dipendente(String codf) {
 		super();
 		CodF = codf;
-	}
-	
-	public Dipendente(String codF, String nome, String cognome) {
+	}	
+	public Dipendente(String codF, String nome, String cognome, float salario) {
 		super();
 		CodF = codF;
 		Nome = nome;
 		Cognome = cognome;
+		Salario = salario;
+	}
+	public Dipendente(String codF, String nome, String cognome, float salario, int valutazione) {
+		super();
+		CodF = codF;
+		Nome = nome;
+		Cognome = cognome;
+		Salario = salario;
+		Valutazione = valutazione;
 	}
 	
 	//		Getter/Setter
@@ -54,11 +60,9 @@ public class Dipendente {
 	public void setSalario(float salario) {
 		Salario = salario;
 	}
-
 	public int getValutazione() {
 		return Valutazione;
 	}
-
 	public void setValutazione(int valutazione) {
 		Valutazione = valutazione;
 	}

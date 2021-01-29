@@ -143,12 +143,12 @@ public class ModificaDipendenteFrame extends JFrame {
 		buttonModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				Dipendente d = new Dipendente();
+				String codf = textFieldCodiceFiscale.getText();
+				String nome = textFieldNome.getText();
+				String cognome = textFieldCognome.getText();
+				float salario = Float.parseFloat(textFieldSalario.getText());
 				
-				d.setCodF(textFieldCodiceFiscale.getText());
-				d.setNome(textFieldNome.getText());
-				d.setCognome(textFieldCognome.getText());
-				d.setSalario(Float.parseFloat(textFieldSalario.getText()));
+				Dipendente d = new Dipendente(codf, nome, cognome, salario);
 				
 				try {
 					controller.ModificaDipendente(oldDip, d);

@@ -183,11 +183,12 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 		ArrayList<Progetto> lista = new ArrayList<Progetto>();
 		
 		while(rs.next()) {
-			Progetto p = new Progetto();
 			
-			p.setCodice(rs.getInt("CodP"));
-			p.setTipologia(rs.getString("Tipologia"));
-			p.setDescrizione(rs.getString("Descrizione"));
+			int cod = rs.getInt("CodP");
+			String tipo = rs.getString("Tipologia");
+			String desc = rs.getString("Descrizione");
+			
+			Progetto p = new Progetto(cod, tipo, desc);
 			
 			p.setAmbiti(getAmbitiProgetto(p));
 			p.setPartecipanti(getPartecipantiProgetto(p));
@@ -235,11 +236,12 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 		ArrayList<Progetto> lista = new ArrayList<Progetto>();
 		
 		while(rs.next()) {
-			Progetto p = new Progetto();
 			
-			p.setCodice(rs.getInt("CodP"));
-			p.setTipologia(rs.getString("Tipologia"));
-			p.setDescrizione(rs.getString("Descrizione"));
+			int cod = rs.getInt("CodP");
+			String tipo = rs.getString("Tipologia");
+			String desc = rs.getString("Descrizione");
+			
+			Progetto p = new Progetto(cod, tipo, desc);
 			
 			p.setAmbiti(getAmbitiProgetto(p));
 			p.setPartecipanti(getPartecipantiProgetto(p));
@@ -275,19 +277,19 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 		ArrayList<Partecipante> lista = new ArrayList<Partecipante>();
 		
 		while(rs.next()) {
-			Dipendente d = new Dipendente();
 			
-			d.setCodF(rs.getString("CodF"));
-			d.setNome(rs.getString("Nome"));
-			d.setCognome(rs.getString("Cognome"));
-			d.setSalario(rs.getFloat("Salario"));
+			String codf = rs.getString("CodF");
+			String nome = rs.getString("Nome");
+			String cognome = rs.getString("Cognome");
+			float salario = rs.getFloat("Salario");
+			int valutazione = rs.getInt("Valutazione");
 			
-			Partecipante par = new Partecipante(d, p, rs.getString("Ruolo"));
+			Dipendente d = new Dipendente(codf, nome, cognome, salario, valutazione);
 			
-			if(par.getRuolo().equalsIgnoreCase("Project Manager"))
-				lista.add(0, par);
+			if(rs.getString("Ruolo").equalsIgnoreCase("Project Manager"))
+				p.setProjectManager(d);
 			else
-				lista.add(par);
+				lista.add(new Partecipante(d, p, rs.getString("Ruolo")));
 		}
 		
 		return lista;

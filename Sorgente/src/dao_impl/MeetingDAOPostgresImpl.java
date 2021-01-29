@@ -250,16 +250,16 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     	while(rs.next()) {
     		
-    		MeetingFisico mf = new MeetingFisico();
-    		Sala s = new Sala();
-    		
-    		mf.setCodice(rs.getInt("CodMF"));
-    		mf.setData(rs.getDate("Data"));
-    		mf.setOraInizio(rs.getTime("OraI"));
-    		mf.setOraFine(rs.getTime("OraF"));
-            mf.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
+    		int cod = rs.getInt("CodMF");
+    		Date date = rs.getDate("Data");
+    		Time oraI = rs.getTime("OraI");
+    		Time oraF = rs.getTime("OraF");
+            Progetto p = getProgettoMeeting(rs.getInt("CodP"));
+            Sala s = getSalaMeetingFisico(rs.getInt("CodSala"));
+            
+            MeetingFisico mf = new MeetingFisico(cod, date, oraI, oraF, p, s);
+            
             mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
-            mf.setSalaRiunioni(getSalaMeetingFisico(rs.getInt("CodSala")));
     		
     		lista.add(mf);
     	}
@@ -294,16 +294,16 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     	while(rs.next()) {
     		
-    		MeetingFisico mf = new MeetingFisico();
-    		Sala s = new Sala();
-    		
-    		mf.setCodice(rs.getInt("CodMF"));
-    		mf.setData(rs.getDate("Data"));
-    		mf.setOraInizio(rs.getTime("OraI"));
-    		mf.setOraFine(rs.getTime("OraF"));
-            mf.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
+    		int cod = rs.getInt("CodMF");
+    		Date date = rs.getDate("Data");
+    		Time oraI = rs.getTime("OraI");
+    		Time oraF = rs.getTime("OraF");
+            Progetto p = getProgettoMeeting(rs.getInt("CodP"));
+            Sala s = getSalaMeetingFisico(rs.getInt("CodSala"));
+            
+            MeetingFisico mf = new MeetingFisico(cod, date, oraI, oraF, p, s);
+            
             mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
-            mf.setSalaRiunioni(getSalaMeetingFisico(rs.getInt("CodSala")));
     		
     		lista.add(mf);
     	}
@@ -343,16 +343,16 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     	while(rs.next()) {
     		
-    		MeetingFisico mf = new MeetingFisico();
-    		Sala s = new Sala();
-    		
-    		mf.setCodice(rs.getInt("CodMF"));
-    		mf.setData(rs.getDate("Data"));
-    		mf.setOraInizio(rs.getTime("OraI"));
-    		mf.setOraFine(rs.getTime("OraF"));
-            mf.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
+    		int cod = rs.getInt("CodMF");
+    		Date date = rs.getDate("Data");
+    		Time oraI = rs.getTime("OraI");
+    		Time oraF = rs.getTime("OraF");
+            Progetto p = getProgettoMeeting(rs.getInt("CodP"));
+            Sala s = getSalaMeetingFisico(rs.getInt("CodSala"));
+            
+            MeetingFisico mf = new MeetingFisico(cod, date, oraI, oraF, p, s);
+            
             mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
-            mf.setSalaRiunioni(getSalaMeetingFisico(rs.getInt("CodSala")));
     		
     		lista.add(mf);
     	}
@@ -395,16 +395,18 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	ArrayList<MeetingTelematico> lista = new ArrayList<MeetingTelematico>();
     	
     	while(rs.next()) {
-    		MeetingTelematico mt = new MeetingTelematico();
     		
-    		mt.setCodice(rs.getInt("CodMT"));
-    		mt.setData(rs.getDate("Data"));
-    		mt.setOraInizio(rs.getTime("OraI"));
-    		mt.setOraFine(rs.getTime("OraF"));
-    		mt.setPiattaforma(rs.getString("Piattaforma"));
-    		mt.setNumeroLimite(rs.getInt("NumLimite"));
-            mt.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
-            mt.setPartecipanti(getPartecipantiMeetingTelematico(mt.getCodice()));
+    		int cod = rs.getInt("CodMF");
+    		Date date = rs.getDate("Data");
+    		Time oraI = rs.getTime("OraI");
+    		Time oraF = rs.getTime("OraF");
+            Progetto p = getProgettoMeeting(rs.getInt("CodP"));
+            String piattaforma = rs.getString("Piattaforma");
+            int numLimite = rs.getInt("NumLimite");
+            
+            MeetingTelematico mt = new MeetingTelematico(cod, date, oraI, oraF, p, piattaforma, numLimite);
+            
+            mt.setPartecipanti(getPartecipantiMeetingFisico(mt.getCodice()));
     		
     		lista.add(mt);
     		
@@ -438,16 +440,18 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	ArrayList<MeetingTelematico> lista = new ArrayList<MeetingTelematico>();
     	
     	while(rs.next()) {
-    		MeetingTelematico mt = new MeetingTelematico();
     		
-    		mt.setCodice(rs.getInt("CodMT"));
-    		mt.setData(rs.getDate("Data"));
-    		mt.setOraInizio(rs.getTime("OraI"));
-    		mt.setOraFine(rs.getTime("OraF"));
-    		mt.setPiattaforma(rs.getString("Piattaforma"));
-    		mt.setNumeroLimite(rs.getInt("NumLimite"));
-            mt.setProgettoMeeting(getProgettoMeeting(rs.getInt("CodP")));
-            mt.setPartecipanti(getPartecipantiMeetingTelematico(mt.getCodice()));
+    		int cod = rs.getInt("CodMF");
+    		Date date = rs.getDate("Data");
+    		Time oraI = rs.getTime("OraI");
+    		Time oraF = rs.getTime("OraF");
+            Progetto p = getProgettoMeeting(rs.getInt("CodP"));
+            String piattaforma = rs.getString("Piattaforma");
+            int numLimite = rs.getInt("NumLimite");
+            
+            MeetingTelematico mt = new MeetingTelematico(cod, date, oraI, oraF, p, piattaforma, numLimite);
+            
+            mt.setPartecipanti(getPartecipantiMeetingFisico(mt.getCodice()));
     		
     		lista.add(mt);
     		
@@ -462,12 +466,15 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		 ResultSet rs = getSalaMeetingFisicoPS.executeQuery();
 		 
 		 rs.next();
-		 Sala s = new Sala();
-		 s.setCodice(rs.getInt("CodSala"));
-		 s.setCittà(rs.getString("Città"));
-		 s.setProvincia(rs.getString("Provincia"));
-		 s.setIndirizzo(rs.getString("Indirizzo"));
-		 s.setNumeroCivico(rs.getInt("NumeroCivico"));
+
+		 String citta = rs.getString("Città");
+		 String prov = (rs.getString("Provincia"));
+		 String ind = (rs.getString("Indirizzo"));
+		 int civico = rs.getInt("NumeroCivico");
+		 int numPosti = rs.getInt("NumPosti");
+		 int codice = rs.getInt("CodSala");
+		 
+		 Sala s = new Sala(codice, citta, prov, ind, civico, numPosti);
 		 
 		 return s;
 	 }
@@ -479,10 +486,12 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	ResultSet rs = getProgettoMeetingPS.executeQuery();
     	
     	rs.next();
-    	Progetto p = new Progetto();
     	
-    	p.setCodice(rs.getInt("CodP"));
-    	p.setTipologia(rs.getString("Tipologia"));
+		int cod = rs.getInt("CodP");
+		String tipo = rs.getString("Tipologia");
+		String desc = rs.getString("Descrizione");
+		
+		Progetto p = new Progetto(cod, tipo, desc);
     	
     	return p;
     }
@@ -496,13 +505,14 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
     	
     	while(rs.next()) {
-    		Dipendente d = new Dipendente();
     		
-    		d.setCodF(rs.getString("CodF"));
-    		d.setNome(rs.getString("Nome"));
-    		d.setCognome(rs.getString("Cognome"));
-    		d.setSalario(rs.getFloat("Salario"));
-    		d.setValutazione(rs.getInt("Valutazione"));
+			String codf = rs.getString("CodF");
+			String nome = rs.getString("Nome");
+			String cognome = rs.getString("Cognome");
+			float salario = rs.getFloat("Salario");
+			int valutazione = rs.getInt("Valutazione");
+			
+			Dipendente d = new Dipendente(codf, nome, cognome, salario, valutazione);
     		
     		lista.add(d);
     	}
@@ -519,13 +529,14 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
     	
     	while(rs.next()) {
-    		Dipendente d = new Dipendente();
     		
-    		d.setCodF(rs.getString("CodF"));
-    		d.setNome(rs.getString("Nome"));
-    		d.setCognome(rs.getString("Cognome"));
-    		d.setSalario(rs.getFloat("Salario"));
-    		d.setValutazione(rs.getInt("Valutazione"));
+			String codf = rs.getString("CodF");
+			String nome = rs.getString("Nome");
+			String cognome = rs.getString("Cognome");
+			float salario = rs.getFloat("Salario");
+			int valutazione = rs.getInt("Valutazione");
+			
+			Dipendente d = new Dipendente(codf, nome, cognome, salario, valutazione);
     		
     		lista.add(d);
     	}

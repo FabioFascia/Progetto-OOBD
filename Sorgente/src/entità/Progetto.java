@@ -11,12 +11,10 @@ public class Progetto {
 	private ArrayList<String> Ambiti = new ArrayList<String>();
 	
 	//		Relazioni
+	private Partecipante ProjectManager;
 	private ArrayList<Partecipante> Partecipanti = new ArrayList<Partecipante>();
 	
-	public Progetto() {}
-	public Progetto(int codice) {
-		Codice = codice;
-	}
+	
 	public Progetto(int codice, String tipologia) {
 		Codice = codice;
 		Tipologia = tipologia;
@@ -25,6 +23,12 @@ public class Progetto {
 		Tipologia = tipologia;
 		Descrizione = descrizione;
 	}
+	public Progetto(int codice, String tipologia, String descrizione) {
+		Codice = codice;
+		Tipologia = tipologia;
+		Descrizione = descrizione;
+	}
+	
 	public int getCodice() {
 		return Codice;
 	}
@@ -53,28 +57,20 @@ public class Progetto {
 		Ambiti.add(ambito);
 	}
 	public ArrayList<Partecipante> getPartecipanti() {
-		ArrayList<Partecipante> par = new ArrayList<Partecipante>(Partecipanti);
-		par.remove(0);
-		
-		return par;
+		return Partecipanti;
 	}
 	public void setPartecipanti(ArrayList<Partecipante> partecipanti) {
 		Partecipanti = partecipanti;
 	}
 	public void addPartecipante(Dipendente d, String ruolo) {
-		Partecipante par = new Partecipante(d, ruolo);
-		par.setProgetto(this);
+		Partecipante par = new Partecipante(d, this, ruolo);
 		Partecipanti.add(par);
 	}
 	public Dipendente getProjectManager() {
-		return Partecipanti.get(0).getDipendente();
+		return ProjectManager.getDipendente();
 	}
 	public void setProjectManager(Dipendente d) {
-		Partecipante par = new Partecipante(d, this, "Project Manager");
-		if(Partecipanti.size() == 0)
-			Partecipanti.add(par);
-		else
-			Partecipanti.set(0, par);
+		ProjectManager = new Partecipante(d, this, "Project Manager");
 	}
 
 }
