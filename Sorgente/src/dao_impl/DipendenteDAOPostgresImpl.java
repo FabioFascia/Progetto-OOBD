@@ -16,6 +16,7 @@ import entità.Partecipante;
 public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 
 	private Connection connection;
+	
 	private PreparedStatement insertDipendentePS;
 	private PreparedStatement updateDipendentePS;
 	private PreparedStatement deleteDipendentePS;

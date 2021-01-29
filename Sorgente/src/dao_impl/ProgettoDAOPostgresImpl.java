@@ -26,7 +26,7 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 	private PreparedStatement getProgettoByPartecipantiPS;
 	private PreparedStatement getAmbitiProgettoPS;
 	private PreparedStatement getPartecipantiProgettoPS;
-	private PreparedStatement getCurrentSequenceValuePS;
+	private PreparedStatement getValoreCorrenteSequenza;
 	
 	public ProgettoDAOPostgresImpl(Connection c) throws SQLException {
 		
@@ -66,7 +66,7 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 		getAmbitiProgettoPS = connection.prepareStatement("SELECT * FROM AMBITO WHERE CodP = ?");
 		getPartecipantiProgettoPS = connection.prepareStatement("SELECT * FROM PARTECIPANTE AS PAR NATURAL JOIN DIPENDENTE AS D WHERE PAR.CodP = ?");
 		
-		getCurrentSequenceValuePS = connection.prepareStatement("SELECT CURRVAL('N_PROGETTO');");
+		getValoreCorrenteSequenza = connection.prepareStatement("SELECT CURRVAL('N_PROGETTO');");
 	}
 	
 	public void insertProgetto(Progetto p) throws SQLException {
@@ -297,7 +297,7 @@ public class ProgettoDAOPostgresImpl implements ProgettoDAO {
 	
 	public int getCurrentSequenceValue() throws SQLException {
 		
-		ResultSet rs = getCurrentSequenceValuePS.executeQuery();
+		ResultSet rs = getValoreCorrenteSequenza.executeQuery();
 		
 		rs.next();
 		

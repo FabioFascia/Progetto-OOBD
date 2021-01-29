@@ -137,46 +137,46 @@ public class CercaMeetingFrame extends JFrame {
 		spinnerOraInizioFisico.setModel(new SpinnerDateModel(new Date(1610492400000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraInizioFisico.setEditor(new JSpinner.DateEditor(spinnerOraInizioFisico, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraInizioFisico.getEditor()).getTextField().setEditable(false);
-		spinnerOraInizioFisico.setBounds(24, 98, 63, 20);
+		spinnerOraInizioFisico.setBounds(10, 98, 63, 20);
 		panelAttributi.add(spinnerOraInizioFisico);
 		
 		spinnerOraFineFisico = new JSpinner();
 		spinnerOraFineFisico.setModel(new SpinnerDateModel(new Date(1610578740000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraFineFisico.setEditor(new JSpinner.DateEditor(spinnerOraFineFisico, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraFineFisico.getEditor()).getTextField().setEditable(false);
-		spinnerOraFineFisico.setBounds(111, 98, 63, 20);
+		spinnerOraFineFisico.setBounds(97, 98, 63, 20);
 		panelAttributi.add(spinnerOraFineFisico);
 		
 		spinnerDataFisico = new JSpinner();
 		spinnerDataFisico.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
 		spinnerDataFisico.setEditor(new JSpinner.DateEditor(spinnerDataFisico, "dd/MM/yyyy"));
 		((JSpinner.DefaultEditor) spinnerDataFisico.getEditor()).getTextField().setEditable(false);
-		spinnerDataFisico.setBounds(24, 62, 150, 20);
+		spinnerDataFisico.setBounds(10, 62, 150, 20);
 		panelAttributi.add(spinnerDataFisico);
 		
 		textFieldCodiceMeetingFisico = new JTextField();
 		textFieldCodiceMeetingFisico.setColumns(10);
-		textFieldCodiceMeetingFisico.setBounds(24, 25, 150, 20);
+		textFieldCodiceMeetingFisico.setBounds(10, 25, 150, 20);
 		panelAttributi.add(textFieldCodiceMeetingFisico);
 		
 		JLabel lblNewLabel = new JLabel("Ora Inizio");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel.setBounds(24, 84, 63, 14);
+		lblNewLabel.setBounds(10, 84, 63, 14);
 		panelAttributi.add(lblNewLabel);
 		
 		JLabel lblOraFine = new JLabel("Ora Fine");
 		lblOraFine.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblOraFine.setBounds(111, 84, 63, 14);
+		lblOraFine.setBounds(97, 84, 63, 14);
 		panelAttributi.add(lblOraFine);
 		
 		JLabel lblNewLabel_1 = new JLabel("Data");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setBounds(24, 48, 46, 14);
+		lblNewLabel_1.setBounds(10, 48, 46, 14);
 		panelAttributi.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Codice Meeting");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_2.setBounds(24, 11, 104, 14);
+		lblNewLabel_2.setBounds(10, 11, 104, 14);
 		panelAttributi.add(lblNewLabel_2);
 		
 		JPanel panelSala = new JPanel();
