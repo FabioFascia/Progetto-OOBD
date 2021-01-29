@@ -259,7 +259,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
             
             MeetingFisico mf = new MeetingFisico(cod, date, oraI, oraF, p, s);
             
-            mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
+            mf.setPartecipanti(getPartecipantiMeeting(mf));
     		
     		lista.add(mf);
     	}
@@ -303,7 +303,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
             
             MeetingFisico mf = new MeetingFisico(cod, date, oraI, oraF, p, s);
             
-            mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
+            mf.setPartecipanti(getPartecipantiMeeting(mf));
     		
     		lista.add(mf);
     	}
@@ -352,7 +352,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
             
             MeetingFisico mf = new MeetingFisico(cod, date, oraI, oraF, p, s);
             
-            mf.setPartecipanti(getPartecipantiMeetingFisico(mf.getCodice()));
+            mf.setPartecipanti(getPartecipantiMeeting(mf));
     		
     		lista.add(mf);
     	}
@@ -406,7 +406,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
             
             MeetingTelematico mt = new MeetingTelematico(cod, date, oraI, oraF, p, piattaforma, numLimite);
             
-            mt.setPartecipanti(getPartecipantiMeetingFisico(mt.getCodice()));
+            mt.setPartecipanti(getPartecipantiMeeting(mt));
     		
     		lista.add(mt);
     		
@@ -451,7 +451,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
             
             MeetingTelematico mt = new MeetingTelematico(cod, date, oraI, oraF, p, piattaforma, numLimite);
             
-            mt.setPartecipanti(getPartecipantiMeetingFisico(mt.getCodice()));
+            mt.setPartecipanti(getPartecipantiMeeting(mt));
     		
     		lista.add(mt);
     		
@@ -496,9 +496,9 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	return p;
     }
     
-    public ArrayList<Dipendente> getPartecipantiMeetingFisico(int codmf) throws SQLException {
+    public ArrayList<Dipendente> getPartecipantiMeeting(MeetingFisico mf) throws SQLException {
     	
-    	getPartecipantiMeetingFisicoPS.setInt(1, codmf);
+    	getPartecipantiMeetingFisicoPS.setInt(1, mf.getCodice());
     	
     	ResultSet rs = getPartecipantiMeetingFisicoPS.executeQuery();
     	
@@ -520,9 +520,9 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	return lista;
     }
     
-    public ArrayList<Dipendente> getPartecipantiMeetingTelematico(int codmt) throws SQLException {
+    public ArrayList<Dipendente> getPartecipantiMeeting(MeetingTelematico mt) throws SQLException {
     	
-    	getPartecipantiMeetingTelematicoPS.setInt(1, codmt);
+    	getPartecipantiMeetingTelematicoPS.setInt(1, mt.getCodice());
     	
     	ResultSet rs = getPartecipantiMeetingTelematicoPS.executeQuery();
     	

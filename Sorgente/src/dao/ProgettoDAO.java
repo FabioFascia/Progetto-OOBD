@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entità.Dipendente;
+import entità.Partecipante;
 import entità.Progetto;
 
 public interface ProgettoDAO {
@@ -21,5 +22,7 @@ public interface ProgettoDAO {
 	public ArrayList<Progetto> getProgettoByAttributi(String codp, String tipologia, String ambito) throws SQLException;
 	public ArrayList<Progetto> getProgettoByPartecipanti(String codf, String nome, String cognome, String minSal, String maxSal, String minVal, String maxVal) throws SQLException;
 	
+	public ArrayList<String> getAmbitiProgetto(Progetto p) throws SQLException;
+	public ArrayList<Partecipante> getPartecipantiProgetto(Progetto p) throws SQLException;
 	public int getCurrentSequenceValue() throws SQLException;
 }

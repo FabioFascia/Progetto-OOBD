@@ -35,7 +35,7 @@ public interface MeetingDAO {
 	
 	public Sala getSalaMeetingFisico(int codSala) throws SQLException;
 	public Progetto getProgettoMeeting(int codp) throws SQLException;
-	public ArrayList<Dipendente> getPartecipantiMeetingFisico(int codmf) throws SQLException;
-	public ArrayList<Dipendente> getPartecipantiMeetingTelematico(int codmt) throws SQLException;
+	public ArrayList<Dipendente> getPartecipantiMeeting(MeetingFisico mf) throws SQLException;
+	public ArrayList<Dipendente> getPartecipantiMeeting(MeetingTelematico mt) throws SQLException;
 }
 
