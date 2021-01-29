@@ -26,7 +26,7 @@ import gui.*;
 
 public class Controller {
 	
-	private Connection connection;
+	private DBConnection dbConnection;
 	
 	private MainMenuFrame mainMenu;
 	
@@ -63,27 +63,11 @@ public class Controller {
 	private ArrayList<MeetingFisico> MeetingFisiciSelezionati;
 	private ArrayList<MeetingTelematico> MeetingTelematiciSelezionati;
 	private ArrayList<Sala> SaleRiunioniSelezionate;
-
-	public static void main(String[] args) {
-		
-		DBConnection dbConnection = null;
-		Connection connection = null;
-		
-		try {
-			
-			dbConnection = DBConnection.getInstance();
-			connection = dbConnection.getConnection();
-			Controller c = new Controller(connection);
-			c.setDaos("postgresql");
-		}
-		catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}	
-	}
 	
-	public Controller(Connection c) {
+	
+	public Controller(DBConnection dbc) {
 		
-		connection = c;
+		dbConnection = dbc;
 		mainMenu = new MainMenuFrame(this);
 		mainMenu.setVisible(true);
 	}
@@ -610,10 +594,10 @@ public class Controller {
 		
 		switch (dbms) {
 		case "postgresql":
-			dipendenteDao = new DipendenteDAOPostgresImpl(connection);
-			progettoDao = new ProgettoDAOPostgresImpl(connection);
-			meetingDao = new MeetingDAOPostgresImpl(connection);
-			salaDao = new SalaDAOPostgresImpl(connection);
+			dipendenteDao = new DipendenteDAOPostgresImpl(dbConnection.getConnection());
+			progettoDao = new ProgettoDAOPostgresImpl(dbConnection.getConnection());
+			meetingDao = new MeetingDAOPostgresImpl(dbConnection.getConnection());
+			salaDao = new SalaDAOPostgresImpl(dbConnection.getConnection());
 			break;
 		}
 	}
