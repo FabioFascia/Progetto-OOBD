@@ -37,29 +37,29 @@ public class Sala {
 	public void setCittà(String città) {
 		Città = città;
 	}
-	public String getIndirizzo() {
-		return Indirizzo;
-	}
-	public void setIndirizzo(String indirizzo) {
-		Indirizzo = indirizzo;
-	}
-	public int getNumeroPosti() {
-		return NumeroPosti;
-	}
-	public void setNumeroPosti(int numeroPosti) {
-		NumeroPosti = numeroPosti;
-	}
 	public String getProvincia() {
 		return Provincia;
 	}
 	public void setProvincia(String provincia) {
 		Provincia = provincia;
 	}
+	public String getIndirizzo() {
+		return Indirizzo;
+	}
+	public void setIndirizzo(String indirizzo) {
+		Indirizzo = indirizzo;
+	}
 	public int getNumeroCivico() {
 		return NumeroCivico;
 	}
 	public void setNumeroCivico(int numeroCivico) {
 		NumeroCivico = numeroCivico;
+	}
+	public int getNumeroPosti() {
+		return NumeroPosti;
+	}
+	public void setNumeroPosti(int numeroPosti) {
+		NumeroPosti = numeroPosti;
 	}
 	public int getCodice() {
 		return Codice;
