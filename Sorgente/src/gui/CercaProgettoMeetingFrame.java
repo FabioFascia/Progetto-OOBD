@@ -48,7 +48,6 @@ public class CercaProgettoMeetingFrame extends JFrame {
 	private JPanel contentPane;
 	
 	private JTable tableProgetti;
-	private JPopupMenu popupMenuTable;
 	private JComboBox comboBoxCercaProgetto;
 	
 	private JTextField textFieldCodiceProgetto;
@@ -60,12 +59,12 @@ public class CercaProgettoMeetingFrame extends JFrame {
 	private JTextField textFieldCognome;
 	private JTextField textFieldMinSalario;
 	private JTextField textFieldMaxSalario;
+	private JTextField textFieldMinValutazione;
+	private JTextField textFieldMaxValutazione;
 	
 	private JButton buttonConferma;
 	private JButton buttonRicerca;
 	private JButton buttonIndietro;
-	private JTextField textFieldMinValutazione;
-	private JTextField textFieldMaxValutazione;
 	
 
 	/**

@@ -88,7 +88,7 @@ public class CercaMeetingFrame extends JFrame {
     private JSpinner spinnerOraInizioTelematico;
     private JSpinner spinnerOraFineTelematico;
     private JTextField textFieldPiattaforma;
-    private JTextField textFieldNumeroMassimo;
+    private JTextField tfNumeroLimite;
     
     private JTextField textFieldCodiceProgettoTelematico;
     private JTextField textFieldTipologiaTelematico;
@@ -478,10 +478,10 @@ public class CercaMeetingFrame extends JFrame {
 		lblNewLabel_3.setBounds(10, 113, 85, 14);
 		panelAttributoTelematico.add(lblNewLabel_3);
 		
-		textFieldNumeroMassimo = new JTextField();
-		textFieldNumeroMassimo.setColumns(10);
-		textFieldNumeroMassimo.setBounds(184, 128, 65, 20);
-		panelAttributoTelematico.add(textFieldNumeroMassimo);
+		tfNumeroLimite = new JTextField();
+		tfNumeroLimite.setColumns(10);
+		tfNumeroLimite.setBounds(184, 128, 65, 20);
+		panelAttributoTelematico.add(tfNumeroLimite);
 		
 		JLabel lblNewLabel_4 = new JLabel("Limite Partecipanti");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -604,7 +604,7 @@ public class CercaMeetingFrame extends JFrame {
 					case "Attributi":
 						String codmt = textFieldCodiceMeetingTelematico.getText();
 						String piattaforma = textFieldPiattaforma.getText();
-						String numMassimo = textFieldNumeroMassimo.getText();
+						String numMassimo = tfNumeroLimite.getText();
 						
 						DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 						DateFormat of = new SimpleDateFormat("HH:mm:ss");

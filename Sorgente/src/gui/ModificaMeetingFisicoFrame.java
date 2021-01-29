@@ -56,11 +56,11 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 	private JSpinner spinnerData;
 	private JSpinner spinnerOraInizio;
 	private JSpinner spinnerOraFine;
-	private JTable tableSala;
 	private JTable tableProgetto;
 	private JTable tablePartecipanti;
+	private JTable tableSala;
 	
-	private JButton buttonModificaMeeting;
+	private JButton buttonModifica;
 	private JButton buttonSelezionaSala;
 	private JButton buttonSelezionaProgetto;
 	private JButton buttonSelezionaPartecipante;
@@ -232,8 +232,8 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 			}
 		});
 		
-		buttonModificaMeeting = new JButton("Modifica Meeting");
-		buttonModificaMeeting.addActionListener(new ActionListener() {
+		buttonModifica = new JButton("Modifica Meeting");
+		buttonModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MeetingFisico mf;
 				MeetingTelematico mt;
@@ -252,9 +252,9 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 				}
 			}
 		});
-		buttonModificaMeeting.setFont(new Font("Tahoma", Font.BOLD, 11));
-		buttonModificaMeeting.setBounds(81, 437, 259, 23);
-		contentPane.add(buttonModificaMeeting);
+		buttonModifica.setFont(new Font("Tahoma", Font.BOLD, 11));
+		buttonModifica.setBounds(81, 437, 259, 23);
+		contentPane.add(buttonModifica);
 		
 		buttonSelezionaSala = new JButton("Seleziona sala...");
 		buttonSelezionaSala.setBounds(112, 58, 146, 23);
@@ -301,7 +301,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		
-		AttivaButtonInserimento();
+		AttivaButtonModifica();
 	}
 	public void deletePartecipante(int indice) throws SQLException {
 		
@@ -309,7 +309,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 		
-		AttivaButtonInserimento();
+		AttivaButtonModifica();
 	}
 	public void setProgetto(Progetto p) throws SQLException {
 		
@@ -319,7 +319,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		model.addRow(new Object[] {p.getCodice(), p.getTipologia()});
 		oldMeeting.setProgettoMeeting(p);
 		
-		AttivaButtonInserimento();
+		AttivaButtonModifica();
 	}
 	public void setSala(Sala s) {
 		
@@ -329,9 +329,9 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
 		oldMeeting.setSalaRiunioni(s);
 		
-		AttivaButtonInserimento();
+		AttivaButtonModifica();
 	}
-	public void AttivaButtonInserimento() {
+	public void AttivaButtonModifica() {
 		
 		boolean ret = true;
 		
@@ -342,7 +342,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		else if(tableProgetto.getModel().getRowCount() == 0)
 			ret = false;
 		
-		buttonModificaMeeting.setEnabled(ret);
+		buttonModifica.setEnabled(ret);
 	}
 	public void ApriPopupMenu(MouseEvent e) {
 		
