@@ -24,13 +24,14 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Calendar;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenuItem;
@@ -48,7 +49,6 @@ import java.awt.event.MouseEvent;
 public class ModificaMeetingTelematicoFrame extends JFrame {
 
 	private Controller controller;
-	private MeetingTelematico oldMeeting;
 	
 	private JPanel contentPane;
 	private JPopupMenu popupMenuTable;
@@ -69,11 +69,10 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ModificaMeetingTelematicoFrame(Controller c, MeetingTelematico mt) {
+	public ModificaMeetingTelematicoFrame(Controller c, MeetingTelematico oldMT) {
 		setResizable(false);
 		
 		controller = c;
-		oldMeeting = mt;
 		
 		setTitle("Modifica Meeting");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -139,7 +138,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 			}
 		});
 		tablePartecipanti.getColumnModel().getColumn(0).setPreferredWidth(103);
-		for(Dipendente d : oldMeeting.getPartecipanti()) {
+		for(Dipendente d : oldMT.getPartecipanti()) {
 			((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario(), d.getValutazione()});
 		}
 		scrollPane_1.setViewportView(tablePartecipanti);
@@ -160,7 +159,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		spinnerData.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
 		spinnerData.setEditor(new JSpinner.DateEditor(spinnerData, "dd/MM/yyyy"));
 		((JSpinner.DefaultEditor) spinnerData.getEditor()).getTextField().setEditable(false);
-		spinnerData.getModel().setValue(oldMeeting.getData());
+		spinnerData.getModel().setValue(oldMT.getData());
 		contentPane.add(spinnerData);
 		
 		spinnerOraInizio = new JSpinner();
@@ -168,7 +167,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		spinnerOraInizio.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraInizio.setEditor(new JSpinner.DateEditor(spinnerOraInizio, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraInizio.getEditor()).getTextField().setEditable(false);
-		spinnerOraInizio.getModel().setValue(oldMeeting.getOraInizio());
+		spinnerOraInizio.getModel().setValue(oldMT.getOraInizio());
 		contentPane.add(spinnerOraInizio);
 		
 		spinnerOraFine = new JSpinner();
@@ -176,7 +175,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		spinnerOraFine.setModel(new SpinnerDateModel(new Date(946767540000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraFine.setEditor(new JSpinner.DateEditor(spinnerOraFine, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraFine.getEditor()).getTextField().setEditable(false);
-		spinnerOraFine.getModel().setValue(oldMeeting.getOraFine());
+		spinnerOraFine.getModel().setValue(oldMT.getOraFine());
 		contentPane.add(spinnerOraFine);
 		
 		JLabel labelData = new JLabel("Data");
@@ -218,7 +217,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 				return false;
 			}
 		});
-		((DefaultTableModel) tableProgetto.getModel()).addRow(new Object[] {oldMeeting.getProgettoMeeting().getCodice(), oldMeeting.getProgettoMeeting().getTipologia()});
+		((DefaultTableModel) tableProgetto.getModel()).addRow(new Object[] {oldMT.getProgettoMeeting().getCodice(), oldMT.getProgettoMeeting().getTipologia()});
 		scrollPane_2.setViewportView(tableProgetto);
 		
 		buttonSelezionaProgetto = new JButton("Seleziona progetto...");
@@ -235,17 +234,19 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		buttonModificaMeeting = new JButton("Modifica Meeting");
 		buttonModificaMeeting.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MeetingTelematico mt;
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				DateFormat of = new SimpleDateFormat("HH:mm:ss");
 				
-				oldMeeting.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-				oldMeeting.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-				oldMeeting.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
-				oldMeeting.setPiattaforma(textFieldPiattaforma.getText());
-				oldMeeting.setNumeroLimite(Integer.parseInt(textFieldLimitePartecipanti.getText()));
+				Date data = java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue()));
+				Time oraI = java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue()));
+				Time oraF = java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue()));
+				Progetto p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()), tableProgetto.getModel().getValueAt(0, 1).toString());
+				String piattaforma = textFieldPiattaforma.getText();
+				int limite = Integer.parseInt(textFieldLimitePartecipanti.getText());
+				
+				MeetingTelematico mt = new MeetingTelematico(data, oraI, oraF, p, piattaforma, limite);
 				try {
-					controller.ModificaMeeting(oldMeeting);
+					controller.ModificaMeeting(mt);
 					controller.ChiudiFrameModificaMeetingTelematicoInCercaMeeting();
 				}
 				catch (SQLException ex) {
@@ -265,13 +266,13 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		textFieldPiattaforma = new JTextField();
 		textFieldPiattaforma.setColumns(10);
 		textFieldPiattaforma.setBounds(117, 94, 142, 20);
-		textFieldPiattaforma.setText(oldMeeting.getPiattaforma());
+		textFieldPiattaforma.setText(oldMT.getPiattaforma());
 		contentPane.add(textFieldPiattaforma);
 		
 		textFieldLimitePartecipanti = new JTextField();
 		textFieldLimitePartecipanti.setColumns(10);
 		textFieldLimitePartecipanti.setBounds(282, 94, 61, 20);
-		textFieldLimitePartecipanti.setText(String.valueOf(oldMeeting.getNumeroLimite()));
+		textFieldLimitePartecipanti.setText(String.valueOf(oldMT.getNumeroLimite()));
 		contentPane.add(textFieldLimitePartecipanti);
 		
 		JLabel lblNewLabel_1 = new JLabel("Limite Partecipanti");
@@ -282,15 +283,11 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 	
 	public void addPartecipante(Dipendente d) throws SQLException {
 		
-		controller.InserimentoPartecipanteMeeting(oldMeeting, d);
-		
 		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		
 		AttivaButtonModifica();
 	}
 	public void deletePartecipante(int indice) throws SQLException {
-		
-		controller.CancellazionePartecipanteMeeting(oldMeeting, oldMeeting.getPartecipanti().get(indice));
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 		
@@ -302,7 +299,6 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		
 		model.setRowCount(0);
 		model.addRow(new Object[] {p.getCodice(), p.getTipologia()});
-		oldMeeting.setProgettoMeeting(p);
 		
 		AttivaButtonModifica();
 	}
@@ -332,6 +328,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 				case JOptionPane.YES_OPTION:
 					while (tablePartecipanti.getSelectedRowCount() > 0) {
 						try {
+							controller.CancellazionePartecipanteMeeting(tablePartecipanti.getSelectedRow());
 							deletePartecipante(tablePartecipanti.getSelectedRow());
 						}
 						catch (SQLException ex) {

@@ -19,14 +19,21 @@ public class Progetto {
 		Codice = codice;
 		Tipologia = tipologia;
 	}
-	public Progetto(String tipologia, String descrizione) {
-		Tipologia = tipologia;
-		Descrizione = descrizione;
-	}
 	public Progetto(int codice, String tipologia, String descrizione) {
 		Codice = codice;
 		Tipologia = tipologia;
 		Descrizione = descrizione;
+	}
+	public Progetto(String tipologia, String descrizione, Dipendente pm) {
+		Tipologia = tipologia;
+		Descrizione = descrizione;
+		ProjectManager = new Partecipante(pm, this, "Project Manager");
+	}
+	public Progetto(int codice, String tipologia, String descrizione, Dipendente pm) {
+		Codice = codice;
+		Tipologia = tipologia;
+		Descrizione = descrizione;
+		ProjectManager = new Partecipante(pm, this, "Project Manager");
 	}
 	
 	public int getCodice() {

@@ -24,13 +24,14 @@ import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
-import java.util.Date;
+import java.sql.Date;
 import java.util.Calendar;
 import javax.swing.JLayeredPane;
 import javax.swing.JMenuItem;
@@ -48,7 +49,6 @@ import java.awt.event.MouseEvent;
 public class ModificaMeetingFisicoFrame extends JFrame {
 
 	private Controller controller;
-	private MeetingFisico oldMeeting;
 	
 	private JPanel contentPane;
 	private JPopupMenu popupMenuTable;
@@ -69,11 +69,10 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ModificaMeetingFisicoFrame(Controller c, MeetingFisico mf) {
+	public ModificaMeetingFisicoFrame(Controller c, MeetingFisico oldMF) {
 		setResizable(false);
 		
 		controller = c;
-		oldMeeting = mf;
 		
 		setTitle("Modifica Meeting");
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -139,9 +138,8 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 			}
 		});
 		tablePartecipanti.getColumnModel().getColumn(0).setPreferredWidth(103);
-		for(Dipendente d : oldMeeting.getPartecipanti()) {
-			((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario(), d.getValutazione()});
-		}
+		for(Dipendente d : oldMF.getPartecipanti())
+			((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		scrollPane_1.setViewportView(tablePartecipanti);
 		
 		buttonSelezionaPartecipante = new JButton("Seleziona partecipanti...");
@@ -160,7 +158,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		spinnerData.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.YEAR));
 		spinnerData.setEditor(new JSpinner.DateEditor(spinnerData, "dd/MM/yyyy"));
 		((JSpinner.DefaultEditor) spinnerData.getEditor()).getTextField().setEditable(false);
-		spinnerData.getModel().setValue(oldMeeting.getData());
+		spinnerData.getModel().setValue(oldMF.getData());
 		contentPane.add(spinnerData);
 		
 		spinnerOraInizio = new JSpinner();
@@ -168,7 +166,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		spinnerOraInizio.setModel(new SpinnerDateModel(new Date(946681200000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraInizio.setEditor(new JSpinner.DateEditor(spinnerOraInizio, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraInizio.getEditor()).getTextField().setEditable(false);
-		spinnerOraInizio.getModel().setValue(oldMeeting.getOraInizio());
+		spinnerOraInizio.getModel().setValue(oldMF.getOraInizio());
 		contentPane.add(spinnerOraInizio);
 		
 		spinnerOraFine = new JSpinner();
@@ -176,7 +174,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		spinnerOraFine.setModel(new SpinnerDateModel(new Date(946767540000L), null, null, Calendar.HOUR_OF_DAY));
 		spinnerOraFine.setEditor(new JSpinner.DateEditor(spinnerOraFine, "HH:mm"));
 		((JSpinner.DefaultEditor) spinnerOraFine.getEditor()).getTextField().setEditable(false);
-		spinnerOraFine.getModel().setValue(oldMeeting.getOraFine());
+		spinnerOraFine.getModel().setValue(oldMF.getOraFine());
 		contentPane.add(spinnerOraFine);
 		
 		JLabel labelData = new JLabel("Data");
@@ -218,7 +216,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 				return false;
 			}
 		});
-		((DefaultTableModel) tableProgetto.getModel()).addRow(new Object[] {oldMeeting.getProgettoMeeting().getCodice(), oldMeeting.getProgettoMeeting().getTipologia()});
+		((DefaultTableModel) tableProgetto.getModel()).addRow(new Object[] {oldMF.getProgettoMeeting().getCodice(), oldMF.getProgettoMeeting().getTipologia()});
 		scrollPane_2.setViewportView(tableProgetto);
 		
 		buttonSelezionaProgetto = new JButton("Seleziona progetto...");
@@ -236,15 +234,19 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		buttonModifica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MeetingFisico mf;
-				MeetingTelematico mt;
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				DateFormat of = new SimpleDateFormat("HH:mm:ss");
 				
-				oldMeeting.setData(java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue())));
-				oldMeeting.setOraInizio(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue())));
-				oldMeeting.setOraFine(java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue())));
+				Date data = java.sql.Date.valueOf(df.format((java.util.Date)spinnerData.getValue()));
+				Time oraI = java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraInizio.getValue()));
+				Time oraF = java.sql.Time.valueOf(of.format((java.util.Date)spinnerOraFine.getValue()));
+				Progetto p = new Progetto(Integer.parseInt(tableProgetto.getModel().getValueAt(0, 0).toString()), tableProgetto.getModel().getValueAt(0, 1).toString());
+				Sala s = new Sala(Integer.parseInt(tableSala.getModel().getValueAt(0, 5).toString()));
+				
+				mf = new MeetingFisico(data, oraI, oraF, p, s);
+						
 				try {
-					controller.ModificaMeeting(oldMeeting);
+					controller.ModificaMeeting(mf);
 					controller.ChiudiFrameModificaMeetingFisicoInCercaMeeting();
 				}
 				catch (SQLException ex) {
@@ -275,11 +277,11 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti"
+				"Citt\u00E0", "Provincia", "Indirizzo", "Numero Civico", "Numero Posti", "Codice"
 			}
 		) {
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, Integer.class, Integer.class
+				String.class, String.class, String.class, Integer.class, Integer.class, Integer.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -290,34 +292,29 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 				return false;
 			}
 		});
-		Sala s = oldMeeting.getSalaRiunioni();
+		Sala s = oldMF.getSalaRiunioni();
 		((DefaultTableModel) tableSala.getModel()).addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti(), s.getCodice()});
 		scrollPane.setViewportView(tableSala);
 	}
 	
-	public void addPartecipante(Dipendente d) throws SQLException {
-		
-		controller.InserimentoPartecipanteMeeting(oldMeeting, d);
+	public void addPartecipante(Dipendente d) {
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario()});
 		
 		AttivaButtonModifica();
 	}
-	public void deletePartecipante(int indice) throws SQLException {
-		
-		controller.CancellazionePartecipanteMeeting(oldMeeting, oldMeeting.getPartecipanti().get(indice));
-		
+	public void deletePartecipante(int indice) {
+				
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
 		
 		AttivaButtonModifica();
 	}
-	public void setProgetto(Progetto p) throws SQLException {
+	public void setProgetto(Progetto p) {
 		
 		DefaultTableModel model = (DefaultTableModel) tableProgetto.getModel();
 		
 		model.setRowCount(0);
 		model.addRow(new Object[] {p.getCodice(), p.getTipologia()});
-		oldMeeting.setProgettoMeeting(p);
 		
 		AttivaButtonModifica();
 	}
@@ -326,8 +323,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tableSala.getModel();
 		
 		model.setRowCount(0);
-		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti()});
-		oldMeeting.setSalaRiunioni(s);
+		model.addRow(new Object[] {s.getCittà(), s.getProvincia(), s.getIndirizzo(), s.getNumeroCivico(), s.getNumeroPosti(), s.getCodice()});
 		
 		AttivaButtonModifica();
 	}
@@ -357,6 +353,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 				case JOptionPane.YES_OPTION:
 					while (tablePartecipanti.getSelectedRowCount() > 0) {
 						try {
+							controller.CancellazionePartecipanteMeeting(tablePartecipanti.getSelectedRow());
 							deletePartecipante(tablePartecipanti.getSelectedRow());
 						}
 						catch (SQLException ex) {
