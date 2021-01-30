@@ -28,7 +28,6 @@ import java.sql.SQLException;
 public class ModificaSalaFrame extends JFrame {
 
 	private Controller controller;
-	private Sala oldSala;
 	
 	private JPanel contentPane;
 	
@@ -44,13 +43,12 @@ public class ModificaSalaFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ModificaSalaFrame(Controller c, Sala s) {
+	public ModificaSalaFrame(Controller c, Sala oldSala) {
 		
 		setTitle("Modifica Sala");
 		setResizable(false);
 		
 		controller = c;
-		oldSala = s;
 		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -83,13 +81,15 @@ public class ModificaSalaFrame extends JFrame {
 				
 				
 				try {
-					oldSala.setCittà(textFieldCittà.getText());
-					oldSala.setProvincia(textFieldProvincia.getText());
-					oldSala.setIndirizzo(textFieldIndirizzo.getText());
-					oldSala.setNumeroCivico(Integer.parseInt(textFieldNumeroCivico.getText()));
-					oldSala.setNumeroPosti(Integer.parseInt(textFieldNumeroPosti.getText()));
+					String città = textFieldCittà.getText();
+					String provincia = textFieldProvincia.getText();
+					String indirizzo = textFieldIndirizzo.getText();
+					int civico = Integer.parseInt(textFieldNumeroCivico.getText());
+					int numPosti = Integer.parseInt(textFieldNumeroPosti.getText());
 					
-					controller.ModificaSala(oldSala);
+					Sala s = new Sala(città, provincia, indirizzo, civico, numPosti);
+					
+					controller.ModificaSala(s);
 					JOptionPane.showMessageDialog(null, "Inserimento riuscito!");
 					
 					controller.ChiudiFrameModificaSalaInCercaSala();
@@ -119,7 +119,7 @@ public class ModificaSalaFrame extends JFrame {
 		textFieldCittà.setColumns(10);
 		textFieldCittà.setBounds(10, 59, 158, 20);
 		contentPane.add(textFieldCittà);
-		textFieldCittà.setText(s.getCittà());
+		textFieldCittà.setText(oldSala.getCittà());
 		
 		textFieldProvincia = new JTextField();
 		textFieldProvincia.setColumns(10);
@@ -139,7 +139,7 @@ public class ModificaSalaFrame extends JFrame {
 		});
 		textFieldProvincia.setBounds(180, 59, 42, 20);
 		contentPane.add(textFieldProvincia);
-		textFieldProvincia.setText(s.getProvincia());
+		textFieldProvincia.setText(oldSala.getProvincia());
 		
 		JLabel labelIndirizzo = new JLabel("Indirizzo");
 		labelIndirizzo.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -150,7 +150,7 @@ public class ModificaSalaFrame extends JFrame {
 		textFieldIndirizzo.setColumns(10);
 		textFieldIndirizzo.setBounds(10, 104, 158, 20);
 		contentPane.add(textFieldIndirizzo);
-		textFieldIndirizzo.setText(s.getIndirizzo());
+		textFieldIndirizzo.setText(oldSala.getIndirizzo());
 		
 		JLabel lblNewLabel_1 = new JLabel("Numero Civico");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -170,7 +170,7 @@ public class ModificaSalaFrame extends JFrame {
 		});
 		textFieldNumeroCivico.setBounds(180, 104, 42, 20);
 		contentPane.add(textFieldNumeroCivico);
-		textFieldNumeroCivico.setText(String.valueOf(s.getNumeroCivico()));
+		textFieldNumeroCivico.setText(String.valueOf(oldSala.getNumeroCivico()));
 		
 		JLabel labelNumeroPosti = new JLabel("Numero Posti");
 		labelNumeroPosti.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -191,6 +191,6 @@ public class ModificaSalaFrame extends JFrame {
 		});
 		textFieldNumeroPosti.setBounds(10, 153, 89, 20);
 		contentPane.add(textFieldNumeroPosti);
-		textFieldNumeroPosti.setText(String.valueOf(s.getNumeroPosti()));
+		textFieldNumeroPosti.setText(String.valueOf(oldSala.getNumeroPosti()));
 	}
 }

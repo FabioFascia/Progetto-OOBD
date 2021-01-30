@@ -3171,23 +3171,6 @@
 										},
 										{
 											"_type": "UMLOperationView",
-											"_id": "AAAAAAF3SedXJYdJy9w=",
-											"_parent": {
-												"$ref": "AAAAAAF3AgCS4UfLiYc="
-											},
-											"model": {
-												"$ref": "AAAAAAF3SedXA4dGHDw="
-											},
-											"font": "Arial;13;0",
-											"left": 3501,
-											"top": 2445,
-											"width": 947.5908203125,
-											"height": 13,
-											"text": "+InserimentoPartecipante(d: Dipendente, p: Progetto, ruolo: String): void",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLOperationView",
 											"_id": "AAAAAAF3SegX2ZgWOWw=",
 											"_parent": {
 												"$ref": "AAAAAAF3AgCS4UfLiYc="
@@ -3197,7 +3180,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2460,
+											"top": 2445,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+CancellazionePartecipante(p: Progetto, par: Partecipante): void",
@@ -3214,7 +3197,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2475,
+											"top": 2460,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+RicercaProgettoPerAttributi(codp: String, tipologia: String, ambito: String): ArrayList<Progetto>",
@@ -3231,7 +3214,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2490,
+											"top": 2475,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+RicercaProgettoPerPartecipanti(codf: String, nome: String, cognome: String, minSal: String, maxSal: String, minVal: String, maxVal, String): ArrayList<Progetto>",
@@ -3248,7 +3231,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2505,
+											"top": 2490,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+InserimentoMeeting(mf: MeetingFisico): void",
@@ -3265,7 +3248,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2520,
+											"top": 2505,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+InserimentoMeeting(mt: MeetingTelematico): void",
@@ -3282,7 +3265,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2535,
+											"top": 2520,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+CancellazioneMeeting(mf: MeetingFisico): void",
@@ -3299,7 +3282,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2550,
+											"top": 2535,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+CancellazioneMeeting(mt: MeetingTelematico): void",
@@ -3316,7 +3299,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2565,
+											"top": 2550,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+ModificaMeeting(mf: MeetingFisico): void",
@@ -3333,7 +3316,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2580,
+											"top": 2565,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+ModificaMeeting(mt: MeetingTelematico): void",
@@ -3350,44 +3333,10 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2595,
+											"top": 2580,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+SelezionePartecipanteMeeting(d: Dipendente): void",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLOperationView",
-											"_id": "AAAAAAF3SjENLBuENkg=",
-											"_parent": {
-												"$ref": "AAAAAAF3AgCS4UfLiYc="
-											},
-											"model": {
-												"$ref": "AAAAAAF3SjENFhuBmlg="
-											},
-											"font": "Arial;13;0",
-											"left": 3501,
-											"top": 2610,
-											"width": 947.5908203125,
-											"height": 13,
-											"text": "+InserimentoPartecipanteMeeting(mf: MeetingFisico, d: Dipendente): void",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLOperationView",
-											"_id": "AAAAAAF3SjLACyEn3M4=",
-											"_parent": {
-												"$ref": "AAAAAAF3AgCS4UfLiYc="
-											},
-											"model": {
-												"$ref": "AAAAAAF3SjK/6SEkIYo="
-											},
-											"font": "Arial;13;0",
-											"left": 3501,
-											"top": 2625,
-											"width": 947.5908203125,
-											"height": 13,
-											"text": "+InserimentoPartecipanteMeeting(mt: MeetingTelematico, d: Dipendente): void",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3401,7 +3350,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2640,
+											"top": 2595,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+CancellazionePartecipanteMeeting(mf: MeetingFisico, d: Dipendente): void",
@@ -3418,7 +3367,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2655,
+											"top": 2610,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+CancellazionePartecipanteMeeting(mt: MeetingTelematico, d: Dipendente): void",
@@ -3435,7 +3384,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2670,
+											"top": 2625,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+SelezioneProgettoMeeting(p: Progetto): void",
@@ -3452,7 +3401,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2685,
+											"top": 2640,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+SelezioneSalaMeeting(s: Sala): void",
@@ -3469,7 +3418,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2700,
+											"top": 2655,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+RicercaMeetingFisicoPerAttributi(codmf: String, data: String, oraInizio: String, oraFine: String): void",
@@ -3486,7 +3435,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2715,
+											"top": 2670,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+RicercaMeetingFisicoPerProgetti(codp: String, tipologia: String, ambito: String): ArrayList<MeetingFisico>",
@@ -3503,7 +3452,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2730,
+											"top": 2685,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+RicercaMeetingFisicoPerSale(città: String, provincia: String, indirizzo: String, numCivico: String, minPosti: String, maxPosti: String): ArrayList<MeetingFisico>",
@@ -3520,7 +3469,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2745,
+											"top": 2700,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+RicercaMeetingTelematicoPerAttributi(codmt: String, data: String, oraInizio: String, oraFine: String, piattaforma: String, limite: String): ArrayList<MeetingTelematico>",
@@ -3537,7 +3486,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2760,
+											"top": 2715,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+RicercaMeetingTelematicoPerProgetti(codp: String, tipologia: String, ambito: String): ArrayList<MeetingTelematico>",
@@ -3554,7 +3503,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2775,
+											"top": 2730,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+InserimentoSala(s: Sala): void",
@@ -3571,7 +3520,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2790,
+											"top": 2745,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+CancellazioneSala(s: Sala): void",
@@ -3588,7 +3537,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2805,
+											"top": 2760,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+ModificaSala(s: Sala): void",
@@ -3605,7 +3554,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2820,
+											"top": 2775,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+RicercaSalaPerAttributi(città: String, provincia: String, indirizzo: String, numCivico: String, minPosti: String, maxPosti: String): ArrayList<Sala>",
@@ -3622,7 +3571,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2835,
+											"top": 2790,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+getDipendenteSelezionato(indice: int): Dipendente",
@@ -3639,7 +3588,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2850,
+											"top": 2805,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+getProgettoSelezionato(indice: int): Progetto",
@@ -3656,7 +3605,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2865,
+											"top": 2820,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+getMeetingFisicoSelezionato(indice: int): MeetingFisico",
@@ -3673,7 +3622,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2880,
+											"top": 2835,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+getMeetingTelematico(indice: int): MeetingTelematico",
@@ -3690,7 +3639,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2895,
+											"top": 2850,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+getSalaSelezionata(indice: int): Sala",
@@ -3707,7 +3656,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3501,
-											"top": 2910,
+											"top": 2865,
 											"width": 947.5908203125,
 											"height": 13,
 											"text": "+setDaos(dbms: String): void",
@@ -3718,7 +3667,7 @@
 									"left": 3496,
 									"top": 1675,
 									"width": 957.5908203125,
-									"height": 1253
+									"height": 1208
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -29510,56 +29459,6 @@
 						},
 						{
 							"_type": "UMLOperation",
-							"_id": "AAAAAAF3SedXA4dGHDw=",
-							"_parent": {
-								"$ref": "AAAAAAF3AgCS30fCEII="
-							},
-							"name": "InserimentoPartecipante",
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SefXq5TalYk=",
-									"_parent": {
-										"$ref": "AAAAAAF3SedXA4dGHDw="
-									},
-									"name": "d",
-									"type": {
-										"$ref": "AAAAAAF2w8vSRx5hrGI="
-									}
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SegWcZYPHwQ=",
-									"_parent": {
-										"$ref": "AAAAAAF3SedXA4dGHDw="
-									},
-									"name": "p",
-									"type": {
-										"$ref": "AAAAAAF2w8uyHh43Hu0="
-									}
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SegWcZYQENs=",
-									"_parent": {
-										"$ref": "AAAAAAF3SedXA4dGHDw="
-									},
-									"name": "ruolo",
-									"type": "String"
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SegWcZYRNbo=",
-									"_parent": {
-										"$ref": "AAAAAAF3SedXA4dGHDw="
-									},
-									"type": "void",
-									"direction": "return"
-								}
-							]
-						},
-						{
-							"_type": "UMLOperation",
 							"_id": "AAAAAAF3SegXxpgT6W4=",
 							"_parent": {
 								"$ref": "AAAAAAF3AgCS30fCEII="
@@ -29940,88 +29839,6 @@
 									"_id": "AAAAAAF3SjELwxnm4Ok=",
 									"_parent": {
 										"$ref": "AAAAAAF3SjBvjhZGGSo="
-									},
-									"type": "void",
-									"direction": "return"
-								}
-							]
-						},
-						{
-							"_type": "UMLOperation",
-							"_id": "AAAAAAF3SjENFhuBmlg=",
-							"_parent": {
-								"$ref": "AAAAAAF3AgCS30fCEII="
-							},
-							"name": "InserimentoPartecipanteMeeting",
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SjKT7h8gIno=",
-									"_parent": {
-										"$ref": "AAAAAAF3SjENFhuBmlg="
-									},
-									"name": "mf",
-									"type": {
-										"$ref": "AAAAAAF2w8zJ6R67Xfo="
-									}
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SjKT7h8h/QI=",
-									"_parent": {
-										"$ref": "AAAAAAF3SjENFhuBmlg="
-									},
-									"name": "d",
-									"type": {
-										"$ref": "AAAAAAF2w8vSRx5hrGI="
-									}
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SjKT7h8ieh8=",
-									"_parent": {
-										"$ref": "AAAAAAF3SjENFhuBmlg="
-									},
-									"type": "void",
-									"direction": "return"
-								}
-							]
-						},
-						{
-							"_type": "UMLOperation",
-							"_id": "AAAAAAF3SjK/6SEkIYo=",
-							"_parent": {
-								"$ref": "AAAAAAF3AgCS30fCEII="
-							},
-							"name": "InserimentoPartecipanteMeeting",
-							"parameters": [
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SjMtRiMp0FA=",
-									"_parent": {
-										"$ref": "AAAAAAF3SjK/6SEkIYo="
-									},
-									"name": "mt",
-									"type": {
-										"$ref": "AAAAAAF2w+Wz7Tv5eGU="
-									}
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SjMtRiMqMpI=",
-									"_parent": {
-										"$ref": "AAAAAAF3SjK/6SEkIYo="
-									},
-									"name": "d",
-									"type": {
-										"$ref": "AAAAAAF2w8vSRx5hrGI="
-									}
-								},
-								{
-									"_type": "UMLParameter",
-									"_id": "AAAAAAF3SjMtRiMrPtQ=",
-									"_parent": {
-										"$ref": "AAAAAAF3SjK/6SEkIYo="
 									},
 									"type": "void",
 									"direction": "return"
@@ -30932,7 +30749,8 @@
 								"$ref": "AAAAAAF3AgGP8VdwojU="
 							},
 							"name": "tfMaxSalario",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",

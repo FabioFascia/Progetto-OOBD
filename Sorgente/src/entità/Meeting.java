@@ -55,4 +55,8 @@ public class Meeting {
 	public void addPartecipante(Dipendente d) {
 		Partecipanti.add(d);
 	}
+	public void deletePartecipante(Dipendente d) {
+		if(Partecipanti.contains(d))
+			Partecipanti.remove(d);
+	}
 }

@@ -259,9 +259,8 @@ public class InserisciProgettoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try { 
-					Progetto p = new Progetto(textFieldTipologia.getText(), textAreaDescrizione.getText());
 					Dipendente pm = new Dipendente(tableProjectManager.getModel().getValueAt(0, 0).toString());
-					p.setProjectManager(pm);
+					Progetto p = new Progetto(textFieldTipologia.getText(), textAreaDescrizione.getText(), pm);
 					
 					for(int i = 0 ; i < tableAmbiti.getModel().getRowCount() ; i++) {
 						p.addAmbito(tableAmbiti.getModel().getValueAt(i, 0).toString());

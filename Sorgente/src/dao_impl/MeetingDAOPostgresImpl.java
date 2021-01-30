@@ -59,7 +59,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
 		
 		insertMeetingTelematicoPS = connection.prepareStatement("CALL Insert_MeetingT(?, ?, ?, ?, ?, ?);");
 		deleteMeetingTelematicoPS = connection.prepareStatement("DELETE FROM MEETINGT WHERE CodMT = ?;");
-		updateMeetingTelematicoPS = connection.prepareStatement("UPDATE MEETINGT SET Data = ?, OraI = ?, Oraf = ?, Piattaforma = ?, NumLimite = ? WHERE CodMT = ?;");
+		updateMeetingTelematicoPS = connection.prepareStatement("UPDATE MEETINGT SET CodP = ?, Data = ?, OraI = ?, Oraf = ?, Piattaforma = ?, NumLimite = ? WHERE CodMT = ?;");
 		
 		insertPartecipanteMeetingFisicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMF(CodMF, CodF) VALUES (?, ?);");
 		insertPartecipanteMeetingTelematicoPS = connection.prepareStatement("INSERT INTO PARTECIPAMT(CodMT, CodF) VALUES (?, ?);");
@@ -178,12 +178,13 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     
     public void updateMeeting (MeetingTelematico mt) throws SQLException {
     	
-    	updateMeetingTelematicoPS.setDate(1, mt.getData());
-    	updateMeetingTelematicoPS.setTime(2, mt.getOraInizio());
-    	updateMeetingTelematicoPS.setTime(3, mt.getOraFine());
-    	updateMeetingTelematicoPS.setString(4, mt.getPiattaforma());
-    	updateMeetingTelematicoPS.setInt(5, mt.getNumeroLimite());
-    	updateMeetingTelematicoPS.setInt(6, mt.getCodice());
+    	updateMeetingTelematicoPS.setInt(1, mt.getProgettoMeeting().getCodice());
+    	updateMeetingTelematicoPS.setDate(2, mt.getData());
+    	updateMeetingTelematicoPS.setTime(3, mt.getOraInizio());
+    	updateMeetingTelematicoPS.setTime(4, mt.getOraFine());
+    	updateMeetingTelematicoPS.setString(5, mt.getPiattaforma());
+    	updateMeetingTelematicoPS.setInt(6, mt.getNumeroLimite());
+    	updateMeetingTelematicoPS.setInt(7, mt.getCodice());
     	
     	updateMeetingTelematicoPS.execute();
     	
@@ -396,7 +397,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     	while(rs.next()) {
     		
-    		int cod = rs.getInt("CodMF");
+    		int cod = rs.getInt("CodMT");
     		Date date = rs.getDate("Data");
     		Time oraI = rs.getTime("OraI");
     		Time oraF = rs.getTime("OraF");
@@ -441,7 +442,7 @@ public class MeetingDAOPostgresImpl implements MeetingDAO {
     	
     	while(rs.next()) {
     		
-    		int cod = rs.getInt("CodMF");
+    		int cod = rs.getInt("CodMT");
     		Date date = rs.getDate("Data");
     		Time oraI = rs.getTime("OraI");
     		Time oraF = rs.getTime("OraF");

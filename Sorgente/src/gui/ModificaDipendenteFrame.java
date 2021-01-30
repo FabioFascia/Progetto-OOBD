@@ -27,7 +27,6 @@ import java.sql.SQLException;
 public class ModificaDipendenteFrame extends JFrame {
 
 	private Controller controller;
-	private Dipendente oldDip;
 	
 	private JPanel contentPane;
 	
@@ -42,10 +41,9 @@ public class ModificaDipendenteFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ModificaDipendenteFrame(Controller c, Dipendente d) {
+	public ModificaDipendenteFrame(Controller c, Dipendente oldDip) {
 		
 		controller = c;
-		oldDip = d;
 		
 		setTitle("Modifica Dipendente");
 		setResizable(false);
@@ -93,19 +91,19 @@ public class ModificaDipendenteFrame extends JFrame {
 				e.setKeyChar(Character.toUpperCase(keyChar));
 			}
 		});
-		textFieldCodiceFiscale.setText(d.getCodF());
+		textFieldCodiceFiscale.setText(oldDip.getCodF());
 		
-		textFieldNome = new JTextField(d.getNome());
+		textFieldNome = new JTextField(oldDip.getNome());
 		textFieldNome.setBounds(10, 126, 171, 20);
 		contentPane.add(textFieldNome);
 		textFieldNome.setColumns(10);
 		
-		textFieldCognome = new JTextField(d.getCognome());
+		textFieldCognome = new JTextField(oldDip.getCognome());
 		textFieldCognome.setBounds(10, 181, 171, 20);
 		contentPane.add(textFieldCognome);
 		textFieldCognome.setColumns(10);
 		
-		textFieldSalario = new JTextField(String.valueOf(d.getSalario()));
+		textFieldSalario = new JTextField(String.valueOf(oldDip.getSalario()));
 		textFieldSalario.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -151,7 +149,7 @@ public class ModificaDipendenteFrame extends JFrame {
 				Dipendente d = new Dipendente(codf, nome, cognome, salario);
 				
 				try {
-					controller.ModificaDipendente(oldDip, d);
+					controller.ModificaDipendente(d);
 					
 					JOptionPane.showMessageDialog(null, "Modifica riuscita!");
 					controller.ChiudiFrameModificaDipendenteInCercaDipendente();

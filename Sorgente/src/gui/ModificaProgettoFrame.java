@@ -47,7 +47,6 @@ import javax.swing.JTextArea;
 public class ModificaProgettoFrame extends JFrame {
 
 	private Controller controller;
-	private Progetto oldProgetto;
 	
 	private JPanel contentPane;
 	private JPopupMenu popupMenuTable;
@@ -68,12 +67,11 @@ public class ModificaProgettoFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ModificaProgettoFrame(Controller c, Progetto p) {
+	public ModificaProgettoFrame(Controller c, Progetto oldProgetto) {
 		setResizable(false);
 		
 		setTitle("Modifica Progetto");
 		controller = c;
-		oldProgetto = p;
 		
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
@@ -112,6 +110,7 @@ public class ModificaProgettoFrame extends JFrame {
 		buttonInserisciAmbito.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
+					controller.InserimentoAmbito(textFieldAmbito.getText());
 					addAmbito(textFieldAmbito.getText());
 					textFieldAmbito.setText("");
 				}
@@ -190,7 +189,7 @@ public class ModificaProgettoFrame extends JFrame {
 			}
 		});
 		scrollPane.setViewportView(tableAmbiti);
-		for(String a : p.getAmbiti()) {
+		for(String a : oldProgetto.getAmbiti()) {
 			((DefaultTableModel) tableAmbiti.getModel()).addRow(new Object[] {a});
 		}
 		
@@ -237,7 +236,8 @@ public class ModificaProgettoFrame extends JFrame {
 				return false;
 			}
 		});
-		((DefaultTableModel) tableProjectManager.getModel()).addRow(new Object[] {p.getProjectManager().getCodF(), p.getProjectManager().getNome(), p.getProjectManager().getCognome(), p.getProjectManager().getSalario()});
+		Dipendente pm = oldProgetto.getProjectManager();
+		((DefaultTableModel) tableProjectManager.getModel()).addRow(new Object[] {pm.getCodF(), pm.getNome(), pm.getCognome(), pm.getSalario()});
 		
 		JLabel lblPartecipanti = new JLabel("Partecipanti");
 		lblPartecipanti.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -265,7 +265,7 @@ public class ModificaProgettoFrame extends JFrame {
 			}
 		});
 		textAreaDescrizione.setBounds(10, 317, 531, 63);
-		textAreaDescrizione.setText(p.getDescrizione());
+		textAreaDescrizione.setText(oldProgetto.getDescrizione());
 		contentPane.add(textAreaDescrizione);
 		
 		buttonModifica = new JButton("Modifica Progetto");
@@ -273,11 +273,11 @@ public class ModificaProgettoFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				try {
-					oldProgetto.setTipologia(textFieldTipologia.getText());
-					oldProgetto.setDescrizione(textAreaDescrizione.getText());
+					Dipendente pm = new Dipendente(tableProjectManager.getModel().getValueAt(0, 0).toString());
 					
-					controller.ModificaProjectManager(oldProgetto, oldProgetto.getProjectManager());
-					controller.ModificaProgetto(oldProgetto);
+					Progetto p = new Progetto(textFieldTipologia.getText(), textAreaDescrizione.getText(), pm);
+					
+					controller.ModificaProgetto(p);
 					
 					controller.ChiudiFrameModificaProgettoInCercaProgetto();
 				}
@@ -330,7 +330,7 @@ public class ModificaProgettoFrame extends JFrame {
 			}
 		});
 		scrollPane_1_1.setViewportView(tablePartecipanti);
-		for(Partecipante par : p.getPartecipanti()) {
+		for(Partecipante par : oldProgetto.getPartecipanti()) {
 			((DefaultTableModel) tablePartecipanti.getModel()).addRow(new Object[] {par.getDipendente().getCodF(), par.getDipendente().getNome(), par.getDipendente().getCognome(), par.getDipendente().getSalario(), par.getRuolo()});
 		}
 		
@@ -378,7 +378,10 @@ public class ModificaProgettoFrame extends JFrame {
 					case JOptionPane.YES_OPTION:
 						while (tablePartecipanti.getSelectedRowCount() > 0) {
 							try {
-								deletePartecipante(tablePartecipanti.getSelectedRow());
+								while(tablePartecipanti.getSelectedRowCount() > 0) {
+									controller.CancellazionePartecipante(tablePartecipanti.getSelectedRow());
+									deletePartecipante(tablePartecipanti.getSelectedRow());
+								}
 							}
 							catch (SQLException ex) {
 								JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -400,9 +403,14 @@ public class ModificaProgettoFrame extends JFrame {
 					
 					switch (JOptionPane.showConfirmDialog(null, "Eliminare le righe selezionate?", "Cancella righe", JOptionPane.YES_NO_OPTION)) {
 					case JOptionPane.YES_OPTION:
-						while (tableAmbiti.getSelectedRowCount() > 0) {
-							int i = tableAmbiti.getSelectedRow();
-							((DefaultTableModel)tableAmbiti.getModel()).removeRow(i);
+						try {
+							while (tableAmbiti.getSelectedRowCount() > 0) {
+								controller.CancellazioneAmbito(tableAmbiti.getSelectedRow());
+								((DefaultTableModel)tableAmbiti.getModel()).removeRow(tableAmbiti.getSelectedRow());
+							}
+						}
+						catch (SQLException ex) {
+							JOptionPane.showMessageDialog(null, ex.getMessage());
 						}
 						break;
 					case JOptionPane.NO_OPTION:
@@ -436,8 +444,6 @@ public class ModificaProgettoFrame extends JFrame {
 	
 	public void setProjectManager(Dipendente pm) throws SQLException {
 		
-		controller.ModificaProjectManager(oldProgetto, pm);
-		
 		DefaultTableModel model = (DefaultTableModel) tableProjectManager.getModel();
 		
 		model.setRowCount(0);
@@ -450,15 +456,11 @@ public class ModificaProgettoFrame extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tableAmbiti.getModel();
 		
 		model.addRow(new Object[] {ambito});
-		
-		controller.InserimentoAmbito(oldProgetto, ambito);
 	}
 	
 	public void deleteAmbito(int indice) throws SQLException {
 		
 		((DefaultTableModel) tableAmbiti.getModel()).removeRow(indice);
-		
-		controller.CancellazioneAmbito(oldProgetto, oldProgetto.getAmbiti().get(indice));
 	}
 	
 	public void addPartecipante(Dipendente d, String ruolo) throws SQLException {
@@ -466,14 +468,10 @@ public class ModificaProgettoFrame extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) tablePartecipanti.getModel();
 		
 		model.addRow(new Object[] {d.getCodF(), d.getNome(), d.getCognome(), d.getSalario(), ruolo});
-		
-		controller.InserimentoPartecipante(d, oldProgetto, ruolo);
 	}
 	
 	public void deletePartecipante(int indice) throws SQLException {
 		
 		((DefaultTableModel) tablePartecipanti.getModel()).removeRow(indice);
-		
-		controller.CancellazionePartecipante(oldProgetto, oldProgetto.getPartecipanti().get(indice));
 	}
 }
