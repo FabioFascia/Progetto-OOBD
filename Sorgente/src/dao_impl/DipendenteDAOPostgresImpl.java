@@ -21,6 +21,8 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 	private PreparedStatement updateDipendentePS;
 	private PreparedStatement deleteDipendentePS;
 	
+	private PreparedStatement getSalarioMedioPS;
+	
 	private PreparedStatement getDipendenteByAttributiPS;
 	private PreparedStatement getDipendenteByProgettiPS;
 	private PreparedStatement getDipendenteByMeetingFisiciPS;
@@ -35,6 +37,8 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		updateDipendentePS = connection.prepareStatement("UPDATE DIPENDENTE SET CodF = ?, Nome = ?, Cognome = ?, Salario = ? WHERE Codf = ?;");
 		
 		deleteDipendentePS = connection.prepareStatement("DELETE FROM DIPENDENTE WHERE Codf = ?;");
+		
+		getSalarioMedioPS = connection.prepareStatement("SELECT get_Salario_Medio();");
 		
 		getDipendenteByAttributiPS = connection.prepareStatement("SELECT * "
 																+ "FROM DIPENDENTE "
@@ -114,6 +118,15 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
 		deleteDipendentePS.setString(1, d.getCodF());
 		
 		deleteDipendentePS.execute();
+	}
+	
+	public float getSalarioMedio() throws SQLException {
+		
+		ResultSet rs = getSalarioMedioPS.executeQuery();
+		
+		rs.next();
+		
+		return rs.getFloat(1);
 	}
 	
 	public ArrayList<Dipendente> getDipendenteByAttributi(String codf, String nome, String cognome, String minSalario ,String maxSalario, String minValutazione, String maxValutazione) throws SQLException{
@@ -290,16 +303,16 @@ public class DipendenteDAOPostgresImpl implements DipendenteDAO {
     	oraInizio = Time.valueOf(oraI);
     	oraFine = Time.valueOf(oraF);
     	
-    	getDipendenteByMeetingFisiciPS.setInt(1, codice);
-    	getDipendenteByMeetingFisiciPS.setInt(2, codice);
-    	getDipendenteByMeetingFisiciPS.setDate(3, Data);
-    	getDipendenteByMeetingFisiciPS.setDate(4, Data);
-    	getDipendenteByMeetingFisiciPS.setTime(5, oraInizio);
-    	getDipendenteByMeetingFisiciPS.setTime(6, oraFine);
-    	getDipendenteByMeetingFisiciPS.setTime(7, oraInizio);
-    	getDipendenteByMeetingFisiciPS.setTime(8, oraFine);
+    	getDipendenteByMeetingTelematiciPS.setInt(1, codice);
+    	getDipendenteByMeetingTelematiciPS.setInt(2, codice);
+    	getDipendenteByMeetingTelematiciPS.setDate(3, Data);
+    	getDipendenteByMeetingTelematiciPS.setDate(4, Data);
+    	getDipendenteByMeetingTelematiciPS.setTime(5, oraInizio);
+    	getDipendenteByMeetingTelematiciPS.setTime(6, oraFine);
+    	getDipendenteByMeetingTelematiciPS.setTime(7, oraInizio);
+    	getDipendenteByMeetingTelematiciPS.setTime(8, oraFine);
     	
-    	ResultSet rs = getDipendenteByMeetingFisiciPS.executeQuery();
+    	ResultSet rs = getDipendenteByMeetingTelematiciPS.executeQuery();
     	
 		ArrayList<Dipendente> lista = new ArrayList<Dipendente>();
 		

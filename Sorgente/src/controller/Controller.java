@@ -387,6 +387,9 @@ public class Controller {
 		
 		dipendenteDao.deleteDipendente(d);
 	}
+	public float CalcoloSalarioMedio() throws SQLException {
+		return dipendenteDao.getSalarioMedio();
+	}
 	
 	public ArrayList<Dipendente> RicercaDipendentePerAttributi(String codf, String nome, String cognome, String minSal, String maxSal, String minVal, String maxVal) throws SQLException {
 		
