@@ -25,6 +25,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
@@ -65,6 +66,8 @@ public class CercaPartecipanteFrame extends JFrame {
 	private JTextField textFieldCognome;
 	private JTextField textFieldMinSalario;
 	private JTextField textFieldMaxSalario;
+	private JCheckBox checkboxMinSalario;
+	private JCheckBox checkboxMaxSalario;
 	private JTextField textFieldMinValutazione;
 	private JTextField textFieldMaxValutazione;
 	
@@ -104,14 +107,14 @@ public class CercaPartecipanteFrame extends JFrame {
 				controller.ChiudiFrameCercaPartecipante();
 			}
 		});
-		setBounds(100, 100, 480, 530);
+		setBounds(100, 100, 480, 550);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(10, 32, 257, 208);
+		layeredPane.setBounds(10, 32, 257, 240);
 		contentPane.add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		
@@ -196,18 +199,18 @@ public class CercaPartecipanteFrame extends JFrame {
 		
 		JLabel labelValutazione = new JLabel("Valutazione");
 		labelValutazione.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelValutazione.setBounds(10, 163, 68, 14);
+		labelValutazione.setBounds(10, 195, 68, 14);
 		panelAttributi.add(labelValutazione);
 		
 		JLabel labelMin_1 = new JLabel("Min");
 		labelMin_1.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMin_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMin_1.setBounds(10, 180, 32, 14);
+		labelMin_1.setBounds(10, 212, 32, 14);
 		panelAttributi.add(labelMin_1);
 		
 		textFieldMinValutazione = new JTextField();
 		textFieldMinValutazione.setColumns(10);
-		textFieldMinValutazione.setBounds(49, 177, 68, 20);
+		textFieldMinValutazione.setBounds(49, 209, 68, 20);
 		textFieldMinValutazione.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -220,7 +223,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		
 		textFieldMaxValutazione = new JTextField();
 		textFieldMaxValutazione.setColumns(10);
-		textFieldMaxValutazione.setBounds(139, 177, 68, 20);
+		textFieldMaxValutazione.setBounds(139, 209, 68, 20);
 		textFieldMaxValutazione.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -234,8 +237,56 @@ public class CercaPartecipanteFrame extends JFrame {
 		JLabel labelMax_1 = new JLabel("Max");
 		labelMax_1.setHorizontalAlignment(SwingConstants.CENTER);
 		labelMax_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		labelMax_1.setBounds(215, 180, 32, 14);
+		labelMax_1.setBounds(215, 212, 32, 14);
 		panelAttributi.add(labelMax_1);
+		
+		checkboxMinSalario = new JCheckBox("Salario medio");
+		checkboxMinSalario.setBounds(6, 167, 111, 23);
+		checkboxMinSalario.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(checkboxMinSalario.isSelected()) {
+						textFieldMinSalario.setText(String.valueOf(controller.CalcoloSalarioMedio()));
+						textFieldMinSalario.setEnabled(false);
+					}
+					else {
+						textFieldMinSalario.setText("");
+						textFieldMinSalario.setEnabled(true);
+					}
+				}
+				catch(SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+			}
+			
+		});
+		panelAttributi.add(checkboxMinSalario);
+		
+		checkboxMaxSalario = new JCheckBox("Salario medio");
+		checkboxMaxSalario.setBounds(135, 167, 112, 23);
+		checkboxMaxSalario.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(checkboxMaxSalario.isSelected()) {
+						textFieldMaxSalario.setText(String.valueOf(controller.CalcoloSalarioMedio()));
+						textFieldMaxSalario.setEnabled(false);
+					}
+					else {
+						textFieldMaxSalario.setText("");
+						textFieldMaxSalario.setEnabled(true);
+					}
+				}
+				catch(SQLException ex) {
+					JOptionPane.showMessageDialog(null, ex.getMessage());
+				}
+			}
+			
+		});
+		panelAttributi.add(checkboxMaxSalario);
 		
 		JPanel panelProgetti = new JPanel();
 		layeredPane.add(panelProgetti, "name_146017521321800");
@@ -367,7 +418,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		panelMeeting.add(lblNewLabel_4);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 273, 464, 156);
+		scrollPane.setBounds(0, 303, 464, 156);
 		contentPane.add(scrollPane);
 		
 		buttonConferma = new JButton("Conferma");
@@ -386,7 +437,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		});
 		buttonConferma.setFont(new Font("Tahoma", Font.BOLD, 11));
 		buttonConferma.setEnabled(false);
-		buttonConferma.setBounds(198, 457, 242, 23);
+		buttonConferma.setBounds(198, 487, 242, 23);
 		contentPane.add(buttonConferma);
 		
 		tableDipendenti = new JTable();
@@ -509,11 +560,11 @@ public class CercaPartecipanteFrame extends JFrame {
 				}
 			}
 		});
-		buttonRicerca.setBounds(335, 243, 104, 23);
+		buttonRicerca.setBounds(335, 273, 104, 23);
 		contentPane.add(buttonRicerca);
 		
 		textFieldNewRuolo = new JTextField();
-		textFieldNewRuolo.setBounds(10, 458, 168, 20);
+		textFieldNewRuolo.setBounds(10, 488, 168, 20);
 		contentPane.add(textFieldNewRuolo);
 		textFieldNewRuolo.setColumns(10);
 		textFieldNewRuolo.getDocument().addDocumentListener(new DocumentListener() {
@@ -547,7 +598,7 @@ public class CercaPartecipanteFrame extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("Ruolo");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-		lblNewLabel_1.setBounds(10, 440, 46, 14);
+		lblNewLabel_1.setBounds(10, 470, 46, 14);
 		contentPane.add(lblNewLabel_1);
 		
 	}

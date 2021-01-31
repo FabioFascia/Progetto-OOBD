@@ -3941,7 +3941,41 @@
 											"top": 2278,
 											"width": 292.3095703125,
 											"height": 13,
-											"text": "-tfMaxSalario",
+											"text": "-tfMaxSalario: JTextField",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WRUfurgFTb4=",
+											"_parent": {
+												"$ref": "AAAAAAF3AgGP81d413U="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRUfebgCNlk="
+											},
+											"font": "Arial;13;0",
+											"left": 2789,
+											"top": 2293,
+											"width": 292.3095703125,
+											"height": 13,
+											"text": "-checkboxMinSalario: JCheckbox",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WRWwwcF3igE=",
+											"_parent": {
+												"$ref": "AAAAAAF3AgGP81d413U="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRWwncF0QHA="
+											},
+											"font": "Arial;13;0",
+											"left": 2789,
+											"top": 2308,
+											"width": 292.3095703125,
+											"height": 13,
+											"text": "-checkboxMaxSalario: JCheckbox",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3955,7 +3989,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2293,
+											"top": 2323,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMinValutazione: JTextField",
@@ -3972,7 +4006,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2308,
+											"top": 2338,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMaxValutazione: JTextField",
@@ -3989,7 +4023,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2323,
+											"top": 2353,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfCodiceProgetto: JTextField",
@@ -4006,7 +4040,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2338,
+											"top": 2368,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfTipologia: JTextField",
@@ -4023,7 +4057,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2353,
+											"top": 2383,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfAmbito: JTextField",
@@ -4040,7 +4074,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2368,
+											"top": 2398,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfRuolo: JTextField",
@@ -4057,7 +4091,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2383,
+											"top": 2413,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMinNumeroProgetti: JTextField",
@@ -4074,7 +4108,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2398,
+											"top": 2428,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMaxNumeroProgetti: JTextField",
@@ -4091,7 +4125,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2413,
+											"top": 2443,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-comboBoxTipoMeeting: JComboBox",
@@ -4108,7 +4142,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2428,
+											"top": 2458,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfCodiceMeeting: JTextField",
@@ -4125,7 +4159,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2443,
+											"top": 2473,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerData: JSpinner",
@@ -4142,7 +4176,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2458,
+											"top": 2488,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerOraInizio: JSpinner",
@@ -4159,7 +4193,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2473,
+											"top": 2503,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerOraFine: JSpinner",
@@ -4176,7 +4210,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2488,
+											"top": 2518,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnIndietro: JButton",
@@ -4193,7 +4227,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2503,
+											"top": 2533,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnInserimento: JButton",
@@ -4210,7 +4244,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2518,
+											"top": 2548,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnRicerca: JButton",
@@ -4221,7 +4255,7 @@
 									"left": 2784,
 									"top": 2153,
 									"width": 302.3095703125,
-									"height": 383
+									"height": 413
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -4244,7 +4278,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2541,
+											"top": 2571,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "+PopolaTabella(lista: ArrayList<Dipendente>): void",
@@ -4261,7 +4295,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2789,
-											"top": 2556,
+											"top": 2586,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "+ApriPopupMenu(e: MouseEvent): void",
@@ -4270,7 +4304,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 2784,
-									"top": 2536,
+									"top": 2566,
 									"width": 302.3095703125,
 									"height": 38
 								},
@@ -4312,7 +4346,7 @@
 							"left": 2784,
 							"top": 2128,
 							"width": 302.3095703125,
-							"height": 446,
+							"height": 476,
 							"nameCompartment": {
 								"$ref": "AAAAAAF3AgGP8ldzcCI="
 							},
@@ -8093,6 +8127,23 @@
 										},
 										{
 											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WR2FMDWY7MQ=",
+											"_parent": {
+												"$ref": "AAAAAAF3Agofb6ouj9I="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WR2E8DWV87M="
+											},
+											"font": "Arial;13;0",
+											"left": 1461,
+											"top": 3706,
+											"width": 345.4140625,
+											"height": 13,
+											"text": "-getSalarioMinimoPS: PreparedStatement",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
 											"_id": "AAAAAAF3TisWuLkL+Hg=",
 											"_parent": {
 												"$ref": "AAAAAAF3Agofb6ouj9I="
@@ -8102,7 +8153,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1461,
-											"top": 3706,
+											"top": 3721,
 											"width": 345.4140625,
 											"height": 13,
 											"text": "-getDipendenteByAttributiPS: PreparedStatement",
@@ -8119,7 +8170,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1461,
-											"top": 3721,
+											"top": 3736,
 											"width": 345.4140625,
 											"height": 13,
 											"text": "-getDipendenteByProgettiPS: PreparedStatement",
@@ -8136,7 +8187,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1461,
-											"top": 3736,
+											"top": 3751,
 											"width": 345.4140625,
 											"height": 13,
 											"text": "-getDipendenteByMeetingFisiciPS: PreparedStatement",
@@ -8153,7 +8204,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1461,
-											"top": 3751,
+											"top": 3766,
 											"width": 345.4140625,
 											"height": 13,
 											"text": "-getDipendenteByMeetingTelematiciPS: PreparedStatement",
@@ -8164,7 +8215,7 @@
 									"left": 1456,
 									"top": 3641,
 									"width": 355.4140625,
-									"height": 128
+									"height": 143
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -8177,7 +8228,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1456,
-									"top": 3769,
+									"top": 3784,
 									"width": 355.4140625,
 									"height": 10
 								},
@@ -8219,7 +8270,7 @@
 							"left": 1456,
 							"top": 3616,
 							"width": 355.4140625,
-							"height": 163,
+							"height": 178,
 							"nameCompartment": {
 								"$ref": "AAAAAAF3Agofb6opGPY="
 							},
@@ -11346,7 +11397,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 3288,
-									"top": 2293,
+									"top": 2303,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -11366,8 +11417,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 3287,
-									"top": 2278,
+									"left": 3286,
+									"top": 2288,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -11388,7 +11439,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 3291,
-									"top": 2322,
+									"top": 2332,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -11409,7 +11460,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 3110,
-									"top": 2311,
+									"top": 2324,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -11429,8 +11480,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3111,
-									"top": 2298,
+									"left": 3110,
+									"top": 2310,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -11450,7 +11501,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 3098,
-									"top": 2339,
+									"top": 2351,
 									"width": 21.68359375,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -11473,7 +11524,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 3467,
-									"top": 2275,
+									"top": 2283,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -11492,8 +11543,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3464,
-									"top": 2262,
+									"left": 3463,
+									"top": 2270,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -11512,7 +11563,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 3471,
-									"top": 2302,
+									"top": 2309,
 									"width": 7.22998046875,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -11563,7 +11614,7 @@
 								"$ref": "AAAAAAF3AgGP8ldy1Zw="
 							},
 							"lineStyle": 1,
-							"points": "3086:2335;3495:2294",
+							"points": "3086:2348;3495:2301",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3AhW9amsmPg4="
@@ -14997,6 +15048,23 @@
 										},
 										{
 											"_type": "UMLOperationView",
+											"_id": "AAAAAAF3WRzKyy+ApbY=",
+											"_parent": {
+												"$ref": "AAAAAAF3TizYU+LM6zg="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRzKeC9N3NA="
+											},
+											"font": "Arial;13;0",
+											"left": 1181,
+											"top": 3466,
+											"width": 906.69287109375,
+											"height": 13,
+											"text": "+getSalarioMinimo(): float",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
 											"_id": "AAAAAAF3Ti8gcvw5JEo=",
 											"_parent": {
 												"$ref": "AAAAAAF3TizYU+LM6zg="
@@ -15006,7 +15074,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1181,
-											"top": 3466,
+											"top": 3481,
 											"width": 906.69287109375,
 											"height": 13,
 											"text": "+getDipendenteByAttributi(codf: String, nome: String, cognome: String, minSal: String, maxSal: String, minVal: String, maxVal: String): ArrayList<Dipendente>",
@@ -15023,7 +15091,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1181,
-											"top": 3481,
+											"top": 3496,
 											"width": 906.69287109375,
 											"height": 13,
 											"text": "+getDipendenteByProgetti(codp: String, tipologia: String, ambito: String, ruolo: String, minProgetti: String, maxProgetti: String): ArrayList<Dipendente>",
@@ -15040,7 +15108,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1181,
-											"top": 3496,
+											"top": 3511,
 											"width": 906.69287109375,
 											"height": 13,
 											"text": "+getDipendenteByMeetingFisici(codmf: String, data: String, oraI: String, oraF: String): ArrayList<Dipendente>",
@@ -15051,7 +15119,7 @@
 									"left": 1176,
 									"top": 3416,
 									"width": 916.69287109375,
-									"height": 98
+									"height": 113
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -15091,7 +15159,7 @@
 							"left": 1176,
 							"top": 3368,
 							"width": 916.69287109375,
-							"height": 146,
+							"height": 161,
 							"nameCompartment": {
 								"$ref": "AAAAAAF3TizYUuLGFdY="
 							},
@@ -16279,7 +16347,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1618,
-									"top": 3557,
+									"top": 3565,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -16300,7 +16368,7 @@
 									"visible": null,
 									"font": "Arial;13;0",
 									"left": 1603,
-									"top": 3557,
+									"top": 3565,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -16321,7 +16389,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1647,
-									"top": 3558,
+									"top": 3566,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -16339,7 +16407,7 @@
 								"$ref": "AAAAAAF3Agofb6ooyos="
 							},
 							"lineStyle": 1,
-							"points": "1633:3615;1633:3514",
+							"points": "1633:3615;1633:3529",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3Tqmcl+URHdg="
@@ -17479,8 +17547,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 2641,
-									"top": 2935,
+									"left": 2649,
+									"top": 2936,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -17500,8 +17568,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 2648,
-									"top": 2948,
+									"left": 2656,
+									"top": 2949,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -17521,8 +17589,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 2628,
-									"top": 2908,
+									"left": 2636,
+									"top": 2909,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -17543,7 +17611,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 3478,
-									"top": 2509,
+									"top": 2511,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -17564,7 +17632,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 3482,
-									"top": 2522,
+									"top": 2524,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -17584,7 +17652,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 3467,
-									"top": 2482,
+									"top": 2484,
 									"width": 7.22998046875,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -17606,7 +17674,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1805,
+									"left": 1820,
 									"top": 3362,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -17626,7 +17694,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1814,
+									"left": 1829,
 									"top": 3373,
 									"height": 13,
 									"alpha": -0.7853981633974483,
@@ -17645,8 +17713,8 @@
 										"$ref": "AAAAAAF3Tq8ll4g+4fY="
 									},
 									"font": "Arial;13;0",
-									"left": 1786,
-									"top": 3340,
+									"left": 1801,
+									"top": 3339,
 									"width": 7.22998046875,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -17697,7 +17765,7 @@
 								"$ref": "AAAAAAF3AgCS4EfEsbs="
 							},
 							"lineStyle": 1,
-							"points": "3495:2490;1776:3367",
+							"points": "3495:2492;1791:3367",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3Tq8lmIhBCic="
@@ -18242,7 +18310,41 @@
 											"top": 1799,
 											"width": 292.3095703125,
 											"height": 13,
-											"text": "-tfMaxSalario",
+											"text": "-tfMaxSalario; JTextField",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WRZDC864+h8=",
+											"_parent": {
+												"$ref": "AAAAAAF3TvTzfo6ZSb0="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRZCsc52XsY="
+											},
+											"font": "Arial;13;0",
+											"left": 2445,
+											"top": 1814,
+											"width": 292.3095703125,
+											"height": 13,
+											"text": "-checkboxMinSalario: JCheckbox",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WRbLRdygtmk=",
+											"_parent": {
+												"$ref": "AAAAAAF3TvTzfo6ZSb0="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRbK8dxeiis="
+											},
+											"font": "Arial;13;0",
+											"left": 2445,
+											"top": 1829,
+											"width": 292.3095703125,
+											"height": 13,
+											"text": "-checkboxMaxSalario: JCheckbox",
 											"horizontalAlignment": 0
 										},
 										{
@@ -18256,7 +18358,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1814,
+											"top": 1844,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMinValutazione: JTextField",
@@ -18273,7 +18375,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1829,
+											"top": 1859,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMaxValutazione: JTextField",
@@ -18290,7 +18392,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1844,
+											"top": 1874,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfCodiceProgetto: JTextField",
@@ -18307,7 +18409,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1859,
+											"top": 1889,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfTipologia: JTextField",
@@ -18324,7 +18426,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1874,
+											"top": 1904,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfAmbito: JTextField",
@@ -18341,7 +18443,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1889,
+											"top": 1919,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfRuolo: JTextField",
@@ -18358,7 +18460,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1904,
+											"top": 1934,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMinNumeroProgetti: JTextField",
@@ -18375,7 +18477,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1919,
+											"top": 1949,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMaxNumeroProgetti: JTextField",
@@ -18392,7 +18494,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1934,
+											"top": 1964,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-comboBoxTipoMeeting: JComboBox",
@@ -18409,7 +18511,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1949,
+											"top": 1979,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfCodiceMeeting: JTextField",
@@ -18426,7 +18528,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1964,
+											"top": 1994,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerData: JSpinner",
@@ -18443,7 +18545,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1979,
+											"top": 2009,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerOraInizio: JSpinner",
@@ -18460,7 +18562,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 1994,
+											"top": 2024,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerOraFine: JSpinner",
@@ -18477,7 +18579,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 2009,
+											"top": 2039,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfNewRuolo: JTextField",
@@ -18494,7 +18596,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 2024,
+											"top": 2054,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnConferma: JButton",
@@ -18511,7 +18613,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 2039,
+											"top": 2069,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnIndietro: JButton",
@@ -18528,7 +18630,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 2054,
+											"top": 2084,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnRicerca: JButton",
@@ -18539,7 +18641,7 @@
 									"left": 2440,
 									"top": 1689,
 									"width": 302.3095703125,
-									"height": 383
+									"height": 413
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -18562,7 +18664,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 2445,
-											"top": 2077,
+											"top": 2107,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "+PopolaTabella(lista: ArrayList<Dipendente>): void",
@@ -18571,7 +18673,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 2440,
-									"top": 2072,
+									"top": 2102,
 									"width": 302.3095703125,
 									"height": 23
 								},
@@ -18613,7 +18715,7 @@
 							"left": 2440,
 							"top": 1664,
 							"width": 302.3095703125,
-							"height": 431,
+							"height": 461,
 							"nameCompartment": {
 								"$ref": "AAAAAAF3TvTzfY6U9is="
 							},
@@ -18651,8 +18753,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 2812,
-									"top": 1859,
+									"left": 2804,
+									"top": 1875,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -18672,8 +18774,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 2816,
-									"top": 1845,
+									"left": 2808,
+									"top": 1861,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -18693,8 +18795,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 2803,
-									"top": 1888,
+									"left": 2795,
+									"top": 1904,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -18714,8 +18816,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 2767,
-									"top": 1859,
+									"left": 2768,
+									"top": 1874,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -18736,7 +18838,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2770,
-									"top": 1845,
+									"top": 1861,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -18756,7 +18858,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 2753,
-									"top": 1886,
+									"top": 1901,
 									"width": 21.68359375,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -18779,7 +18881,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 3474,
-									"top": 2067,
+									"top": 2075,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -18798,8 +18900,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3476,
-									"top": 2054,
+									"left": 3475,
+									"top": 2061,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -18818,7 +18920,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 3467,
-									"top": 2095,
+									"top": 2102,
 									"width": 7.22998046875,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -18869,7 +18971,7 @@
 								"$ref": "AAAAAAF3TvTzfY6TVig="
 							},
 							"lineStyle": 1,
-							"points": "2742:1880;2808:1880;3495:2096",
+							"points": "2742:1895;2800:1896;3495:2103",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3TvTzfo6eqSY="
@@ -19139,7 +19241,41 @@
 											"top": 1727,
 											"width": 292.3095703125,
 											"height": 13,
-											"text": "-tfMaxSalario",
+											"text": "-tfMaxSalario: JTextField",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WRhPsO2rYg4=",
+											"_parent": {
+												"$ref": "AAAAAAF3Tv0pjYB/Uy8="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRhPWO1mASg="
+											},
+											"font": "Arial;13;0",
+											"left": 4853,
+											"top": 1742,
+											"width": 292.3095703125,
+											"height": 13,
+											"text": "-checkboxMinSalario: JCheckbox",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WRjljfjlJiA=",
+											"_parent": {
+												"$ref": "AAAAAAF3Tv0pjYB/Uy8="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRjlOfig1Tg="
+											},
+											"font": "Arial;13;0",
+											"left": 4853,
+											"top": 1757,
+											"width": 292.3095703125,
+											"height": 13,
+											"text": "-checkboxMaxSalario: JCheckbox",
 											"horizontalAlignment": 0
 										},
 										{
@@ -19153,7 +19289,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1742,
+											"top": 1772,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMinValutazione: JTextField",
@@ -19170,7 +19306,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1757,
+											"top": 1787,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMaxValutazione: JTextField",
@@ -19187,7 +19323,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1772,
+											"top": 1802,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfCodiceProgetto: JTextField",
@@ -19204,7 +19340,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1787,
+											"top": 1817,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfTipologia: JTextField",
@@ -19221,7 +19357,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1802,
+											"top": 1832,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfAmbito: JTextField",
@@ -19238,7 +19374,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1817,
+											"top": 1847,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfRuolo: JTextField",
@@ -19255,7 +19391,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1832,
+											"top": 1862,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMinNumeroProgetti: JTextField",
@@ -19272,7 +19408,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1847,
+											"top": 1877,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMaxNumeroProgetti: JTextField",
@@ -19289,7 +19425,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1862,
+											"top": 1892,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-comboBoxTipoMeeting: JComboBox",
@@ -19306,7 +19442,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1877,
+											"top": 1907,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfCodiceMeeting: JTextField",
@@ -19323,7 +19459,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1892,
+											"top": 1922,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerData: JSpinner",
@@ -19340,7 +19476,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1907,
+											"top": 1937,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerOraInizio: JSpinner",
@@ -19357,7 +19493,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1922,
+											"top": 1952,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerOraFine: JSpinner",
@@ -19374,7 +19510,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1937,
+											"top": 1967,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnConferma: JButton",
@@ -19391,7 +19527,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1952,
+											"top": 1982,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnIndietro: JButton",
@@ -19408,7 +19544,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1967,
+											"top": 1997,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnRicerca: JButton",
@@ -19419,7 +19555,7 @@
 									"left": 4848,
 									"top": 1617,
 									"width": 302.3095703125,
-									"height": 368
+									"height": 398
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -19442,7 +19578,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 4853,
-											"top": 1990,
+											"top": 2020,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "+PopolaTabella(lista: ArrayList<Dipendente>): void",
@@ -19451,7 +19587,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 4848,
-									"top": 1985,
+									"top": 2015,
 									"width": 302.3095703125,
 									"height": 23
 								},
@@ -19493,7 +19629,7 @@
 							"left": 4848,
 							"top": 1592,
 							"width": 302.3095703125,
-							"height": 416,
+							"height": 446,
 							"nameCompartment": {
 								"$ref": "AAAAAAF3Tv0pjYB6dKg="
 							},
@@ -19531,8 +19667,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 4656,
-									"top": 1958,
+									"left": 4655,
+									"top": 1968,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -19552,8 +19688,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 4662,
-									"top": 1972,
+									"left": 4661,
+									"top": 1982,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -19573,8 +19709,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 4643,
-									"top": 1931,
+									"left": 4644,
+									"top": 1941,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -19594,8 +19730,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 4829,
-									"top": 1883,
+									"left": 4828,
+									"top": 1895,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -19615,8 +19751,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 4832,
-									"top": 1896,
+									"left": 4831,
+									"top": 1909,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -19636,7 +19772,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 4812,
-									"top": 1856,
+									"top": 1868,
 									"width": 21.68359375,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -19659,7 +19795,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 4483,
-									"top": 2034,
+									"top": 2041,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 30,
@@ -19679,7 +19815,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 4491,
-									"top": 2045,
+									"top": 2053,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -19697,8 +19833,8 @@
 										"$ref": "AAAAAAF3TvyBQXvVizg="
 									},
 									"font": "Arial;13;0",
-									"left": 4465,
-									"top": 2010,
+									"left": 4466,
+									"top": 2018,
 									"width": 7.22998046875,
 									"height": 13,
 									"alpha": 0.5235987755982988,
@@ -19749,7 +19885,7 @@
 								"$ref": "AAAAAAF3Tv0pjYB5P7c="
 							},
 							"lineStyle": 1,
-							"points": "4847:1865;4454:2037",
+							"points": "4847:1878;4454:2044",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3Tv0pjoCEp7w="
@@ -20763,7 +20899,41 @@
 											"top": 1215,
 											"width": 292.3095703125,
 											"height": 13,
-											"text": "-tfMaxSalario",
+											"text": "-tfMaxSalario: JTextField",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WRpbtxJz1rk=",
+											"_parent": {
+												"$ref": "AAAAAAF3Tx0g3e197mY="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRpbWBIoLWQ="
+											},
+											"font": "Arial;13;0",
+											"left": 3453,
+											"top": 1230,
+											"width": 292.3095703125,
+											"height": 13,
+											"text": "-checkboxMinSalario: JCheckbox",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3WRsjtB6TzrE=",
+											"_parent": {
+												"$ref": "AAAAAAF3Tx0g3e197mY="
+											},
+											"model": {
+												"$ref": "AAAAAAF3WRsjWB5IEW8="
+											},
+											"font": "Arial;13;0",
+											"left": 3453,
+											"top": 1245,
+											"width": 292.3095703125,
+											"height": 13,
+											"text": "-checkboxMaxSalario: JCheckbox",
 											"horizontalAlignment": 0
 										},
 										{
@@ -20777,7 +20947,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1230,
+											"top": 1260,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMinValutazione: JTextField",
@@ -20794,7 +20964,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1245,
+											"top": 1275,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMaxValutazione: JTextField",
@@ -20811,7 +20981,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1260,
+											"top": 1290,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfCodiceProgetto: JTextField",
@@ -20828,7 +20998,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1275,
+											"top": 1305,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfTipologia: JTextField",
@@ -20845,7 +21015,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1290,
+											"top": 1320,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfAmbito: JTextField",
@@ -20862,7 +21032,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1305,
+											"top": 1335,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfRuolo: JTextField",
@@ -20879,7 +21049,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1320,
+											"top": 1350,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMinNumeroProgetti: JTextField",
@@ -20896,7 +21066,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1335,
+											"top": 1365,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfMaxNumeroProgetti: JTextField",
@@ -20913,7 +21083,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1350,
+											"top": 1380,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-comboBoxTipoMeeting: JComboBox",
@@ -20930,7 +21100,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1365,
+											"top": 1395,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-tfCodiceMeeting: JTextField",
@@ -20947,7 +21117,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1380,
+											"top": 1410,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerData: JSpinner",
@@ -20964,7 +21134,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1395,
+											"top": 1425,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerOraInizio: JSpinner",
@@ -20981,7 +21151,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1410,
+											"top": 1440,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-spinnerOraFine: JSpinner",
@@ -20998,7 +21168,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1425,
+											"top": 1455,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnConferma: JButton",
@@ -21015,7 +21185,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1440,
+											"top": 1470,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnIndietro: JButton",
@@ -21032,7 +21202,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1455,
+											"top": 1485,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "-btnRicerca: JButton",
@@ -21043,7 +21213,7 @@
 									"left": 3448,
 									"top": 1105,
 									"width": 302.3095703125,
-									"height": 368
+									"height": 398
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -21066,7 +21236,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 3453,
-											"top": 1478,
+											"top": 1508,
 											"width": 292.3095703125,
 											"height": 13,
 											"text": "+PopolaTabella(lista: ArrayList<Dipendente>): void",
@@ -21075,7 +21245,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 3448,
-									"top": 1473,
+									"top": 1503,
 									"width": 302.3095703125,
 									"height": 23
 								},
@@ -21117,7 +21287,7 @@
 							"left": 3448,
 							"top": 1080,
 							"width": 302.3095703125,
-							"height": 417,
+							"height": 446,
 							"nameCompartment": {
 								"$ref": "AAAAAAF3Tx0g3e14z64="
 							},
@@ -21155,8 +21325,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3721,
-									"top": 1556,
+									"left": 3722,
+									"top": 1570,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
@@ -21176,8 +21346,8 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 3735,
-									"top": 1550,
+									"left": 3736,
+									"top": 1564,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 30,
@@ -21197,8 +21367,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3694,
-									"top": 1567,
+									"left": 3695,
+									"top": 1581,
 									"height": 13,
 									"alpha": -1.5707963267948966,
 									"distance": 15,
@@ -21218,8 +21388,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3703,
-									"top": 1509,
+									"left": 3710,
+									"top": 1538,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 30,
@@ -21239,8 +21409,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3716,
-									"top": 1506,
+									"left": 3723,
+									"top": 1535,
 									"height": 13,
 									"alpha": 0.7853981633974483,
 									"distance": 40,
@@ -21259,8 +21429,8 @@
 										"$ref": "AAAAAAF3TxzFcN9gM3A="
 									},
 									"font": "Arial;13;0",
-									"left": 3666,
-									"top": 1515,
+									"left": 3673,
+									"top": 1544,
 									"width": 21.68359375,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -21282,7 +21452,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3740,
+									"left": 3736,
 									"top": 1603,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -21302,7 +21472,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 3751,
+									"left": 3747,
 									"top": 1596,
 									"height": 13,
 									"alpha": -0.7853981633974483,
@@ -21321,7 +21491,7 @@
 										"$ref": "AAAAAAF3TxzFcN9hACU="
 									},
 									"font": "Arial;13;0",
-									"left": 3713,
+									"left": 3709,
 									"top": 1617,
 									"width": 7.22998046875,
 									"height": 13,
@@ -21373,7 +21543,7 @@
 								"$ref": "AAAAAAF3Tx0g3e13hXk="
 							},
 							"lineStyle": 1,
-							"points": "3680:1497;3736:1639",
+							"points": "3687:1526;3732:1639",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3Tx0g3u2CBB4="
@@ -32430,7 +32600,27 @@
 							},
 							"name": "tfMaxSalario",
 							"visibility": "private",
-							"type": ""
+							"type": "JTextField"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WRUfebgCNlk=",
+							"_parent": {
+								"$ref": "AAAAAAF3AgGP8VdwojU="
+							},
+							"name": "checkboxMinSalario",
+							"visibility": "private",
+							"type": "JCheckbox"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WRWwncF0QHA=",
+							"_parent": {
+								"$ref": "AAAAAAF3AgGP8VdwojU="
+							},
+							"name": "checkboxMaxSalario",
+							"visibility": "private",
+							"type": "JCheckbox"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -34459,6 +34649,16 @@
 						},
 						{
 							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WR2E8DWV87M=",
+							"_parent": {
+								"$ref": "AAAAAAF3Agofbqom6tA="
+							},
+							"name": "getSalarioMinimoPS",
+							"visibility": "private",
+							"type": "PreparedStatement"
+						},
+						{
+							"_type": "UMLAttribute",
 							"_id": "AAAAAAF3TisWhLkIKH0=",
 							"_parent": {
 								"$ref": "AAAAAAF3Agofbqom6tA="
@@ -35568,6 +35768,25 @@
 										"$ref": "AAAAAAF3Ti7shvgvvQ4="
 									},
 									"type": "void",
+									"direction": "return"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAF3WRzKeC9N3NA=",
+							"_parent": {
+								"$ref": "AAAAAAF3TizYUuLDZKY="
+							},
+							"name": "getSalarioMinimo",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAF3WR1qBTPL63M=",
+									"_parent": {
+										"$ref": "AAAAAAF3WRzKeC9N3NA="
+									},
+									"type": "float",
 									"direction": "return"
 								}
 							]
@@ -37357,9 +37576,28 @@
 							"_parent": {
 								"$ref": "AAAAAAF3TvTi8Y3sJEk="
 							},
-							"name": "tfMaxSalario",
+							"name": "tfMaxSalario; JTextField",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WRZCsc52XsY=",
+							"_parent": {
+								"$ref": "AAAAAAF3TvTi8Y3sJEk="
+							},
+							"name": "checkboxMinSalario",
 							"visibility": "private",
-							"type": ""
+							"type": "JCheckbox"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WRbK8dxeiis=",
+							"_parent": {
+								"$ref": "AAAAAAF3TvTi8Y3sJEk="
+							},
+							"name": "checkboxMaxSalario",
+							"visibility": "private",
+							"type": "JCheckbox"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -37680,7 +37918,27 @@
 							},
 							"name": "tfMaxSalario",
 							"visibility": "private",
-							"type": ""
+							"type": "JTextField"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WRhPWO1mASg=",
+							"_parent": {
+								"$ref": "AAAAAAF3TvyBQXvS9zU="
+							},
+							"name": "checkboxMinSalario",
+							"visibility": "private",
+							"type": "JCheckbox"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WRjlOfig1Tg=",
+							"_parent": {
+								"$ref": "AAAAAAF3TvyBQXvS9zU="
+							},
+							"name": "checkboxMaxSalario",
+							"visibility": "private",
+							"type": "JCheckbox"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -38191,7 +38449,27 @@
 							},
 							"name": "tfMaxSalario",
 							"visibility": "private",
-							"type": ""
+							"type": "JTextField"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WRpbWBIoLWQ=",
+							"_parent": {
+								"$ref": "AAAAAAF3TxzFcN9ePoY="
+							},
+							"name": "checkboxMinSalario",
+							"visibility": "private",
+							"type": "JCheckbox"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3WRsjWB5IEW8=",
+							"_parent": {
+								"$ref": "AAAAAAF3TxzFcN9ePoY="
+							},
+							"name": "checkboxMaxSalario",
+							"visibility": "private",
+							"type": "JCheckbox"
 						},
 						{
 							"_type": "UMLAttribute",

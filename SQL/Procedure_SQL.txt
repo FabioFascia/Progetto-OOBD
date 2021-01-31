@@ -73,3 +73,18 @@ BEGIN
 END;
 $$
 LANGUAGE plpgsql;
+
+CREATE FUNCTION get_Salario_Medio()
+RETURNS REAL
+AS
+$$
+DECLARE
+	ret REAL;
+BEGIN
+    ret = (SELECT AVG(D.Salario)
+           FROM DIPENDENTE AS D);
+		   
+	RETURN ret;
+END
+$$
+LANGUAGE plpgsql;
