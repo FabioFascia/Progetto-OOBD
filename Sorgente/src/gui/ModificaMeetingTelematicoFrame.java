@@ -151,7 +151,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 			}
 		});
 		buttonSelezionaPartecipante.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		buttonSelezionaPartecipante.setBounds(10, 247, 183, 23);
+		buttonSelezionaPartecipante.setBounds(10, 247, 249, 23);
 		contentPane.add(buttonSelezionaPartecipante);
 		
 		spinnerData = new JSpinner();
@@ -221,7 +221,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		scrollPane_2.setViewportView(tableProgetto);
 		
 		buttonSelezionaProgetto = new JButton("Seleziona progetto...");
-		buttonSelezionaProgetto.setBounds(10, 162, 183, 21);
+		buttonSelezionaProgetto.setBounds(10, 162, 249, 21);
 		contentPane.add(buttonSelezionaProgetto);
 		buttonSelezionaProgetto.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		buttonSelezionaProgetto.addActionListener(new ActionListener() {

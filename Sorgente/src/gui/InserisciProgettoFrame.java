@@ -193,7 +193,7 @@ public class InserisciProgettoFrame extends JFrame {
 				controller.ApriFrameCercaProjectManager();
 			}
 		});
-		buttonSelezionaProjectManager.setBounds(203, 61, 158, 23);
+		buttonSelezionaProjectManager.setBounds(203, 61, 224, 23);
 		contentPane.add(buttonSelezionaProjectManager);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -237,7 +237,7 @@ public class InserisciProgettoFrame extends JFrame {
 				controller.ApriFrameCercaPartecipante();
 			}
 		});
-		buttonSelezionaPartecipante.setBounds(203, 151, 158, 23);
+		buttonSelezionaPartecipante.setBounds(203, 151, 224, 23);
 		contentPane.add(buttonSelezionaPartecipante);
 		
 		textAreaDescrizione = new JTextArea();
