@@ -285,7 +285,7 @@ public class CercaMeetingFrame extends JFrame {
 		panelProgetto.add(labelAmbito);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 210, 492, 176);
+		scrollPane.setBounds(0, 210, 492, 165);
 		panelFisico.add(scrollPane);
 		
 		tableMeetingFisico = new JTable();
@@ -523,7 +523,7 @@ public class CercaMeetingFrame extends JFrame {
 		panelProgettoTelematico.add(textFieldAmbitoTelematico);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 204, 492, 182);
+		scrollPane_1.setBounds(0, 204, 492, 171);
 		panelTelematico.add(scrollPane_1);
 		
 		tableMeetingTelematico = new JTable();

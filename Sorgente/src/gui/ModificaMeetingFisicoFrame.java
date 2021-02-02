@@ -99,7 +99,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		contentPane.add(buttonAnnulla);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 276, 414, 150);
+		scrollPane_1.setBounds(0, 276, 424, 150);
 		contentPane.add(scrollPane_1);
 		
 		tablePartecipanti = new JTable();
@@ -193,7 +193,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		labelOraFine.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 192, 414, 44);
+		scrollPane_2.setBounds(0, 192, 424, 44);
 		contentPane.add(scrollPane_2);
 		
 		tableProgetto = new JTable();
@@ -269,7 +269,7 @@ public class ModificaMeetingFisicoFrame extends JFrame {
 		buttonSelezionaSala.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(112, 90, 302, 41);
+		scrollPane.setBounds(112, 90, 312, 41);
 		contentPane.add(scrollPane);
 		
 		tableSala = new JTable();

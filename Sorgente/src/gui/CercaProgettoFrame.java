@@ -82,7 +82,7 @@ public class CercaProgettoFrame extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 305, 424, 156);
+		scrollPane.setBounds(0, 305, 424, 145);
 		contentPane.add(scrollPane);
 		
 		tableProgetti = new JTable();

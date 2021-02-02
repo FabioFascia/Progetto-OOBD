@@ -70,7 +70,7 @@ public class CercaSalaMeetingFrame extends JFrame {
 				controller.ChiudiFrameCercaSalaMeeting();
 			}
 		});
-		setBounds(100, 100, 490, 440);
+		setBounds(100, 100, 490, 450);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
