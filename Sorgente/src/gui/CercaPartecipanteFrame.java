@@ -455,6 +455,11 @@ public class CercaPartecipanteFrame extends JFrame {
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
 			}
+			
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
 		});
 		tableDipendenti.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
