@@ -166,7 +166,7 @@ public class InserisciMeetingFrame extends JFrame {
 		panelTelematico.add(lblNewLabel_1);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 276, 414, 150);
+		scrollPane_1.setBounds(0, 276, 422, 150);
 		contentPane.add(scrollPane_1);
 		
 		tablePartecipanti = new JTable();
@@ -215,7 +215,7 @@ public class InserisciMeetingFrame extends JFrame {
 			}
 		});
 		buttonSelezionaPartecipante.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		buttonSelezionaPartecipante.setBounds(10, 247, 183, 23);
+		buttonSelezionaPartecipante.setBounds(10, 247, 233, 23);
 		contentPane.add(buttonSelezionaPartecipante);
 		
 		comboBoxTipoMeeting = new JComboBox(new String[] {"Fisico", "Telematico"});
@@ -284,7 +284,7 @@ public class InserisciMeetingFrame extends JFrame {
 		labelOraFine.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 192, 414, 44);
+		scrollPane_2.setBounds(0, 192, 422, 44);
 		contentPane.add(scrollPane_2);
 		
 		tableProgetto = new JTable();
@@ -310,7 +310,7 @@ public class InserisciMeetingFrame extends JFrame {
 		scrollPane_2.setViewportView(tableProgetto);
 		
 		buttonSelezionaProgetto = new JButton("Seleziona progetto...");
-		buttonSelezionaProgetto.setBounds(10, 162, 183, 21);
+		buttonSelezionaProgetto.setBounds(20, 162, 223, 21);
 		contentPane.add(buttonSelezionaProgetto);
 		buttonSelezionaProgetto.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		buttonSelezionaProgetto.addActionListener(new ActionListener() {

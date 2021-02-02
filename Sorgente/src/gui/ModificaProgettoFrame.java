@@ -204,7 +204,7 @@ public class ModificaProgettoFrame extends JFrame {
 				controller.ApriFrameCercaProjectManager();
 			}
 		});
-		buttonSelezionaProjectManager.setBounds(203, 61, 158, 23);
+		buttonSelezionaProjectManager.setBounds(203, 61, 241, 23);
 		contentPane.add(buttonSelezionaProjectManager);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
@@ -250,7 +250,7 @@ public class ModificaProgettoFrame extends JFrame {
 				controller.ApriFrameCercaPartecipante();
 			}
 		});
-		buttonSelezionaPartecipante.setBounds(203, 151, 158, 23);
+		buttonSelezionaPartecipante.setBounds(203, 151, 241, 23);
 		contentPane.add(buttonSelezionaPartecipante);
 		
 		textAreaDescrizione = new JTextArea();
