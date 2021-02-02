@@ -102,7 +102,7 @@ public class CercaProjectManagerFrame extends JFrame {
 				controller.ChiudiFrameCercaProjectManager();
 			}
 		});
-		setBounds(100, 100, 480, 530);
+		setBounds(100, 100, 480, 540);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

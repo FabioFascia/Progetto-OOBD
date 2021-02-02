@@ -423,7 +423,7 @@ public class CercaDipendenteFrame extends JFrame {
 		panelMeeting.add(lblNewLabel_4);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 315, 464, 156);
+		scrollPane.setBounds(0, 315, 464, 145);
 		contentPane.add(scrollPane);
 		
 		tableDipendenti = new JTable();

@@ -99,7 +99,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		contentPane.add(buttonAnnulla);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 276, 414, 150);
+		scrollPane_1.setBounds(0, 276, 424, 150);
 		contentPane.add(scrollPane_1);
 		
 		tablePartecipanti = new JTable();
@@ -194,7 +194,7 @@ public class ModificaMeetingTelematicoFrame extends JFrame {
 		labelOraFine.setFont(new Font("Tahoma", Font.BOLD, 11));
 		
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(0, 192, 414, 44);
+		scrollPane_2.setBounds(0, 192, 424, 44);
 		contentPane.add(scrollPane_2);
 		
 		tableProgetto = new JTable();

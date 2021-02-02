@@ -107,7 +107,7 @@ public class CercaPartecipanteFrame extends JFrame {
 				controller.ChiudiFrameCercaPartecipante();
 			}
 		});
-		setBounds(100, 100, 480, 550);
+		setBounds(100, 100, 480, 560);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
