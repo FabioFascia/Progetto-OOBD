@@ -1,4 +1,4 @@
-CREATE PROCEDURE Insert_Progetto
+CREATE OR REPLACE PROCEDURE Insert_Progetto
 (
     IN tipologia VARCHAR(30),
     IN codpm CHAR(16),
@@ -6,11 +6,9 @@ CREATE PROCEDURE Insert_Progetto
 )
 AS
 $$
-DECLARE
-    new_prog INT := NEXTVAL('N_PROGETTO');
 BEGIN
     INSERT INTO PROGETTO (CodP, Tipologia, Descrizione)
-	VALUES (new_prog, tipologia, descrizione);
+	VALUES (0, tipologia, descrizione);
 
     UPDATE PARTECIPANTE
     SET CodF = codpm
@@ -20,7 +18,7 @@ $$
 LANGUAGE plpgsql;
 
 
-CREATE PROCEDURE Insert_Sala
+CREATE OR REPLACE PROCEDURE Insert_Sala
 (
     IN città VARCHAR(30),
     IN provincia CHAR(2),
@@ -32,13 +30,13 @@ AS
 $$
 BEGIN
     INSERT INTO SALA (CodSala, Città, Provincia, Indirizzo, NumeroCivico, NumPosti)
-    VALUES (NEXTVAL('N_SALA'), città, provincia, indirizzo, numero_civico, num_posti);
+    VALUES (0, città, provincia, indirizzo, numero_civico, num_posti);
 END;
 $$
 LANGUAGE plpgsql;
 
 
-CREATE PROCEDURE Insert_MeetingF
+CREATE OR REPLACE PROCEDURE Insert_MeetingF
 (
     IN progetto INTEGER,
     IN data DATE,
@@ -50,13 +48,13 @@ AS
 $$
 BEGIN
     INSERT INTO MEETINGF (CodMF, CodP, Data, OraI, OraF, CodSala)
-    VALUES (NEXTVAL('N_MEETINGF'), progetto, data, ora_i, ora_f, sala);
+    VALUES (0, progetto, data, ora_i, ora_f, sala);
 END;
 $$
 LANGUAGE plpgsql;
 
 
-CREATE PROCEDURE Insert_MeetingT
+CREATE OR REPLACE PROCEDURE Insert_MeetingT
 (
     IN progetto INTEGER,
     IN data DATE,
@@ -69,12 +67,12 @@ AS
 $$
 BEGIN
     INSERT INTO MEETINGT (CodMT, CodP, Data, OraI, OraF, Piattaforma, NumLimite)
-    VALUES (NEXTVAL('N_MEETINGT'), progetto, data, ora_i, ora_f, piattaforma, num_limite);
+    VALUES (0, progetto, data, ora_i, ora_f, piattaforma, num_limite);
 END;
 $$
 LANGUAGE plpgsql;
 
-CREATE FUNCTION get_Salario_Medio()
+CREATE OR REPLACE FUNCTION get_Salario_Medio()
 RETURNS REAL
 AS
 $$
