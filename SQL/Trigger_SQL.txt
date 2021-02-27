@@ -1,6 +1,6 @@
 --Ad un progetto deve partecipare un unico project manager:
 
-CREATE FUNCTION Funzione_Unicità_ProjectManager()
+CREATE OR REPLACE FUNCTION Funzione_Unicità_ProjectManager()
 RETURNS TRIGGER AS
 $$
 BEGIN
@@ -26,7 +26,7 @@ EXECUTE PROCEDURE Funzione_Unicità_ProjectManager();
 
 	--Per meeting fisici:
 
-CREATE FUNCTION Funzione_Partecipa_MeetingF()
+CREATE OR REPLACE FUNCTION Funzione_Partecipa_MeetingF()
 RETURNS TRIGGER AS
 $$
 DECLARE
@@ -66,7 +66,7 @@ EXECUTE PROCEDURE Funzione_Partecipa_MeetingF();
 
 	--Per meeting telematici:
 
-CREATE FUNCTION Funzione_Partecipa_MeetingT()
+CREATE OR REPLACE FUNCTION Funzione_Partecipa_MeetingT()
 RETURNS TRIGGER AS
 $$
 DECLARE
@@ -108,7 +108,7 @@ EXECUTE PROCEDURE Funzione_Partecipa_MeetingT();
 
 --Un progetto deve avere un project manager:
 
-CREATE FUNCTION Funzione_Totalità_ProjectManager()
+CREATE OR REPLACE FUNCTION Funzione_Totalità_ProjectManager()
 RETURNS TRIGGER AS
 $$
 BEGIN
@@ -136,7 +136,7 @@ EXECUTE PROCEDURE Funzione_Totalità_ProjectManager();
 
 --Due meeting fisici distinti non si possono tenere nella stessa sala, alla stessa ora dello stesso giorno:
 
-CREATE FUNCTION Funzione_Sovrapposizione_MeetingF()
+CREATE OR REPLACE FUNCTION Funzione_Sovrapposizione_MeetingF()
 RETURNS TRIGGER AS
 $$
 BEGIN
@@ -162,7 +162,7 @@ EXECUTE PROCEDURE Funzione_Sovrapposizione_MeetingF();
 
 --Il numero di partecipanti ad un meeting fisico non può eccedere la capienza della sala:
 
-CREATE FUNCTION Funzione_Capienza_Sala()
+CREATE OR REPLACE FUNCTION Funzione_Capienza_Sala()
 RETURNS TRIGGER AS
 $$
 DECLARE
@@ -196,7 +196,7 @@ EXECUTE PROCEDURE Funzione_Capienza_Sala();
 
 --Il numero di partecipanti ad un meeting telematico non può eccedere il limite di partecipanti dichiarato (se esiste):
 
-CREATE FUNCTION Funzione_Limite_MeetingT()
+CREATE OR REPLACE FUNCTION Funzione_Limite_MeetingT()
 RETURNS TRIGGER AS
 $$
 DECLARE
@@ -231,7 +231,7 @@ EXECUTE PROCEDURE Funzione_Limite_MeetingT();
 
 --La valutazione di un dipendente sale di 1 punto quando inserito come partecipante ad un progetto o ad un meeting:
 
-CREATE FUNCTION Funzione_Aumento_Valutazione()
+CREATE OR REPLACE FUNCTION Funzione_Aumento_Valutazione()
 RETURNS TRIGGER AS
 $$
 DECLARE
@@ -270,7 +270,7 @@ EXECUTE PROCEDURE Funzione_Aumento_Valutazione();
 
 --La valutazione di un dipendente scende di 1 punto quando cancellato come partecipante ad un progetto o ad un meeting:
 
-CREATE FUNCTION Funzione_Diminuzione_Valutazione()
+CREATE OR REPLACE FUNCTION Funzione_Diminuzione_Valutazione()
 RETURNS TRIGGER AS
 $$
 DECLARE
@@ -310,53 +310,95 @@ EXECUTE PROCEDURE Funzione_Diminuzione_Valutazione();
 
 --Quando si modifica un partecipante a un progetto o meeting, scende la valutazione del vecchio dipendente e sale quella del nuovo:
 
-CREATE TRIGGER Trigger_Modifica_Valutazione_Up()
+CREATE TRIGGER Trigger_Modifica_Valutazione_Up
 AFTER UPDATE ON PARTECIPANTE
 FOR EACH ROW
 EXECUTE PROCEDURE Funzione_Aumento_Valutazione();
 
-CREATE TRIGGER Trigger_Modifica_Valutazione_Down()
+CREATE TRIGGER Trigger_Modifica_Valutazione_Down
 AFTER UPDATE ON PARTECIPANTE
 FOR EACH ROW
 EXECUTE PROCEDURE Funzione_Diminuzione_Valutazione();
 
 
------DA VERIFICARE-----
+--Trigger che gestiscono l'inserimento delle chiavi surrogate se necessario
 
+CREATE OR REPLACE FUNCTION Funzione_Sequenza_Progetto()
+RETURNS TRIGGER AS
+$$
+BEGIN
+    IF (NEW.CodP = 0) THEN
+	NEW.CodP := NEXTVAL('N_PROGETTO');
+    END IF;
 
-CREATE TRIGGER Sequenza_Chiave_Progetto
+    RETURN NEW;
+END;
+$$
+LANGUAGE plpgsql;
+
+CREATE TRIGGER Trigger_Sequenza_Progetto
 BEFORE INSERT ON PROGETTO
 FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Sequenza_Progetto();
+
+
+
+CREATE OR REPLACE FUNCTION Funzione_Sequenza_MeetingF()
+RETURNS TRIGGER AS
+$$
 BEGIN
-    INSERT INTO PROGETTO (CodP, Tipologia)
-	VALUES (NEXTVAL(N_PROGETTO), NEW.Tipologia);
+    IF (NEW.CodMF = 0) THEN
+	NEW.CodMF := NEXTVAL('N_MEETINGF');
+    END IF;
+
+    RETURN NEW;
 END;
+$$
+LANGUAGE plpgsql;
 
 
-
-CREATE TRIGGER Sequenza_Chiave_MeetingF
+CREATE TRIGGER Trigger_Sequenza_MeetingF
 BEFORE INSERT ON MEETINGF
 FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Sequenza_MeetingF();
+
+
+
+
+CREATE OR REPLACE FUNCTION Funzione_Sequenza_MeetingT()
+RETURNS TRIGGER AS
+$$
 BEGIN
-    INSERT INTO PROGETTO (CodMF, CodP, Data, OraI, OraF, CodSala)
-	VALUES (NEXTVAL(N_MEETINGF), NEW.CodP, NEW.Data, NEW.OraI, NEW.OraF, NEW.CodSala);
+    IF (NEW.CodMT = 0) THEN
+	NEW.CodMT := NEXTVAL('N_MEETINGT');
+    END IF;
+
+    RETURN NEW;
 END;
+$$
+LANGUAGE plpgsql;
 
-
-
-CREATE TRIGGER Sequenza_Chiave_MeetingT
+CREATE TRIGGER Trigger_Sequenza_MeetingT
 BEFORE INSERT ON MEETINGT
 FOR EACH ROW
+EXECUTE PROCEDURE Funzione_Sequenza_MeetingT();
+
+
+
+CREATE OR REPLACE FUNCTION Funzione_Sequenza_Sala()
+RETURNS TRIGGER AS
+$$
 BEGIN
-    INSERT INTO MEETINGT (CodMT, CodP, Data, OraI, OraF, Piattaforma, NumLimite)
-	VALUES (NEXTVAL(N_MEETINGT), NEW.CodP, NEW.Data, NEW.OraI, NEW.OraF, NEW.Piattaforma, NEW.NumLimite);
+    IF (NEW.CodSala = 0) THEN
+	NEW.CodSala := NEXTVAL('N_SALA');
+    END IF;
+
+    RETURN NEW;
 END;
+$$
+LANGUAGE plpgsql;
 
-
-CREATE TRIGGER Sequenza_Chiave_Sala
+CREATE TRIGGER Trigger_Sequenza_Sala
 BEFORE INSERT ON SALA
 FOR EACH ROW
-BEGIN
-    INSERT INTO SALA (CodSala, Città, Indirizzo, Dettagli, NumPosti)
-	VALUES(NEXTVAL(N_MEETING), NEW.Città, NEW.Indirizzo, NEW.Dettagli, NEW.NumPosti);
-END;
+EXECUTE PROCEDURE Funzione_Sequenza_Sala();
