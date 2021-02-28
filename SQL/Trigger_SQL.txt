@@ -136,7 +136,7 @@ EXECUTE PROCEDURE Funzione_Totalità_ProjectManager();
 
 --Due meeting fisici distinti non si possono tenere nella stessa sala, alla stessa ora dello stesso giorno:
 
-CREATE OR REPLACE FUNCTION Funzione_Sovrapposizione_MeetingF()
+CREATE OR REPLACE FUNCTION Funzione_Consistenza_MeetingF()
 RETURNS TRIGGER AS
 $$
 BEGIN
@@ -153,10 +153,10 @@ END;
 $$
 LANGUAGE plpgsql;
 
-CREATE TRIGGER Vincolo_Sovrapposizione_MeetingF
+CREATE TRIGGER Vincolo_Consistenza_MeetingF
 BEFORE INSERT ON MEETINGF
 FOR EACH ROW
-EXECUTE PROCEDURE Funzione_Sovrapposizione_MeetingF();
+EXECUTE PROCEDURE Funzione_Consistenza_MeetingF();
 
 
 
